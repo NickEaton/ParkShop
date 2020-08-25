@@ -7,6 +7,9 @@ import java.util.stream.Stream;
 // This class will store, organize and manage the total list of components stored
 public class ComponentManager {
 
+    // There are 19 distinct parts required
+    // Frame, Wheel-F, Wheel-R, Tire-F, Tire-R, Fork, Shock, Brakes, Rotor-F, Rotor-R, Shifters, Cranks, Pedals, Chainring, Chain, Cassette, Derailer, Handlebar, Grips
+
     // Fields
     private LinkedList<Component> componentList;
 
