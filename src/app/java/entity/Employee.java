@@ -11,19 +11,26 @@ public class Employee {
     private double affinity;
     private double attraction;
     private String unlocalizedAssignment;
+    private int employeeId;
 
     //Constructors
     public Employee(File readfile) {
         //TODO: File build sys
     }
 
-    public Employee(double _skillConstruct, double _skillRepair, double _skillTrail, double _affinity, double _attraction, String _unlocalizedAssignment) {
+    public Employee(double _skillConstruct, double _skillRepair, double _skillTrail, double _affinity, double _attraction, String _unlocalizedAssignment, int _employeeId) {
         this.skillConstruct = _skillConstruct;
         this.skillRepair = _skillRepair;
         this.skillTrail = _skillTrail;
         this.affinity = _affinity;
         this.attraction = _attraction;
         this.unlocalizedAssignment = _unlocalizedAssignment;
+        this.employeeId = _employeeId;
+    }
+
+    // Primary Methods
+    public void saveState() {
+        //TODO: File output
     }
 
     // Getters
@@ -33,4 +40,5 @@ public class Employee {
     public double getAffinity() { return this.affinity; }
     public double getAttraction() { return this.attraction; }
     public String getUnlocalizedAssignment() { return this.unlocalizedAssignment; }
+    public int getEmployeeId() { return this.employeeId; }
 }

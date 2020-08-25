@@ -1,6 +1,9 @@
 package app.java.entity;
 
+import app.java.bike.BikeObj;
+
 import java.io.File;
+import java.util.ArrayList;
 
 public class Rider {
 
@@ -11,6 +14,8 @@ public class Rider {
 
     private double preferenceRentBuy;
     private double financialIntensity;
+
+    private ArrayList<BikeObj> bikes;
 
     // Constructors
     public Rider(File readfile) {
@@ -24,6 +29,11 @@ public class Rider {
         this.preferenceRentBuy = _preferenceRentBuy;
         this.financialIntensity = _financialIntesity;
 
+    }
+
+    // Primary Methods
+    public void saveState() {
+        //TODO: File output
     }
 
     // Getters

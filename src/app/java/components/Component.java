@@ -9,6 +9,11 @@ import java.io.File;
 
 public abstract class Component {
 
+    // Materials out of which components may be made of
+    public enum Material {
+        STEEL_I, STEEL_II, ALUMINUM, ALLOY_I, ALLOY_II, CARBON_I, CARBON_II, CARBON_III
+    }
+
     // 0 - 100 rating of how much wear the component has left
     protected double wearPercent = 0;
 
@@ -35,6 +40,9 @@ public abstract class Component {
     // Base sugested markup margin in USD for the player before any potential modifiers
     protected double marginUSD = 0;
 
+    // What material the part is made of
+    protected Material material = null;
+
     //------------------------------------------------------------------------------------------------------//
 
     // Getters
@@ -48,4 +56,5 @@ public abstract class Component {
     public abstract double getTimeModifier();
     public abstract double getCostUSD();
     public abstract double getMarginUSD();
+    public abstract Material getMaterial();
 }

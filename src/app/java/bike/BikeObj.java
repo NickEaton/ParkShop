@@ -20,6 +20,8 @@ public class BikeObj {
 
     private LinkedList<Component> partList;
 
+    // Private Methods
+
     private void compAggrFit() {
         ListIterator<Component> listIterator = partList.listIterator();
         Component cur = null;
@@ -30,6 +32,8 @@ public class BikeObj {
             bike_fitness_XC += (cur.getFitXC()) / numParts;
         }
     }
+
+    // Constructors
 
     public BikeObj(File readfile) {
         //TODO: Implement File reads and writes for Bike objects
@@ -42,4 +46,11 @@ public class BikeObj {
         baseCost = _frame.getCostUSD();
         price = baseCost;                                    // May be modified by user after object creation
     }
+
+    // Getters
+    public double getBike_fitness_XC() { return this.bike_fitness_XC; }
+    public double getBike_fitness_END() { return this.bike_fitness_END; }
+    public double getBike_fitness_DH() { return this.bike_fitness_DH; }
+    public double getPrice() { return this.price; }
+    public double getBaseCost() { return this.baseCost; }
 }
