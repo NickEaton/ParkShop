@@ -2,17 +2,17 @@ package app.java.components;
 
 import java.io.File;
 
-public class Frame extends Component {
+public class ComponentFrame extends Component {
 
     // - Constructors
 
     // File Constructor
-    public Frame(File fileIn) {
+    public ComponentFrame(File fileIn) {
         //TODO: Read from file constructor implementation
     }
 
     // Default Constuctor
-    public Frame(double _wearPercent, double _fitness_XC, double _fitness_END, double _fitness_DH, String _compName, String _compID, double _timeModifier, double _costUSD) {
+    public ComponentFrame(double _wearPercent, double _fitness_XC, double _fitness_END, double _fitness_DH, String _compName, String _compID, double _timeModifier, double _costUSD, double _marginUSD) {
         this.wearPercent = _wearPercent;
         this.fitness_XC = _fitness_XC;
         this.fitness_END = _fitness_END;
@@ -21,6 +21,7 @@ public class Frame extends Component {
         this.compID = _compID;
         this.timeModifier = _timeModifier;
         this.costUSD = _costUSD;
+        this.marginUSD = _marginUSD;
 
         sectionId = 1;
     }
@@ -68,5 +69,10 @@ public class Frame extends Component {
     @Override
     public double getCostUSD() {
         return this.costUSD;
+    }
+
+    @Override
+    public double getMarginUSD() {
+        return this.marginUSD;
     }
 }

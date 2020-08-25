@@ -32,6 +32,9 @@ public abstract class Component {
     // The default cost of the component in USD before modifiers
     protected double costUSD = 0;
 
+    // Base sugested markup margin in USD for the player before any potential modifiers
+    protected double marginUSD = 0;
+
     //------------------------------------------------------------------------------------------------------//
 
     // Getters
@@ -44,4 +47,5 @@ public abstract class Component {
     public abstract int getSectionId();
     public abstract double getTimeModifier();
     public abstract double getCostUSD();
+    public abstract double getMarginUSD();
 }
