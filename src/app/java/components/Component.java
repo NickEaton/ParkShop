@@ -5,14 +5,15 @@ package app.java.components;
 // 8/24/2020
 // A class representing the basic fields and methods all bike components will have
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
+import app.java.util.Saveable;
+
+import java.io.*;
 import java.nio.file.*;
+import java.util.Properties;
 
 import static java.nio.file.Files.newBufferedWriter;
 
-public class Component {
+public class Component implements Saveable {
 
     // Fields
 
@@ -48,8 +49,28 @@ public class Component {
     //------------------------------------------------------------------------------------------------------//
 
     // Constructors
-    public Component(File filein) {
-        //TODO: Files
+    public Component(String fileID) throws IOException {
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() +"src" + File.pathSeparator + "app" + File.pathSeparator + "resources" + File.pathSeparator + "saves" + File.pathSeparator + fileID + ".properties");
+
+        try (InputStream input = new FileInputStream(p.toString())) {
+            Properties property = new Properties();
+            property.load(input);
+
+            this.wearPercent = Double.parseDouble(property.getProperty("WP"));
+            this.fitness_XC = Double.parseDouble(property.getProperty("FXC"));
+            this.fitness_END = Double.parseDouble(property.getProperty("FEND"));
+            this.fitness_DH = Double.parseDouble(property.getProperty("FDH"));
+            this.compName = property.getProperty("CNAME");
+            this.compID = property.getProperty("CID");
+            this.timeModifier = Double.parseDouble(property.getProperty("TMOD"));
+            this.costUSD = Double.parseDouble(property.getProperty("CUSD"));
+            this.marginUSD = Double.parseDouble(property.getProperty("MUSD"));
+            this.material = ComponentManager.Material.valueOf(property.getProperty("MAT"));
+            this.part = ComponentManager.Part.valueOf(property.getProperty("PART"));
+
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
     }
 
     public Component(double _wearPercent, double _fitness_XC, double _fitness_END, double _fitness_DH, String _compName, String _compID, double _timeModifier, double _costUSD, double _marginUSD, ComponentManager.Material _material, ComponentManager.Part _part) {
@@ -81,13 +102,14 @@ public class Component {
 
     // Public Methods
 
-    // Save this component to a file
+    // Save this component to a properties file, since we are only storing field data
+    @Override
     public void saveToFile() throws IOException {
         // String dir = Paths.get(".").toAbsolutePath().normalize().toString() + File.pathSeparator + "saves";
-        Path p  = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + File.pathSeparator + "saves" + File.pathSeparator + this.compID);
+        Path p  = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + File.pathSeparator + "src" + File.pathSeparator + "app" + File.pathSeparator + "resources" + File.pathSeparator + "saves" + File.pathSeparator + this.compID + ".properties");
 
         // Open the file to write to
-        BufferedWriter writer = newBufferedWriter(p);
+        /*BufferedWriter writer = newBufferedWriter(p);
 
         // Write component data to this file
         writer.write(""+this.wearPercent);
@@ -114,6 +136,27 @@ public class Component {
         writer.newLine();
 
         // Close file when we are done with it
-        writer.close();
+        writer.close();*/
+
+        try (OutputStream output = new FileOutputStream(p.toString())) {
+            Properties property = new Properties();
+
+            property.setProperty("WP", ""+this.wearPercent);
+            property.setProperty("FXC", ""+this.fitness_XC);
+            property.setProperty("FEND", ""+this.fitness_END);
+            property.setProperty("FDH", ""+this.fitness_DH);
+            property.setProperty("CNAME", this.compName);
+            property.setProperty("CID", this.compID);
+            property.setProperty("TMOD", ""+this.timeModifier);
+            property.setProperty("CUSD", ""+this.costUSD);
+            property.setProperty("MUSD", ""+this.marginUSD);
+            property.setProperty("MAT", ""+this.material);
+            property.setProperty("PART", ""+this.part);
+
+            property.store(output, null);
+
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
     }
 }

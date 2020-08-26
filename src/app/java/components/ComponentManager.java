@@ -1,16 +1,21 @@
 package app.java.components;
 
-import java.io.File;
-import java.util.ArrayList;
+import app.java.util.Saveable;
+
+import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.stream.Stream;
+import java.util.Properties;
 
 // This class will store, organize and manage the total list of components stored
-public class ComponentManager {
+public class ComponentManager implements Saveable {
 
-    // There are 19 distinct parts required
+    // There are 19 distinct parts required to compose a BikeObj
     // Frame, Wheel-F, Wheel-R, Tire-F, Tire-R, Fork, Shock, Brakes, Rotor-F, Rotor-R, Shifters, Cranks, Pedals, Chainring, Chain, Cassette, Derailer, Handlebar, Grips
+
+    public static final String regex = "#";
 
     // Materials out of which components may be made of
     public enum Material {
@@ -24,14 +29,38 @@ public class ComponentManager {
 
     // Fields
     private HashMap<Part, LinkedList<Component>> componentList;
+    private HashMap<Part, LinkedList<Component>> shopList;         // Will be implemented later
+    private static LinkedList<Component> tempLoadList;
+    private static int curID;
 
     // Constructors
-    public ComponentManager(File filein) {
-        //TODO: Files
+    public ComponentManager(String fileID) throws IOException {
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() +"src" + File.pathSeparator + "app" + File.pathSeparator + "resources" + File.pathSeparator + "saves" + File.pathSeparator + fileID + ".properties");
+
+        try (InputStream input = new FileInputStream(p.toString())) {
+            Properties managerProperty = new Properties();
+            managerProperty.load(input);
+            this.curID = Integer.parseInt(managerProperty.getProperty("CID"));
+            String[] compToLoad = managerProperty.getProperty("CLIST").split(this.regex);
+
+            // Use the file constructor for Component for each one itemized in CLIST
+            // Note: Extra functionality will need to be added for  distinguishing BikeObj files and their owned components
+            tempLoadList = new LinkedList<Component>();
+            for (String componentID : compToLoad) {
+                tempLoadList.push(new Component(componentID));
+            }
+            for (Component comp : tempLoadList) {
+                addCatalogComponent(comp);
+            }
+            tempLoadList.clear();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
     }
 
     public ComponentManager() {
         componentList = new HashMap<Part, LinkedList<Component>>();
+        curID = 1;
     }
 
     // public methods
@@ -63,5 +92,31 @@ public class ComponentManager {
         componentList.get(cmp.getPart()).add(cmp);
     }
 
+    // Save all components to a file, then save an additional file listing all cataloged components, which will be seperated with a '#' characetr
+    @Override
+    public void saveToFile() throws IOException {
+        Path p  = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + File.pathSeparator + "src" + File.pathSeparator + "app" +
+                  File.pathSeparator + "resources" + File.pathSeparator + "saves" + File.pathSeparator + "ComponentManager.properties");
+        StringBuffer constructPList = new StringBuffer();
+        try (OutputStream outfile = new FileOutputStream(p.toString())){
+            Properties manageProb = new Properties();
+
+            LinkedList<Component> curBin;
+            for (Part part : Part.values()) {
+                curBin = componentList.get(part);
+                for (Component comp : curBin) {
+                    comp.saveToFile();
+                    constructPList.append(comp.getCompID() + "#");
+                }
+            }
+
+            manageProb.setProperty("CLIST", constructPList.toString());
+            manageProb.setProperty("CID", ""+this.curID);
+            manageProb.store(outfile, null);
+
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
 
 }

@@ -15,6 +15,8 @@ public class Rider {
     private double preferenceRentBuy;
     private double financialIntensity;
 
+    private String riderID;
+
     private ArrayList<BikeObj> bikes;
 
     // Constructors
@@ -40,4 +42,5 @@ public class Rider {
     public double getFitness_XC() { return this.fitness_XC; }
     public double getFitness_END() { return this.fitness_END; }
     public double getFitness_DH() { return this.fitness_DH; }
+    public String getRiderID() { return this.riderID; }
 }
