@@ -7,59 +7,70 @@ package app.java.components;
 
 import java.io.File;
 
-public abstract class Component {
+public class Component {
 
-    // Materials out of which components may be made of
-    public enum Material {
-        STEEL_I, STEEL_II, ALUMINUM, ALLOY_I, ALLOY_II, CARBON_I, CARBON_II, CARBON_III
-    }
-
-    // Which component in particular this is
-    public enum Part {
-        WHEEL_F, WHEEL_R, TIRE_F, TIRE_R, ROTOR_F, ROTOR_R, BRAKE_F, BRAKE_R, FRAME, FORK, SHOCK, SEAT, SEAT_POST, CHAIN_RING, CHAIN, CASSETTE, DERAILLEUR, CRANKS, PEDALS, HANDLEBAR, BRAKE_LEVER_F, BRAKE_LEVER_R, SHIFTER, GRIPS
-    }
+    // Fields
 
     // 0 - 100 rating of how much wear the component has left
-    protected double wearPercent = 0;
+    private double wearPercent;
 
     // 3-tuple 0-100 rating of <XC, END, DH> performance 'factor', these will be a constant read from file
-    protected double fitness_XC = 0;
-    protected double fitness_END = 0;
-    protected double fitness_DH = 0;
+    private double fitness_XC;
+    private double fitness_END;
+    private double fitness_DH;
 
     // Display name of the component
-    protected String compName = "<Default>";
+    private String compName;
 
     // Internal ID of this particular component
-    protected String compID = "<Default>";
-
-    // What section a given component fits on the bike
-    protected int sectionId = 0;
+    private String compID;
 
     // How much longer/shorter the build time
-    protected double timeModifier = 1;
+    private double timeModifier;
 
     // The default cost of the component in USD before modifiers
-    protected double costUSD = 0;
+    private double costUSD;
 
     // Base sugested markup margin in USD for the player before any potential modifiers
-    protected double marginUSD = 0;
+    private double marginUSD;
 
     // What material the part is made of
-    protected Material material = null;
+    private ComponentManager.Material material;
+
+    // What particular part this is
+    private ComponentManager.Part part;
 
     //------------------------------------------------------------------------------------------------------//
 
+    // Constructors
+    public Component(File filein) {
+        //TODO: Files
+    }
+
+    public Component(double _wearPercent, double _fitness_XC, double _fitness_END, double _fitness_DH, String _compName, String _compID, double _timeModifier, double _costUSD, double _marginUSD, ComponentManager.Material _material, ComponentManager.Part _part) {
+        this.wearPercent = _wearPercent;
+        this.fitness_XC = _fitness_XC;
+        this.fitness_END = _fitness_END;
+        this.fitness_DH = _fitness_DH;
+        this.compName = _compName;
+        this.compID = _compID;
+        this.timeModifier = _timeModifier;
+        this.costUSD = _costUSD;
+        this.marginUSD = _marginUSD;
+        this.material = _material;
+        this.part = _part;
+    }
+
     // Getters
-    public abstract double getWearPercent();
-    public abstract double getFitXC();
-    public abstract double getFitDH();
-    public abstract double getFitEND();
-    public abstract String getCompName();
-    public abstract String getCompID();
-    public abstract int getSectionId();
-    public abstract double getTimeModifier();
-    public abstract double getCostUSD();
-    public abstract double getMarginUSD();
-    public abstract Material getMaterial();
+    public double getWearPercent() { return this.wearPercent; }
+    public double getFitXC() { return this.fitness_XC; }
+    public double getFitDH() { return this.fitness_DH; }
+    public double getFitEND() { return this.fitness_END; }
+    public String getCompName() { return this.compName; }
+    public String getCompID() { return this.compID; }
+    public double getTimeModifier() { return this.timeModifier; }
+    public double getCostUSD() { return this.costUSD; }
+    public double getMarginUSD() { return this.marginUSD; }
+    public ComponentManager.Material getMaterial() { return this.material; }
+    public ComponentManager.Part getPart() { return this.part; }
 }

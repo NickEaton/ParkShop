@@ -1,7 +1,7 @@
 package app.java.bike;
 
 import app.java.components.Component;
-import app.java.components.ComponentFrame;
+import app.java.entity.Rider;
 
 import java.io.File;
 import java.util.LinkedList;
@@ -18,6 +18,7 @@ public class BikeObj {
     private double baseCost;
     private double price;
 
+    private Rider owner;
     private LinkedList<Component> partList;
 
     // Private Methods
@@ -40,11 +41,14 @@ public class BikeObj {
     }
 
     //TODO: Update constructor as components are finalized
-    public BikeObj(ComponentFrame _frame) {
-        this.partList.add(_frame);
+    public BikeObj(Rider _owner, LinkedList<Component> parts) {
+        this.owner = _owner;
+        for(int k=0; k<parts.size(); k++) {
+            partList.add(parts.get(k));
+        }
 
-        baseCost = _frame.getCostUSD();
-        price = baseCost;                                    // May be modified by user after object creation
+        //baseCost = _frame.getCostUSD();
+        //price = baseCost;                                    // May be modified by user after object creation
     }
 
     // Getters
