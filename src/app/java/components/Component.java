@@ -5,7 +5,12 @@ package app.java.components;
 // 8/24/2020
 // A class representing the basic fields and methods all bike components will have
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.*;
+
+import static java.nio.file.Files.newBufferedWriter;
 
 public class Component {
 
@@ -73,4 +78,42 @@ public class Component {
     public double getMarginUSD() { return this.marginUSD; }
     public ComponentManager.Material getMaterial() { return this.material; }
     public ComponentManager.Part getPart() { return this.part; }
+
+    // Public Methods
+
+    // Save this component to a file
+    public void saveToFile() throws IOException {
+        // String dir = Paths.get(".").toAbsolutePath().normalize().toString() + File.pathSeparator + "saves";
+        Path p  = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + File.pathSeparator + "saves" + File.pathSeparator + this.compID);
+
+        // Open the file to write to
+        BufferedWriter writer = newBufferedWriter(p);
+
+        // Write component data to this file
+        writer.write(""+this.wearPercent);
+        writer.newLine();
+        writer.write(""+this.fitness_XC);
+        writer.newLine();
+        writer.write(""+this.fitness_END);
+        writer.newLine();
+        writer.write(""+this.fitness_DH);
+        writer.newLine();
+        writer.write(this.compName);
+        writer.newLine();
+        writer.write(this.compID);
+        writer.newLine();
+        writer.write(""+this.timeModifier);
+        writer.newLine();
+        writer.write(""+this.costUSD);
+        writer.newLine();
+        writer.write(""+this.marginUSD);
+        writer.newLine();
+        writer.write(""+this.material);
+        writer.newLine();
+        writer.write(""+this.part);
+        writer.newLine();
+
+        // Close file when we are done with it
+        writer.close();
+    }
 }

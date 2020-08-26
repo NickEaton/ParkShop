@@ -62,4 +62,6 @@ public class ComponentManager {
             componentList.put(cmp.getPart(), new LinkedList<Component>());
         componentList.get(cmp.getPart()).add(cmp);
     }
+
+
 }
