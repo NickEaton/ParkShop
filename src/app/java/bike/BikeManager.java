@@ -5,16 +5,10 @@ import app.java.components.ComponentManager;
 import app.java.entity.Rider;
 import app.java.util.Saveable;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 public class BikeManager implements Saveable {
 
@@ -28,6 +22,9 @@ public class BikeManager implements Saveable {
     // This variable assists in assigning a unique ID to each bike created
     private static int curID;
 
+    // Regex for file I/O
+    private static final String regex = "#";
+
     // Constructors
     public BikeManager(String fileID) throws IOException {
 
@@ -37,8 +34,18 @@ public class BikeManager implements Saveable {
 
         Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() +"src" + File.pathSeparator + "app" + File.pathSeparator + "resources" + File.pathSeparator + "saves" + File.pathSeparator + fileID + ".properties");
 
+        // Load riders, then do a recursive construction for their bikes
         try (InputStream input = new FileInputStream(p.toString())) {
+            Properties prop = new Properties();
+            prop.load(input);
 
+            this.curID = Integer.parseInt(prop.getProperty("CID"));
+            String[] RList = prop.getProperty("RIDERS").split(this.regex);
+            Rider X;
+            for(String Ri : RList) {
+                X = new Rider(Ri);
+                riderCatalog.put(X, X.getOwnedBikes());
+            }
         } catch (IOException exception) {
             exception.printStackTrace();
         }
@@ -77,6 +84,23 @@ public class BikeManager implements Saveable {
 
     @Override
     public void saveToFile() throws IOException {
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() +"src" + File.pathSeparator + "app" + File.pathSeparator + "resources" + File.pathSeparator + "saves" + File.pathSeparator + "BikeManager.properties");
 
+        // Save the Riders, which then recur to save their own BikeObj's
+        StringBuffer tempRiderCatalog = new StringBuffer();
+        try (OutputStream output = new FileOutputStream(p.toString())) {
+            Properties prop = new Properties();
+
+            prop.setProperty("CID", ""+curID);
+            for(Rider r : this.riderCatalog.keySet()) {
+                tempRiderCatalog.append(r.getRiderID()+this.regex);
+                r.saveToFile();
+            }
+            prop.setProperty("RIDERS", tempRiderCatalog.toString());
+            prop.store(output, null);
+
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
     }
 }

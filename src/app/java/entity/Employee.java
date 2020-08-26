@@ -1,8 +1,11 @@
 package app.java.entity;
 
-import java.io.File;
+import app.java.util.Saveable;
 
-public class Employee {
+import java.io.File;
+import java.io.IOException;
+
+public class Employee implements Saveable {
 
     // Fields
     private double skillConstruct;
@@ -14,8 +17,8 @@ public class Employee {
     private int employeeId;
 
     //Constructors
-    public Employee(File readfile) {
-        //TODO: File build sys
+    public Employee(String fileID) throws IOException {
+        //TODO: Files here
     }
 
     public Employee(double _skillConstruct, double _skillRepair, double _skillTrail, double _affinity, double _attraction, String _unlocalizedAssignment, int _employeeId) {
@@ -28,11 +31,6 @@ public class Employee {
         this.employeeId = _employeeId;
     }
 
-    // Primary Methods
-    public void saveState() {
-        //TODO: File output
-    }
-
     // Getters
     public double getSkillConstruct() { return this.skillConstruct; }
     public double getSkillRepair() { return this.skillRepair; }
@@ -41,4 +39,11 @@ public class Employee {
     public double getAttraction() { return this.attraction; }
     public String getUnlocalizedAssignment() { return this.unlocalizedAssignment; }
     public int getEmployeeId() { return this.employeeId; }
+
+    // Primary Methods
+
+    @Override
+    public void saveToFile() throws IOException {
+        // TODO: Files once the employee system is reached
+    }
 }

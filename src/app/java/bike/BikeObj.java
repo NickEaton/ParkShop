@@ -2,7 +2,6 @@ package app.java.bike;
 
 import app.java.components.Component;
 import app.java.entity.Rider;
-import app.java.entity.RiderManager;
 import app.java.util.Saveable;
 
 import java.io.*;
@@ -43,7 +42,7 @@ public class BikeObj implements Saveable {
 
     // Constructors
 
-    public BikeObj(String fileID) throws IOException {
+    public BikeObj(Rider ownerID, String fileID) throws IOException {
         Path p  = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + File.pathSeparator + "src" + File.pathSeparator + "app" + File.pathSeparator + "resources" + File.pathSeparator + "saves" + File.pathSeparator + fileID + ".properties");
 
         String[] tmpComps;
@@ -56,7 +55,7 @@ public class BikeObj implements Saveable {
             this.bikeID = bikeProp.getProperty("BIKID");
 
             //TODO: this method in RiderManager needs to be implemented
-            this.owner = RiderManager.getRiderFromID(bikeProp.getProperty("OWNER"));
+            this.owner = ownerID;
 
             // Load all components for this bike
             for(String partName : tmpComps) {
@@ -84,6 +83,7 @@ public class BikeObj implements Saveable {
     public double getBike_fitness_DH() { return this.bike_fitness_DH; }
     public double getPrice() { return this.price; }
     public double getBaseCost() { return this.baseCost; }
+    public String getBikeID() { return this.bikeID; }
 
     // Public Methods
 
