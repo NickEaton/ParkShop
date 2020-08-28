@@ -6,6 +6,7 @@ import app.java.entity.Rider;
 import app.java.util.Saveable;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -13,11 +14,11 @@ import java.util.*;
 public class BikeManager implements Saveable {
 
     // This hashmap maps Rider objects to a list of Bikes they are cataloged as owning
-    private HashMap<Rider, ArrayList<BikeObj>> riderCatalog;
+    private ArrayList<Rider> riderCatalog;
 
     // While the user is selecting parts, the data will be stored here
     // Note, this is empty on load
-    private Map<ComponentManager.Part, Component> activePartList;
+    public Map<ComponentManager.Part, Component> activePartList;
 
     // This variable assists in assigning a unique ID to each bike created
     private static int curID;
@@ -25,14 +26,14 @@ public class BikeManager implements Saveable {
     // Regex for file I/O
     private static final String regex = "#";
 
-    // Constructors
+    // File Constructor
     public BikeManager(String fileID) throws IOException {
 
         // Initialize maps for this manager
-        riderCatalog = new HashMap<Rider, ArrayList<BikeObj>>();
+        riderCatalog = new ArrayList<Rider>();
         activePartList = new HashMap<ComponentManager.Part, Component>();
 
-        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() +"src" + File.pathSeparator + "app" + File.pathSeparator + "resources" + File.pathSeparator + "saves" + File.pathSeparator + fileID + ".properties");
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\app" + "\\resources" + "\\saves" + "\\" + fileID + ".properties");
 
         // Load riders, then do a recursive construction for their bikes
         try (InputStream input = new FileInputStream(p.toString())) {
@@ -44,22 +45,23 @@ public class BikeManager implements Saveable {
             Rider X;
             for(String Ri : RList) {
                 X = new Rider(Ri);
-                riderCatalog.put(X, X.getOwnedBikes());
+                riderCatalog.add(X);
             }
         } catch (IOException exception) {
             exception.printStackTrace();
         }
     }
 
+    // Primary constructor for first time launch
     public BikeManager() {
-        riderCatalog = new HashMap<Rider, ArrayList<BikeObj>>();
+        riderCatalog = new ArrayList<Rider>();
         activePartList = new HashMap<ComponentManager.Part, Component>();
         curID = 1;
     }
 
     // This section deals with 'assembling' bikes
 
-    // While the bike is being built up, use this method to add parts
+    // While the bike is being built up, can use this method to add parts
     public void setComponent(ComponentManager.Part partiD, Component comp) {
         if(!activePartList.containsKey(partiD)) {
             activePartList.put(partiD, comp);
@@ -70,21 +72,28 @@ public class BikeManager implements Saveable {
 
     // Verify that the partslist is correct, i.e. there should be precisely one of each type of part
     // PRE: parts should never have a repeated component
-    public BikeObj constructBike(Rider owner, Map<ComponentManager.Part, Component> parts) {
+    public void constructBike(Rider owner, Map<ComponentManager.Part, Component> parts) {
 
         // Construct a new bike with the tmp parts list loaded, with a Rider owner, and a new unique ID associated with the rider & total bikes
         BikeObj newBike = new BikeObj((""+owner.getRiderID()+(curID++)), owner, new LinkedList<Component>(parts.values()));
-        if(!riderCatalog.containsKey(owner))
-            riderCatalog.put(owner, new ArrayList<BikeObj>());
+        owner.getOwnedBikes().add(newBike);
+        if(!riderCatalog.contains(owner))
+            riderCatalog.add(owner);
 
-        riderCatalog.get(owner).add(newBike);
-
-        return newBike;
+        //return newBike;
     }
 
+    // Manually add a bike to a rider list
+    public void addBikeToList(Rider owner, BikeObj bikeObj) {
+        if(!riderCatalog.contains(owner))
+            riderCatalog.add(owner);
+        owner.getOwnedBikes().add(bikeObj);
+    }
+
+    // Top level call to save all Riders, Bikes and Components associated with this instance
     @Override
     public void saveToFile() throws IOException {
-        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() +"src" + File.pathSeparator + "app" + File.pathSeparator + "resources" + File.pathSeparator + "saves" + File.pathSeparator + "BikeManager.properties");
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\app" + "\\resources" + "\\saves" + "\\" + "BikeManager.properties");
 
         // Save the Riders, which then recur to save their own BikeObj's
         StringBuffer tempRiderCatalog = new StringBuffer();
@@ -92,7 +101,7 @@ public class BikeManager implements Saveable {
             Properties prop = new Properties();
 
             prop.setProperty("CID", ""+curID);
-            for(Rider r : this.riderCatalog.keySet()) {
+            for(Rider r : this.riderCatalog) {
                 tempRiderCatalog.append(r.getRiderID()+this.regex);
                 r.saveToFile();
             }
@@ -102,5 +111,15 @@ public class BikeManager implements Saveable {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
+    }
+
+    // Overrides Object toString method
+    @Override
+    public String toString() {
+        String S = new String();
+        for(Rider rider : this.riderCatalog) {
+            S += rider.toString();
+        }
+        return S;
     }
 }

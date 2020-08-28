@@ -12,24 +12,31 @@ import java.util.Properties;
 public class Rider implements Saveable {
 
     // Fields
+
+    // Particular rider fitness for various trail types
     private double fitness_XC;
     private double fitness_END;
     private double fitness_DH;
 
+    // Will be used in negotiation and sell algorithms later
     private double preferenceRentBuy;
     private double financialIntensity;
 
+    // unique ID of this rider, which is used to identify, save and load their properties
     private String riderID;
 
+    // List of this riders owned bikes (The shop itself may be considered an "owner")
     private ArrayList<BikeObj> bikes;
 
+    // Regex character used for data loads and stores
     private static final String regex = "#";
 
+    // Private ID for indexing this users bikes
     private static int curID;
 
-    // Constructors
+    // File Constructor
     public Rider(String fileID) throws IOException {
-        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() +"src" + File.pathSeparator + "app" + File.pathSeparator + "resources" + File.pathSeparator + "saves" + File.pathSeparator + fileID + ".properties");
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\app" + "\\resources" + "\\saves" + "\\" + fileID + ".properties");
 
         bikes = new ArrayList<BikeObj>();
         try(InputStream input = new FileInputStream(p.toString())) {
@@ -52,12 +59,14 @@ public class Rider implements Saveable {
         }
     }
 
-    public Rider(double _fitnessXC, double _fitnessEND, double _fitnessDH, double _preferenceRentBuy, double _financialIntesity) {
+    // Primary Constructor
+    public Rider(double _fitnessXC, double _fitnessEND, double _fitnessDH, String _RID, double _preferenceRentBuy, double _financialIntesity) {
         this.fitness_XC = _fitnessXC;
         this.fitness_END = _fitnessEND;
         this.fitness_DH = _fitnessDH;
         this.preferenceRentBuy = _preferenceRentBuy;
         this.financialIntensity = _financialIntesity;
+        this.riderID = _RID;
         this.curID = 1;
         bikes = new ArrayList<BikeObj>();
     }
@@ -71,14 +80,14 @@ public class Rider implements Saveable {
     public double getFinancialIntensity() { return this.financialIntensity; }
 
     // Public Methods
-
     public ArrayList<BikeObj> getOwnedBikes() {
         return this.bikes;
     }
 
+    // Save rider data to a file which can be recursively loaded later
     @Override
     public void saveToFile() throws IOException {
-        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() +"src" + File.pathSeparator + "app" + File.pathSeparator + "resources" + File.pathSeparator + "saves" + File.pathSeparator + this.riderID + ".properties");
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\app" + "\\resources" + "\\saves" + "\\" + this.riderID + ".properties");
 
         StringBuffer saveBikes = new StringBuffer();
         try (OutputStream output = new FileOutputStream(p.toString())) {
@@ -102,5 +111,15 @@ public class Rider implements Saveable {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
+    }
+
+    // Override Object toString method
+    @Override
+    public String toString() {
+        StringBuffer s1 = new StringBuffer("{ FXC: " +fitness_XC + ", FEND: " + fitness_END + ", FDH: " + fitness_DH + ", PRB: " +preferenceRentBuy + ", FI: " + financialIntensity + ", RID: " + riderID +"}\n");
+        for(BikeObj B : this.bikes) {
+            s1.append(B.toString());
+        }
+        return s1.toString();
     }
 }

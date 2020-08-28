@@ -13,22 +13,32 @@ import java.util.Properties;
 
 public class BikeObj implements Saveable {
 
+    //Fields
+
+    // Regex character to separate strings for File I/O
     private static final String regex = "#";
 
+    // Overall stats of the bike
     private double bike_fitness_XC;
     private double bike_fitness_END;
     private double bike_fitness_DH;
 
+    // Unique ID of this bike used for stores, loads and access
     private String bikeID;
 
+    // Base price of components
     private double baseCost;
+
+    // baseCost + markup
     private double price;
 
+    // Every bike will have an owner, even if it is the Shop itself
     private Rider owner;
+
+    // List of all components in this bike, constructors verify that there will be precisely one of each component type
     private LinkedList<Component> partList;
 
-    // Private Methods
-
+    // Private method to calculate overall fitness of the bike based on every component
     private void compAggrFit() {
         ListIterator<Component> listIterator = partList.listIterator();
         Component cur = null;
@@ -40,10 +50,9 @@ public class BikeObj implements Saveable {
         }
     }
 
-    // Constructors
-
+    // File Constructor
     public BikeObj(Rider ownerID, String fileID) throws IOException {
-        Path p  = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + File.pathSeparator + "src" + File.pathSeparator + "app" + File.pathSeparator + "resources" + File.pathSeparator + "saves" + File.pathSeparator + fileID + ".properties");
+        Path p  = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\app" + "\\resources" + "\\saves" + "\\" + fileID + ".properties");
 
         String[] tmpComps;
         partList = new LinkedList<Component>();
@@ -66,9 +75,12 @@ public class BikeObj implements Saveable {
         }
     }
 
+    // Primary constructor for new Bikes
     public BikeObj(String _bikeID, Rider _owner, LinkedList<Component> parts) {
         this.bikeID = _bikeID;
         this.owner = _owner;
+        this.partList = new LinkedList<Component>();
+
         for(Component k : parts) {
             partList.add(k);
         }
@@ -90,7 +102,7 @@ public class BikeObj implements Saveable {
     // Save this Bike Object and its components to an appropriate file
     @Override
     public void saveToFile() throws IOException {
-        Path p  = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + File.pathSeparator + "src" + File.pathSeparator + "app" + File.pathSeparator + "resources" + File.pathSeparator + "saves" + File.pathSeparator + this.bikeID + ".properties");
+        Path p  = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\app" + "\\resources" + "\\saves" + "\\" + this.bikeID + ".properties");
         try(OutputStream outfile = new FileOutputStream(p.toString())) {
             Properties bikeProp = new Properties();
 
@@ -108,5 +120,15 @@ public class BikeObj implements Saveable {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
+    }
+
+    // Override Object toString method
+    @Override
+    public String toString() {
+        StringBuffer s2 = new StringBuffer("[ BXC: " + bike_fitness_XC + ", BEND: " + bike_fitness_END + ", BDH: " + bike_fitness_DH + ", BID: " + bikeID + ", BC: " + baseCost + ", PRI: " + price + "]\n");
+        for(Component C : this.partList) {
+            s2.append(C.toString());
+        }
+        return s2.toString();
     }
 }

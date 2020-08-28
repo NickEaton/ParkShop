@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Properties;
+import java.util.Random;
 
 // This class will store, organize and manage the total list of components stored
 public class ComponentManager implements Saveable {
@@ -33,9 +34,9 @@ public class ComponentManager implements Saveable {
     private static LinkedList<Component> tempLoadList;
     private static int curID;
 
-    // Constructors
+    // File Constructor
     public ComponentManager(String fileID) throws IOException {
-        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() +"src" + File.pathSeparator + "app" + File.pathSeparator + "resources" + File.pathSeparator + "saves" + File.pathSeparator + fileID + ".properties");
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\app" + "\\resources" + "\\saves" + "\\" + fileID + ".properties");
 
         try (InputStream input = new FileInputStream(p.toString())) {
             Properties managerProperty = new Properties();
@@ -47,7 +48,8 @@ public class ComponentManager implements Saveable {
             // Note: Extra functionality will need to be added for  distinguishing BikeObj files and their owned components
             tempLoadList = new LinkedList<Component>();
             for (String componentID : compToLoad) {
-                tempLoadList.push(new Component(componentID));
+                if (!componentID.isEmpty())
+                    tempLoadList.push(new Component(componentID));
             }
             for (Component comp : tempLoadList) {
                 addCatalogComponent(comp);
@@ -58,6 +60,7 @@ public class ComponentManager implements Saveable {
         }
     }
 
+    // Default Constructor on first time load
     public ComponentManager() {
         componentList = new HashMap<Part, LinkedList<Component>>();
         curID = 1;
@@ -72,9 +75,9 @@ public class ComponentManager implements Saveable {
         LinkedList<Component> subList = componentList.get(type);
 
         Component C = null;
-        for(int i=0; i<subList.size(); i++) {
+        for (int i = 0; i < subList.size(); i++) {
             C = subList.get(i);
-            if(C.getCompID() == componentId) {
+            if (C.getCompID() == componentId) {
                 componentList.get(type).remove(C);
                 return C;
             }
@@ -87,36 +90,48 @@ public class ComponentManager implements Saveable {
     // Add a new component to the catalog
     // If the list for a given part does not exist yet, create it first
     public void addCatalogComponent(Component cmp) {
-        if(componentList.get(cmp.getPart()) == null)
+        if (componentList.get(cmp.getPart()) == null)
             componentList.put(cmp.getPart(), new LinkedList<Component>());
         componentList.get(cmp.getPart()).add(cmp);
+    }
+
+    // Generate a new completely random component
+    public Component getNewRandComponent(String iD) {
+        Random rand = new Random();
+        return new Component(100 * Math.random(), 100 * Math.random(), 100 * Math.random(), 100 * Math.random(), iD, iD, 100 * Math.random(), 100 * Math.random(), 100 * Math.random(), Material.values()[rand.nextInt(8)], Part.values()[rand.nextInt(24)]);
+    }
+
+    // Generate a new random component of a particular Part type
+    public Component getNewRandComponent(String iD, ComponentManager.Part _part) {
+        Random rand = new Random();
+        return new Component(100 * Math.random(), 100 * Math.random(), 100 * Math.random(), 100 * Math.random(), iD, iD, 100 * Math.random(), 100 * Math.random(), 100 * Math.random(), Material.values()[rand.nextInt(8)], _part);
     }
 
     // Save all components to a file, then save an additional file listing all cataloged components, which will be seperated with a '#' characetr
     @Override
     public void saveToFile() throws IOException {
-        Path p  = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + File.pathSeparator + "src" + File.pathSeparator + "app" +
-                  File.pathSeparator + "resources" + File.pathSeparator + "saves" + File.pathSeparator + "ComponentManager.properties");
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\app" + "\\resources" + "\\saves" + "\\ComponentManager.properties");
         StringBuffer constructPList = new StringBuffer();
-        try (OutputStream outfile = new FileOutputStream(p.toString())){
+        try (OutputStream outfile = new FileOutputStream(p.toString())) {
             Properties manageProb = new Properties();
 
             LinkedList<Component> curBin;
             for (Part part : Part.values()) {
                 curBin = componentList.get(part);
-                for (Component comp : curBin) {
-                    comp.saveToFile();
-                    constructPList.append(comp.getCompID() + "#");
+                if (curBin != null) {
+                    for (Component comp : curBin) {
+                        comp.saveToFile();
+                        constructPList.append(comp.getCompID() + "#");
+                    }
                 }
             }
 
             manageProb.setProperty("CLIST", constructPList.toString());
-            manageProb.setProperty("CID", ""+this.curID);
+            manageProb.setProperty("CID", "" + this.curID);
             manageProb.store(outfile, null);
 
         } catch (IOException exception) {
             exception.printStackTrace();
         }
     }
-
 }

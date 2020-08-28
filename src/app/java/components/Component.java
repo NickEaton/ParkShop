@@ -48,9 +48,9 @@ public class Component implements Saveable {
 
     //------------------------------------------------------------------------------------------------------//
 
-    // Constructors
+    // File Constructor
     public Component(String fileID) throws IOException {
-        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() +"src" + File.pathSeparator + "app" + File.pathSeparator + "resources" + File.pathSeparator + "saves" + File.pathSeparator + fileID + ".properties");
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\app" + "\\resources" + "\\saves" + "\\" + fileID + ".properties");
 
         try (InputStream input = new FileInputStream(p.toString())) {
             Properties property = new Properties();
@@ -73,6 +73,7 @@ public class Component implements Saveable {
         }
     }
 
+    // Primary Constructor
     public Component(double _wearPercent, double _fitness_XC, double _fitness_END, double _fitness_DH, String _compName, String _compID, double _timeModifier, double _costUSD, double _marginUSD, ComponentManager.Material _material, ComponentManager.Part _part) {
         this.wearPercent = _wearPercent;
         this.fitness_XC = _fitness_XC;
@@ -105,38 +106,7 @@ public class Component implements Saveable {
     // Save this component to a properties file, since we are only storing field data
     @Override
     public void saveToFile() throws IOException {
-        // String dir = Paths.get(".").toAbsolutePath().normalize().toString() + File.pathSeparator + "saves";
-        Path p  = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + File.pathSeparator + "src" + File.pathSeparator + "app" + File.pathSeparator + "resources" + File.pathSeparator + "saves" + File.pathSeparator + this.compID + ".properties");
-
-        // Open the file to write to
-        /*BufferedWriter writer = newBufferedWriter(p);
-
-        // Write component data to this file
-        writer.write(""+this.wearPercent);
-        writer.newLine();
-        writer.write(""+this.fitness_XC);
-        writer.newLine();
-        writer.write(""+this.fitness_END);
-        writer.newLine();
-        writer.write(""+this.fitness_DH);
-        writer.newLine();
-        writer.write(this.compName);
-        writer.newLine();
-        writer.write(this.compID);
-        writer.newLine();
-        writer.write(""+this.timeModifier);
-        writer.newLine();
-        writer.write(""+this.costUSD);
-        writer.newLine();
-        writer.write(""+this.marginUSD);
-        writer.newLine();
-        writer.write(""+this.material);
-        writer.newLine();
-        writer.write(""+this.part);
-        writer.newLine();
-
-        // Close file when we are done with it
-        writer.close();*/
+        Path p  = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\app" + "\\resources" + "\\saves" + "\\" + this.compID + ".properties");
 
         try (OutputStream output = new FileOutputStream(p.toString())) {
             Properties property = new Properties();
@@ -158,5 +128,11 @@ public class Component implements Saveable {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
+    }
+
+    // Override Object toString method
+    @Override
+    public String toString() {
+        return "( WP: "+wearPercent+", FXC: "+fitness_XC+", FEND: "+fitness_END+", FDH: "+fitness_DH+", NAME: "+compName+", CID: "+compID+", TMOD: "+timeModifier+", CUSD: "+costUSD+", MUSD: "+marginUSD+", MAT: "+material+", PART: "+part+")\n";
     }
 }
