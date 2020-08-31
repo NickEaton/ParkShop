@@ -1,16 +1,16 @@
 package app.java;
 
-import app.java.bike.BikeManager;
-import app.java.bike.BikeObj;
-import app.java.components.Component;
-import app.java.components.ComponentManager;
-import app.java.entity.Rider;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
-public class Main {
+public class ParkShopApp extends Application {
+
+    @Override
+    public void start(Stage stage) throws Exception {
+
+    }
 
     public static void main(String[] args) throws IOException {
         /*
@@ -35,5 +35,4 @@ public class Main {
         System.out.println(B.toString());
         */
     }
-
 }

@@ -3,4 +3,13 @@
 /.idea/workspace.xml
 /out/*
 /logs/*
-/src/app/resources/saves/*
+/src/app/resources/saves/*.properties
+/target/
+*.class
+*.jar
+*.war
+*.ear
+*.logs
+*.iml
+.idea/
+/src/test/*
