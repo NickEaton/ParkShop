@@ -1,6 +1,6 @@
-package app.java.components;
+package org.openjfx.components;
 
-import app.java.util.Saveable;
+import org.openjfx.util.Saveable;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -36,7 +36,7 @@ public class ComponentManager implements Saveable {
 
     // File Constructor
     public ComponentManager(String fileID) throws IOException {
-        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\app" + "\\resources" + "\\saves" + "\\" + fileID + ".properties");
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\main" + "\\resources" + "\\saves" + "\\" + fileID + ".properties");
 
         try (InputStream input = new FileInputStream(p.toString())) {
             Properties managerProperty = new Properties();
@@ -110,7 +110,7 @@ public class ComponentManager implements Saveable {
     // Save all components to a file, then save an additional file listing all cataloged components, which will be seperated with a '#' characetr
     @Override
     public void saveToFile() throws IOException {
-        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\app" + "\\resources" + "\\saves" + "\\ComponentManager.properties");
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\main" + "\\resources" + "\\saves" + "\\ComponentManager.properties");
         StringBuffer constructPList = new StringBuffer();
         try (OutputStream outfile = new FileOutputStream(p.toString())) {
             Properties manageProb = new Properties();

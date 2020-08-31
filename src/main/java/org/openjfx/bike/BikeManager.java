@@ -1,12 +1,11 @@
-package app.java.bike;
+package org.openjfx.bike;
 
-import app.java.components.Component;
-import app.java.components.ComponentManager;
-import app.java.entity.Rider;
-import app.java.util.Saveable;
+import org.openjfx.components.Component;
+import org.openjfx.components.ComponentManager;
+import org.openjfx.entity.Rider;
+import org.openjfx.util.Saveable;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -33,7 +32,7 @@ public class BikeManager implements Saveable {
         riderCatalog = new ArrayList<Rider>();
         activePartList = new HashMap<ComponentManager.Part, Component>();
 
-        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\app" + "\\resources" + "\\saves" + "\\" + fileID + ".properties");
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\main" + "\\resources" + "\\saves" + "\\" + fileID + ".properties");
 
         // Load riders, then do a recursive construction for their bikes
         try (InputStream input = new FileInputStream(p.toString())) {
@@ -93,7 +92,7 @@ public class BikeManager implements Saveable {
     // Top level call to save all Riders, Bikes and Components associated with this instance
     @Override
     public void saveToFile() throws IOException {
-        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\app" + "\\resources" + "\\saves" + "\\" + "BikeManager.properties");
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\main" + "\\resources" + "\\saves" + "\\" + "BikeManager.properties");
 
         // Save the Riders, which then recur to save their own BikeObj's
         StringBuffer tempRiderCatalog = new StringBuffer();

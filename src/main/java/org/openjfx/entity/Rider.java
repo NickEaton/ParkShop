@@ -1,7 +1,7 @@
-package app.java.entity;
+package org.openjfx.entity;
 
-import app.java.bike.BikeObj;
-import app.java.util.Saveable;
+import org.openjfx.bike.BikeObj;
+import org.openjfx.util.Saveable;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -36,7 +36,7 @@ public class Rider implements Saveable {
 
     // File Constructor
     public Rider(String fileID) throws IOException {
-        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\app" + "\\resources" + "\\saves" + "\\" + fileID + ".properties");
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\main" + "\\resources" + "\\saves" + "\\" + fileID + ".properties");
 
         bikes = new ArrayList<BikeObj>();
         try(InputStream input = new FileInputStream(p.toString())) {
@@ -87,7 +87,7 @@ public class Rider implements Saveable {
     // Save rider data to a file which can be recursively loaded later
     @Override
     public void saveToFile() throws IOException {
-        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\app" + "\\resources" + "\\saves" + "\\" + this.riderID + ".properties");
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\main" + "\\resources" + "\\saves" + "\\" + this.riderID + ".properties");
 
         StringBuffer saveBikes = new StringBuffer();
         try (OutputStream output = new FileOutputStream(p.toString())) {

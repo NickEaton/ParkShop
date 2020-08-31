@@ -1,11 +1,11 @@
-package app.java.components;
+package org.openjfx.components;
 
 
 // Nick Eaton
 // 8/24/2020
 // A class representing the basic fields and methods all bike components will have
 
-import app.java.util.Saveable;
+import org.openjfx.util.Saveable;
 
 import java.io.*;
 import java.nio.file.*;
@@ -50,7 +50,7 @@ public class Component implements Saveable {
 
     // File Constructor
     public Component(String fileID) throws IOException {
-        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\app" + "\\resources" + "\\saves" + "\\" + fileID + ".properties");
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\main" + "\\resources" + "\\saves" + "\\" + fileID + ".properties");
 
         try (InputStream input = new FileInputStream(p.toString())) {
             Properties property = new Properties();
@@ -106,7 +106,7 @@ public class Component implements Saveable {
     // Save this component to a properties file, since we are only storing field data
     @Override
     public void saveToFile() throws IOException {
-        Path p  = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\app" + "\\resources" + "\\saves" + "\\" + this.compID + ".properties");
+        Path p  = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\main" + "\\resources" + "\\saves" + "\\" + this.compID + ".properties");
 
         try (OutputStream output = new FileOutputStream(p.toString())) {
             Properties property = new Properties();

@@ -3,7 +3,7 @@
 /.idea/workspace.xml
 /out/*
 /logs/*
-/src/app/resources/saves/*.properties
+/src/org/resources/saves/*.properties
 /target/
 *.class
 *.jar

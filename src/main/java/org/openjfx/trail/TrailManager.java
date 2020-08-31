@@ -1,4 +1,4 @@
-package app.java.trail;
+package org.openjfx.trail;
 
 import java.util.ArrayList;
 

@@ -1,8 +1,8 @@
-package app.java.bike;
+package org.openjfx.bike;
 
-import app.java.components.Component;
-import app.java.entity.Rider;
-import app.java.util.Saveable;
+import org.openjfx.components.Component;
+import org.openjfx.entity.Rider;
+import org.openjfx.util.Saveable;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -52,7 +52,7 @@ public class BikeObj implements Saveable {
 
     // File Constructor
     public BikeObj(Rider ownerID, String fileID) throws IOException {
-        Path p  = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\app" + "\\resources" + "\\saves" + "\\" + fileID + ".properties");
+        Path p  = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\main" + "\\resources" + "\\saves" + "\\" + fileID + ".properties");
 
         String[] tmpComps;
         partList = new LinkedList<Component>();
@@ -102,7 +102,7 @@ public class BikeObj implements Saveable {
     // Save this Bike Object and its components to an appropriate file
     @Override
     public void saveToFile() throws IOException {
-        Path p  = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\app" + "\\resources" + "\\saves" + "\\" + this.bikeID + ".properties");
+        Path p  = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\main" + "\\resources" + "\\saves" + "\\" + this.bikeID + ".properties");
         try(OutputStream outfile = new FileOutputStream(p.toString())) {
             Properties bikeProp = new Properties();
 

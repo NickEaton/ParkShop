@@ -1,8 +1,7 @@
-package app.java.entity;
+package org.openjfx.entity;
 
-import app.java.util.Saveable;
+import org.openjfx.util.Saveable;
 
-import java.io.File;
 import java.io.IOException;
 
 public class Employee implements Saveable {

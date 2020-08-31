@@ -1,4 +1,4 @@
-package app.java.util;
+package org.openjfx.util;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package app.java.entity;
+package org.openjfx.entity;
 
 import java.util.ArrayList;
 
