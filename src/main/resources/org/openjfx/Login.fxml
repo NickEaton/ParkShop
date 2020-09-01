@@ -18,22 +18,22 @@
          </children></StackPane>
       <VBox alignment="CENTER" prefHeight="590.0" prefWidth="600.0" spacing="35.0">
          <children>
-            <Button lineSpacing="10.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="420.0" stylesheets="@Login-Style.css" text="New" textAlignment="CENTER">
+            <Button lineSpacing="10.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="420.0" styleClass="buttonDefault" stylesheets="@Login-Style.css" text="New" textAlignment="CENTER">
                <font>
                   <Font name="Nirmala UI Semilight" size="32.0" />
                </font>
             </Button>
-            <Button lineSpacing="10.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="420.0" stylesheets="@Login-Style.css" text="Load" textAlignment="CENTER">
+            <Button lineSpacing="10.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="420.0" styleClass="noLoad" stylesheets="@Login-Style.css" text="Load" textAlignment="CENTER" textFill="#a49f9f">
                <font>
                   <Font name="Nirmala UI Semilight" size="32.0" />
                </font>
             </Button>
-            <Button lineSpacing="10.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="420.0" stylesheets="@Login-Style.css" text="Settings" textAlignment="CENTER">
+            <Button lineSpacing="10.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="420.0" styleClass="buttonDefault" stylesheets="@Login-Style.css" text="Settings" textAlignment="CENTER">
                <font>
                   <Font name="Nirmala UI Semilight" size="32.0" />
                </font>
             </Button>
-            <Button lineSpacing="10.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="420.0" stylesheets="@Login-Style.css" text="About" textAlignment="CENTER">
+            <Button lineSpacing="10.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="420.0" styleClass="buttonDefault" stylesheets="@Login-Style.css" text="About" textAlignment="CENTER">
                <font>
                   <Font name="Nirmala UI Semilight" size="32.0" />
                </font>
