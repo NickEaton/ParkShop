@@ -10,4 +10,6 @@ public class PrimaryController {
     private void switchToSecondary() throws IOException {
         ParkShopApp.setRoot("secondary");
     }
+
+    //public void
 }
