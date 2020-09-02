@@ -22,9 +22,12 @@ public class StartController {
         System.out.println("This method will context-switch to main runtime threads and use load Contructors to recreate prior gamestate");
     }
 
+    // Initialize new managers, setup data, switch scene
     @FXML
     public void startNew() throws IOException {
-        System.out.println("This method will context-switch to main runtime threads and start a new game instance from main-default");
+        // System.out.println("This method will context-switch to main runtime threads and start a new game instance from main-default");
+        ParkShopApp.loadNew();
+        ParkShopApp.setRoot("PrimaryController");
     }
 
 }

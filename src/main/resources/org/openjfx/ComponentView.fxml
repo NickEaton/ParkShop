@@ -1,11 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.PrimaryController">
+   <children>
+      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="1920.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Components" />
+          <Menu mnemonicParsing="false" text="Bikes" />
+          <Menu mnemonicParsing="false" text="Trail System" />
+            <Menu mnemonicParsing="false" text="Shop" />
+            <Menu mnemonicParsing="false" text="Help" />
+            <Menu mnemonicParsing="false" text="Quit" />
+        </menus>
+      </MenuBar>
+      <SplitPane dividerPositions="0.20802919708029197" layoutX="-2.0" layoutY="25.0" prefHeight="1067.0" prefWidth="1920.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1065.0" prefWidth="536.0">
+               <children>
+                  <ScrollPane fx:id="compBar" hbarPolicy="NEVER" layoutX="-1.0" prefHeight="1068.0" prefWidth="400.0" vbarPolicy="ALWAYS">
+                     <content>
+                        <HBox prefHeight="150.0" prefWidth="543.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1065.0" prefWidth="1381.0" />
+        </items>
+      </SplitPane>
+   </children>
 </AnchorPane>
