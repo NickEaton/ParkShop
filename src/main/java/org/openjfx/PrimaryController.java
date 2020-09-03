@@ -82,18 +82,19 @@ public class PrimaryController {
         temp.setPrefHeight(100);
         ImageView view = new ImageView();
         TextField title = new TextField();
-        Path pathToComp = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString()+"\\src\\main\\resources\\org\\images\\"+_comp.getCompName()+".png");
+        Path pathToComp = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString()+
+                                    "\\src\\main\\resources\\org\\images\\"+_comp.getCompName()+".png");
 
         try (InputStream in = new BufferedInputStream(new FileInputStream(pathToComp.toString()))){
             view = new ImageView(new Image(in));
-            title = new TextField(_comp.getCompName());                       // This ideally should be some sort of 'display name'
+            title = new TextField(_comp.getCompName());
         } catch(IOException e) {
             e.printStackTrace();
         }
 
         temp.getChildren().addAll(view, title);
         temp.setVisible(true);
-        scrollContent.add(temp);      // This is where the IOException could happen lol
+        scrollContent.add(temp);      // IOException on missing container could happen lol
         rebuildScrollBox();
     }
 }
