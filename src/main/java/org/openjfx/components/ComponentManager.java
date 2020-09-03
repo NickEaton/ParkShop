@@ -89,10 +89,12 @@ public class ComponentManager implements Saveable {
 
     // Add a new component to the catalog
     // If the list for a given part does not exist yet, create it first
-    public void addCatalogComponent(Component cmp) {
+    // TODO: returning cmp for testing purposes
+    public Component addCatalogComponent(Component cmp) {
         if (componentList.get(cmp.getPart()) == null)
             componentList.put(cmp.getPart(), new LinkedList<Component>());
         componentList.get(cmp.getPart()).add(cmp);
+        return cmp;
     }
 
     // Generate a new completely random component

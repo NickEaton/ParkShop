@@ -1,6 +1,12 @@
 package org.openjfx;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import org.openjfx.bike.BikeManager;
+import org.openjfx.components.Component;
+import org.openjfx.components.ComponentManager;
 
 import java.io.IOException;
 
@@ -24,10 +30,22 @@ public class StartController {
 
     // Initialize new managers, setup data, switch scene
     @FXML
-    public void startNew() throws IOException {
-        // System.out.println("This method will context-switch to main runtime threads and start a new game instance from main-default");
-        ParkShopApp.loadNew();
-        ParkShopApp.setRoot("PrimaryController");
+    public void startNew(ActionEvent event) throws IOException {
+        try {
+            ParkShopApp.scene = new Scene(ParkShopApp.loadFXML("ComponentView"));
+            ParkShopApp.myStage = new Stage();
+            ParkShopApp.myStage.setTitle("Park Shop");
+            ParkShopApp.myStage.setResizable(true);
+            ParkShopApp.myStage.setScene(ParkShopApp.scene);
+            ParkShopApp.myStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error Loadidng Component Scene");
+        }
+
+        // This is where we should split between new and load gamestate
+        ParkShopApp.cmpManager = new ComponentManager();
+        ParkShopApp.bkManager = new BikeManager();
     }
 
 }

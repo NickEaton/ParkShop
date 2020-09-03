@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.StartController">
    <children>
       <StackPane prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -18,22 +18,22 @@
          </children></StackPane>
       <VBox alignment="CENTER" prefHeight="590.0" prefWidth="600.0" spacing="35.0">
          <children>
-            <Button lineSpacing="10.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="420.0" styleClass="buttonDefault" stylesheets="@Login-Style.css" text="New" textAlignment="CENTER">
+            <Button lineSpacing="10.0" mnemonicParsing="false" onAction="#startNew" prefHeight="69.0" prefWidth="420.0" styleClass="buttonDefault" stylesheets="@Login-Style.css" text="New" textAlignment="CENTER">
                <font>
                   <Font name="Nirmala UI Semilight" size="32.0" />
                </font>
             </Button>
-            <Button lineSpacing="10.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="420.0" styleClass="noLoad" stylesheets="@Login-Style.css" text="Load" textAlignment="CENTER" textFill="#a49f9f">
+            <Button lineSpacing="10.0" mnemonicParsing="false" onAction="#loadState" prefHeight="69.0" prefWidth="420.0" styleClass="noLoad" stylesheets="@Login-Style.css" text="Load" textAlignment="CENTER" textFill="#a49f9f">
                <font>
                   <Font name="Nirmala UI Semilight" size="32.0" />
                </font>
             </Button>
-            <Button lineSpacing="10.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="420.0" styleClass="buttonDefault" stylesheets="@Login-Style.css" text="Settings" textAlignment="CENTER">
+            <Button lineSpacing="10.0" mnemonicParsing="false" onAction="#displaySettings" prefHeight="69.0" prefWidth="420.0" styleClass="buttonDefault" stylesheets="@Login-Style.css" text="Settings" textAlignment="CENTER">
                <font>
                   <Font name="Nirmala UI Semilight" size="32.0" />
                </font>
             </Button>
-            <Button lineSpacing="10.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="420.0" styleClass="buttonDefault" stylesheets="@Login-Style.css" text="About" textAlignment="CENTER">
+            <Button lineSpacing="10.0" mnemonicParsing="false" onAction="#displayAbout" prefHeight="69.0" prefWidth="420.0" styleClass="buttonDefault" stylesheets="@Login-Style.css" text="About" textAlignment="CENTER">
                <font>
                   <Font name="Nirmala UI Semilight" size="32.0" />
                </font>
