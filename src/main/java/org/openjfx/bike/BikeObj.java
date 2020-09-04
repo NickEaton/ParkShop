@@ -102,7 +102,8 @@ public class BikeObj implements Saveable {
     // Save this Bike Object and its components to an appropriate file
     @Override
     public void saveToFile() throws IOException {
-        Path p  = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\main" + "\\resources" + "\\saves" + "\\" + this.bikeID + ".properties");
+        Path p  = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() +
+                         "\\src\\main\\resources\\org\\saves\\" + this.bikeID + ".properties");
         try(OutputStream outfile = new FileOutputStream(p.toString())) {
             Properties bikeProp = new Properties();
 
@@ -125,7 +126,8 @@ public class BikeObj implements Saveable {
     // Override Object toString method
     @Override
     public String toString() {
-        StringBuffer s2 = new StringBuffer("[ BXC: " + bike_fitness_XC + ", BEND: " + bike_fitness_END + ", BDH: " + bike_fitness_DH + ", BID: " + bikeID + ", BC: " + baseCost + ", PRI: " + price + "]\n");
+        StringBuffer s2 = new StringBuffer("[ BXC: " + bike_fitness_XC + ", BEND: " + bike_fitness_END + ", BDH: " + bike_fitness_DH +
+                                                                 ", BID: " + bikeID + ", BC: " + baseCost + ", PRI: " + price + "]\n");
         for(Component C : this.partList) {
             s2.append(C.toString());
         }

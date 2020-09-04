@@ -50,7 +50,8 @@ public class Component implements Saveable {
 
     // File Constructor
     public Component(String fileID) throws IOException {
-        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\main" + "\\resources" + "\\saves" + "\\" + fileID + ".properties");
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() +
+                            "\\src\\main\\resources\\org\\saves\\components" + fileID + ".properties");
 
         try (InputStream input = new FileInputStream(p.toString())) {
             Properties property = new Properties();
@@ -74,7 +75,9 @@ public class Component implements Saveable {
     }
 
     // Primary Constructor
-    public Component(double _wearPercent, double _fitness_XC, double _fitness_END, double _fitness_DH, String _compName, String _compID, double _timeModifier, double _costUSD, double _marginUSD, ComponentManager.Material _material, ComponentManager.Part _part) {
+    public Component(double _wearPercent, double _fitness_XC, double _fitness_END, double _fitness_DH,
+                     String _compName, String _compID, double _timeModifier, double _costUSD,
+                     double _marginUSD, ComponentManager.Material _material, ComponentManager.Part _part) {
         this.wearPercent = _wearPercent;
         this.fitness_XC = _fitness_XC;
         this.fitness_END = _fitness_END;
@@ -106,7 +109,8 @@ public class Component implements Saveable {
     // Save this component to a properties file, since we are only storing field data
     @Override
     public void saveToFile() throws IOException {
-        Path p  = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\main" + "\\resources" + "\\saves" + "\\" + this.compID + ".properties");
+        Path p  = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() +
+                            "\\src\\main\\resources\\org\\saves\\components" + this.compID + ".properties");
 
         try (OutputStream output = new FileOutputStream(p.toString())) {
             Properties property = new Properties();
@@ -133,6 +137,8 @@ public class Component implements Saveable {
     // Override Object toString method
     @Override
     public String toString() {
-        return "( WP: "+wearPercent+", FXC: "+fitness_XC+", FEND: "+fitness_END+", FDH: "+fitness_DH+", NAME: "+compName+", CID: "+compID+", TMOD: "+timeModifier+", CUSD: "+costUSD+", MUSD: "+marginUSD+", MAT: "+material+", PART: "+part+")\n";
+        return "( WP: " + wearPercent + ", FXC: " + fitness_XC + ", FEND: " + fitness_END + ", FDH: " + fitness_DH +
+                ", NAME: " + compName + ", CID: " + compID + ", TMOD: " + timeModifier + ", CUSD: " + costUSD +
+                ", MUSD: " + marginUSD + ", MAT: " + material + ", PART: " + part + ")\n";
     }
 }

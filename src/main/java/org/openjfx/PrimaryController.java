@@ -72,11 +72,16 @@ public class PrimaryController {
     }
 
     @FXML
+    public void toggleCompExtendedDisplay() {
+        compExpandedView.setVisible(!compExpandedView.isVisible());
+    }
+
+    @FXML
     public void addTestCMP(ActionEvent e) throws Exception {
        addCompDisplay(ParkShopApp.cmpManager.addCatalogComponent(ParkShopApp.cmpManager.getNewRandComponent("fork1", ComponentManager.Part.FORK)));
     }
 
-    // Ideally this will create a new instance of a visible component, and add it to listVisible and listDetail;
+    // This creates a new instance of a visible component, and adds it to listVisible and listDetail;
     @FXML
     public void addCompDisplay(Component _comp) throws IOException {
         if(scrollContentFinal == null)
@@ -106,5 +111,10 @@ public class PrimaryController {
         temp.setVisible(true);
         scrollContent.add(temp);      // IOException on missing container could happen lol
         this.rebuildScrollBox();
+    }
+
+    @FXML
+    public void displayComponentExpanded(Component _comp) {
+
     }
 }

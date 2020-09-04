@@ -32,7 +32,8 @@ public class BikeManager implements Saveable {
         riderCatalog = new ArrayList<Rider>();
         activePartList = new HashMap<ComponentManager.Part, Component>();
 
-        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\main" + "\\resources" + "\\saves" + "\\" + fileID + ".properties");
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() +
+                                 "\\src\\main\\resources\\org\\saves\\" + fileID + ".properties");
 
         // Load riders, then do a recursive construction for their bikes
         try (InputStream input = new FileInputStream(p.toString())) {
@@ -92,7 +93,8 @@ public class BikeManager implements Saveable {
     // Top level call to save all Riders, Bikes and Components associated with this instance
     @Override
     public void saveToFile() throws IOException {
-        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\main" + "\\resources" + "\\saves" + "\\" + "BikeManager.properties");
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() +
+                                "\\src\\main\\resources\\org\\saves\\BikeManager.properties");
 
         // Save the Riders, which then recur to save their own BikeObj's
         StringBuffer tempRiderCatalog = new StringBuffer();

@@ -20,12 +20,33 @@ public class ComponentManager implements Saveable {
 
     // Materials out of which components may be made of
     public enum Material {
-        STEEL_I, STEEL_II, ALUMINUM, ALLOY_I, ALLOY_II, CARBON_I, CARBON_II, CARBON_III
+        STEEL_I, STEEL_II,
+        ALUMINUM,
+        ALLOY_I, ALLOY_II,
+        CARBON_I, CARBON_II, CARBON_III
     }
 
     // Which component in particular this is
     public enum Part {
-        WHEEL_F, WHEEL_R, TIRE_F, TIRE_R, ROTOR_F, ROTOR_R, BRAKE_F, BRAKE_R, FRAME, FORK, SHOCK, SEAT, SEAT_POST, CHAIN_RING, CHAIN, CASSETTE, DERAILLEUR, CRANKS, PEDALS, HANDLEBAR, BRAKE_LEVER_F, BRAKE_LEVER_R, SHIFTER, GRIPS
+        BRAKE_LEVER_F, BRAKE_LEVER_R,
+        WHEEL_F, WHEEL_R,
+        TIRE_F, TIRE_R,
+        ROTOR_F, ROTOR_R,
+        BRAKE_F, BRAKE_R,
+        FRAME,
+        FORK,
+        SHOCK,
+        SEAT,
+        SEAT_POST,
+        CHAIN_RING,
+        CHAIN,
+        CASSETTE,
+        DERAILLEUR,
+        CRANKS,
+        PEDALS,
+        HANDLEBAR,
+        SHIFTER,
+        GRIPS
     }
 
     // Fields
@@ -36,7 +57,8 @@ public class ComponentManager implements Saveable {
 
     // File Constructor
     public ComponentManager(String fileID) throws IOException {
-        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\main" + "\\resources" + "\\saves" + "\\" + fileID + ".properties");
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() +
+                                 "\\src\\main\\resources\\org\\saves\\" + fileID + ".properties");
 
         try (InputStream input = new FileInputStream(p.toString())) {
             Properties managerProperty = new Properties();
@@ -97,22 +119,26 @@ public class ComponentManager implements Saveable {
         return cmp;
     }
 
-    // Generate a new completely random component
+    // Generate a new completely random component for testing
     public Component getNewRandComponent(String iD) {
         Random rand = new Random();
-        return new Component(100 * Math.random(), 100 * Math.random(), 100 * Math.random(), 100 * Math.random(), iD, iD, 100 * Math.random(), 100 * Math.random(), 100 * Math.random(), Material.values()[rand.nextInt(8)], Part.values()[rand.nextInt(24)]);
+        return new Component(100 * Math.random(), 100 * Math.random(), 100 * Math.random(), 100 * Math.random(),
+                             iD, iD, 100 * Math.random(), 100 * Math.random(), 100 * Math.random(),
+                             Material.values()[rand.nextInt(8)], Part.values()[rand.nextInt(24)]);
     }
 
-    // Generate a new random component of a particular Part type
+    // Generate a new random component of a particular Part type for testing
     public Component getNewRandComponent(String iD, ComponentManager.Part _part) {
         Random rand = new Random();
-        return new Component(100 * Math.random(), 100 * Math.random(), 100 * Math.random(), 100 * Math.random(), iD, iD, 100 * Math.random(), 100 * Math.random(), 100 * Math.random(), Material.values()[rand.nextInt(8)], _part);
+        return new Component(100 * Math.random(), 100 * Math.random(), 100 * Math.random(), 100 * Math.random(),
+                iD, iD, 100 * Math.random(), 100 * Math.random(), 100 * Math.random(), Material.values()[rand.nextInt(8)], _part);
     }
 
-    // Save all components to a file, then save an additional file listing all cataloged components, which will be seperated with a '#' characetr
+    // Save all components to a file, then save an additional file listing all cataloged components, which will be separated via regex character
     @Override
     public void saveToFile() throws IOException {
-        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\main" + "\\resources" + "\\saves" + "\\ComponentManager.properties");
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() +
+                                "\\src\\main\\resources\\org\\saves\\ComponentManager.properties");
         StringBuffer constructPList = new StringBuffer();
         try (OutputStream outfile = new FileOutputStream(p.toString())) {
             Properties manageProb = new Properties();
