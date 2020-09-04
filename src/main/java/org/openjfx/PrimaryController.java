@@ -3,6 +3,7 @@ package org.openjfx;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -28,15 +29,25 @@ import java.util.ArrayList;
 // This class will handle most of the I/O in the main program
 public class PrimaryController {
 
-
     ArrayList<Component> listVisible;
-    ArrayList<HBox> scrollContent;
+    @FXML ArrayList<HBox> scrollContent;
 
     @FXML private VBox scrollContentFinal;
     @FXML private ScrollPane compBar;
     @FXML private Pane compExpandedView;
     @FXML private GridPane gridPane;
     @FXML private VBox gridTitle;
+    @FXML private Text title_I;
+    @FXML private Text title_II;
+    @FXML private Text fitPart;
+    @FXML private Text mat;
+    @FXML private Text price;
+    @FXML private Text profitability;
+    @FXML private ProgressBar climbingBar;
+    @FXML private ProgressBar enduranceBar;
+    @FXML private ProgressBar downhillBar;
+    @FXML private ProgressBar wearBar;
+    @FXML private ProgressBar timeBar;
 
     private int scrollHeight;
 
@@ -113,8 +124,17 @@ public class PrimaryController {
         this.rebuildScrollBox();
     }
 
+    // Draw the display with appropriate component
     @FXML
     public void displayComponentExpanded(Component _comp) {
+        compExpandedView.setVisible(true);
+
+    }
+
+    // Toggled on clicking the purchase button on expanded component view
+    // TODO: Create Player class
+    @FXML
+    public void purchaseSelectedComponent(ActionEvent e) {
 
     }
 }

@@ -14,13 +14,14 @@ public class Employee implements Saveable {
     private double attraction;
     private String unlocalizedAssignment;
     private int employeeId;
+    private String name;
 
     //Constructors
     public Employee(String fileID) throws IOException {
         //TODO: Files here
     }
 
-    public Employee(double _skillConstruct, double _skillRepair, double _skillTrail, double _affinity, double _attraction, String _unlocalizedAssignment, int _employeeId) {
+    public Employee(double _skillConstruct, double _skillRepair, double _skillTrail, double _affinity, double _attraction, String _unlocalizedAssignment, int _employeeId, String _name) {
         this.skillConstruct = _skillConstruct;
         this.skillRepair = _skillRepair;
         this.skillTrail = _skillTrail;
@@ -28,6 +29,7 @@ public class Employee implements Saveable {
         this.attraction = _attraction;
         this.unlocalizedAssignment = _unlocalizedAssignment;
         this.employeeId = _employeeId;
+        this.name = _name;
     }
 
     // Getters
@@ -38,6 +40,7 @@ public class Employee implements Saveable {
     public double getAttraction() { return this.attraction; }
     public String getUnlocalizedAssignment() { return this.unlocalizedAssignment; }
     public int getEmployeeId() { return this.employeeId; }
+    public String getName() { return this.name; }
 
     // Primary Methods
 

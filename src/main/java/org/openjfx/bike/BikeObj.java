@@ -26,6 +26,9 @@ public class BikeObj implements Saveable {
     // Unique ID of this bike used for stores, loads and access
     private String bikeID;
 
+    // Player given name of this bike
+    private String bikeName;
+
     // Base price of components
     private double baseCost;
 
@@ -52,7 +55,8 @@ public class BikeObj implements Saveable {
 
     // File Constructor
     public BikeObj(Rider ownerID, String fileID) throws IOException {
-        Path p  = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\main" + "\\resources" + "\\saves" + "\\" + fileID + ".properties");
+        Path p  = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() +
+                                "\\src\\main\\resources\\org\\saves\\" + fileID + ".properties");
 
         String[] tmpComps;
         partList = new LinkedList<Component>();
@@ -62,6 +66,7 @@ public class BikeObj implements Saveable {
 
             tmpComps = bikeProp.getProperty("CLIST").split(this.regex);
             this.bikeID = bikeProp.getProperty("BIKID");
+            this.bikeName = bikeProp.getProperty("BIKNAME");
 
             //TODO: this method in RiderManager needs to be implemented
             this.owner = ownerID;
@@ -89,6 +94,10 @@ public class BikeObj implements Saveable {
         //price = baseCost;                                    // May be modified by user after object creation
     }
 
+    //-----------------------------------------------------------------------//
+    // Public Methods
+    //-----------------------------------------------------------------------//
+
     // Getters
     public double getBike_fitness_XC() { return this.bike_fitness_XC; }
     public double getBike_fitness_END() { return this.bike_fitness_END; }
@@ -96,8 +105,16 @@ public class BikeObj implements Saveable {
     public double getPrice() { return this.price; }
     public double getBaseCost() { return this.baseCost; }
     public String getBikeID() { return this.bikeID; }
+    public String getBikeName() { return this.bikeName; }
 
-    // Public Methods
+    // Setters
+    public void setBike_fitness_XC(double _BXC) { this.bike_fitness_XC = _BXC; }
+    public void setBike_fitness_END(double _BEND) { this.bike_fitness_END = _BEND; }
+    public void setBike_fitness_DH(double _BDH) { this.bike_fitness_DH = _BDH; }
+    public void setPrice(double _price) { this.price = _price; }
+    public void setBaseCost(double _baseCost) { this.baseCost = _baseCost; }
+    public void setBikeName(String _name) { this.bikeName = _name; }
+    public void setBikeID(String _ID) { this.bikeID = _ID; }
 
     // Save this Bike Object and its components to an appropriate file
     @Override
@@ -115,6 +132,7 @@ public class BikeObj implements Saveable {
             }
             bikeProp.setProperty("CLIST", compList.toString());
             bikeProp.setProperty("BIKID", this.bikeID);
+            bikeProp.setProperty("BIKNAME", this.bikeName);
             bikeProp.setProperty("OWNER", ""+this.owner);
 
             bikeProp.store(outfile, null);
@@ -127,7 +145,7 @@ public class BikeObj implements Saveable {
     @Override
     public String toString() {
         StringBuffer s2 = new StringBuffer("[ BXC: " + bike_fitness_XC + ", BEND: " + bike_fitness_END + ", BDH: " + bike_fitness_DH +
-                                                                 ", BID: " + bikeID + ", BC: " + baseCost + ", PRI: " + price + "]\n");
+                                        ", BID: " + bikeID + ", BC: " + baseCost + ", PRI: " + price + ", NAME: " + bikeName + "]\n");
         for(Component C : this.partList) {
             s2.append(C.toString());
         }

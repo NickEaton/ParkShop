@@ -47,12 +47,12 @@
                      <children>
                         <VBox fx:id="gridTitle" alignment="TOP_CENTER" layoutY="1.0" prefHeight="133.0" prefWidth="400.0" spacing="10.0" stylesheets="@ComponentView-Style.css">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                              <Text fx:id="title_I" strokeType="OUTSIDE" strokeWidth="0.0">
                                  <font>
                                     <Font size="48.0" />
                                  </font>
                               </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                              <Text fx:id="title_II" strokeType="OUTSIDE" strokeWidth="0.0">
                                  <font>
                                     <Font size="28.0" />
                                  </font>
@@ -98,9 +98,9 @@
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" stylesheets="@ComponentView-Style.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <children>
-                                    <ProgressBar prefHeight="24.0" prefWidth="200.0" progress="0.0" />
-                                    <ProgressBar prefHeight="24.0" prefWidth="200.0" progress="0.0" />
-                                    <ProgressBar prefHeight="24.0" prefWidth="200.0" progress="0.0" />
+                                    <ProgressBar fx:id="climbingBar" prefHeight="24.0" prefWidth="200.0" progress="0.0" />
+                                    <ProgressBar fx:id="enduranceBar" prefHeight="24.0" prefWidth="200.0" progress="0.0" />
+                                    <ProgressBar fx:id="downhillBar" prefHeight="24.0" prefWidth="200.0" progress="0.0" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="4">
@@ -159,7 +159,7 @@
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                    <Text fx:id="mat" strokeType="OUTSIDE" strokeWidth="0.0">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
@@ -168,7 +168,7 @@
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                    <Text fx:id="price" strokeType="OUTSIDE" strokeWidth="0.0">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
@@ -177,12 +177,12 @@
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
-                                    <ProgressBar prefHeight="24.0" prefWidth="200.0" progress="0.0" />
+                                    <ProgressBar fx:id="wearBar" prefHeight="24.0" prefWidth="200.0" progress="0.0" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                    <Text fx:id="fitPart" strokeType="OUTSIDE" strokeWidth="0.0">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
@@ -191,12 +191,12 @@
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <children>
-                                    <ProgressBar prefHeight="24.0" prefWidth="200.0" progress="0.0" />
+                                    <ProgressBar fx:id="timeBar" prefHeight="24.0" prefWidth="200.0" progress="0.0" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
+                                    <Text fx:id="profitability" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
@@ -205,7 +205,6 @@
                               </VBox>
                            </children>
                         </GridPane>
-                        <Pane prefHeight="80.0" prefWidth="400.0" />
                         <HBox alignment="CENTER" layoutY="680.0" prefHeight="80.0" prefWidth="400.0">
                            <children>
                               <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="180.0" text="Purchase">
@@ -217,6 +216,7 @@
                         </HBox>
                      </children>
                   </Pane>
+                  <Pane layoutX="452.0" layoutY="797.0" prefHeight="80.0" prefWidth="400.0" />
                </children></AnchorPane>
         </items>
       </SplitPane>
