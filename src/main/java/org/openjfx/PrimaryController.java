@@ -2,12 +2,17 @@ package org.openjfx;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import org.openjfx.components.Component;
 import org.openjfx.components.ComponentManager;
 import org.openjfx.graphics.ComponentScrollView;
@@ -26,10 +31,12 @@ public class PrimaryController {
 
     ArrayList<Component> listVisible;
     ArrayList<HBox> scrollContent;
-    VBox scrollContentFinal;
 
-    @FXML
-    private ScrollPane compBar;
+    @FXML private VBox scrollContentFinal;
+    @FXML private ScrollPane compBar;
+    @FXML private Pane compExpandedView;
+    @FXML private GridPane gridPane;
+    @FXML private VBox gridTitle;
 
     private int scrollHeight;
 
@@ -78,23 +85,26 @@ public class PrimaryController {
             scrollContent = new ArrayList<HBox>();
         listVisible.add(_comp);
 
-        HBox temp = new HBox(10);
+        HBox temp = new HBox(0);
         temp.setPrefHeight(100);
         ImageView view = new ImageView();
-        TextField title = new TextField();
+        Text title = new Text();
         Path pathToComp = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString()+
                                     "\\src\\main\\resources\\org\\images\\"+_comp.getCompName()+".png");
 
         try (InputStream in = new BufferedInputStream(new FileInputStream(pathToComp.toString()))){
             view = new ImageView(new Image(in));
-            title = new TextField(_comp.getCompName());
+            title = new Text(_comp.getCompName());
+            title.setFont(new Font(32));
         } catch(IOException e) {
             e.printStackTrace();
         }
 
+        temp.setAlignment(Pos.CENTER);
+        title.setTranslateX((190-title.getLayoutBounds().getWidth())/2);
         temp.getChildren().addAll(view, title);
         temp.setVisible(true);
         scrollContent.add(temp);      // IOException on missing container could happen lol
-        rebuildScrollBox();
+        this.rebuildScrollBox();
     }
 }
