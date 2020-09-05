@@ -33,7 +33,7 @@ public class PrimaryController {
     private Player player;
 
     ArrayList<Component> listVisible;
-    @FXML ArrayList<HBox> scrollContent;
+    @FXML ArrayList<ComponentScrollView> scrollContent;
 
     //TODO: Manage text objects on RHS
 
@@ -88,7 +88,7 @@ public class PrimaryController {
 
     @FXML
     public void addTestCMP(ActionEvent e) throws Exception {
-       addCompDisplay(ParkShopApp.cmpManager.addCatalogComponent(ParkShopApp.cmpManager.getNewRandComponent("fork1", ComponentManager.Part.FORK)));
+       addCompDisplay(ParkShopApp.cmpManager.addCatalogComponent(ParkShopApp.cmpManager.getNewRandComponent("chain", ComponentManager.Part.FORK)));
     }
 
     // This creates a new instance of a visible component, and adds it to listVisible and listDetail;
@@ -97,15 +97,15 @@ public class PrimaryController {
         if(scrollContentFinal == null)
             scrollContentFinal = new VBox();
         if(scrollContent == null)
-            scrollContent = new ArrayList<HBox>();
+            scrollContent = new ArrayList<ComponentScrollView>();
         listVisible.add(_comp);
 
-        HBox temp = new HBox(0);
+        ComponentScrollView temp = new ComponentScrollView(_comp);
         temp.setPrefHeight(100);
         ImageView view = new ImageView();
         Text title = new Text();
         Path pathToComp = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString()+
-                                    "\\src\\main\\resources\\org\\images\\"+_comp.getCompName()+"shock.png");
+                                    "\\src\\main\\resources\\org\\images\\"+_comp.getCompName()+".png");
 
         try (InputStream in = new BufferedInputStream(new FileInputStream(pathToComp.toString()))){
             view = new ImageView(new Image(in));
@@ -116,8 +116,18 @@ public class PrimaryController {
         }
 
         temp.setAlignment(Pos.CENTER);
-        title.setTranslateX((190-title.getLayoutBounds().getWidth())/2);
-        temp.getChildren().addAll(view, title);
+        //title.setTranslateX((190-title.getLayoutBounds().getWidth())/2);
+
+        VBox titleBox = new VBox();
+        titleBox.getChildren().add(title);
+        titleBox.setAlignment(Pos.CENTER);
+        titleBox.setPrefWidth(150d);
+        VBox viewBox = new VBox();
+        viewBox.getChildren().add(view);
+        viewBox.setAlignment(Pos.CENTER);
+        viewBox.setPrefWidth(150d);
+
+        temp.getChildren().addAll(viewBox, titleBox);
         temp.setVisible(true);
         scrollContent.add(temp);      // IOException on missing container could happen lol
         this.rebuildScrollBox();
