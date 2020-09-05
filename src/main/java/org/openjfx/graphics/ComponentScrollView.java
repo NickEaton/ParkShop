@@ -24,7 +24,7 @@ public class ComponentScrollView extends HBox {
 
     public ComponentScrollView(Component _comp) throws IOException {
         super(10);
-        Path pathToComp = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString()+"\\src\\main\\resources\\org\\images\\"+_comp.getCompName()+".png");
+        Path pathToComp = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString()+"\\src\\main\\resources\\org\\images\\"+_comp.getCompName()+"shock.png");
 
         try (InputStream in = new BufferedInputStream(new FileInputStream(pathToComp.toString()))){
             view = new ImageView(new Image(in));

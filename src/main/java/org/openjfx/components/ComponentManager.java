@@ -28,11 +28,11 @@ public class ComponentManager implements Saveable {
 
     // Which component in particular this is
     public enum Part {
-        BRAKE_LEVER_F, BRAKE_LEVER_R,
-        WHEEL_F, WHEEL_R,
-        TIRE_F, TIRE_R,
-        ROTOR_F, ROTOR_R,
-        BRAKE_F, BRAKE_R,
+        BRAKE_LEVER_F, //BRAKE_LEVER_R,
+        WHEEL_F, //WHEEL_R,
+        TIRE_F, //TIRE_R,
+        ROTOR_F, //ROTOR_R,
+        BRAKE_F, //BRAKE_R,
         FRAME,
         FORK,
         SHOCK,
@@ -116,6 +116,14 @@ public class ComponentManager implements Saveable {
         if (componentList.get(cmp.getPart()) == null)
             componentList.put(cmp.getPart(), new LinkedList<Component>());
         componentList.get(cmp.getPart()).add(cmp);
+        return cmp;
+    }
+
+    // Add a new part to the shop
+    public Component addShopComponent(Component cmp) {
+        if(shopList.get(cmp.getPart()) == null)
+            shopList.put(cmp.getPart(), new LinkedList<Component>());
+        shopList.get(cmp.getPart()).add(cmp);
         return cmp;
     }
 

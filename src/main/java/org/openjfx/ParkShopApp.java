@@ -9,15 +9,29 @@ import javafx.stage.Stage;
 import org.openjfx.bike.BikeManager;
 import org.openjfx.bike.BikeObj;
 import org.openjfx.components.ComponentManager;
+import org.openjfx.entity.Player;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class ParkShopApp extends Application {
+
+    static Player player;
 
     static Scene scene;
     static Stage myStage;
     static ComponentManager cmpManager;
     static BikeManager bkManager;
+
+    // This may be a really bad idea
+    // static ScheduledExecutorService newComponentTimer;
+    // static ScheduledExecutorService newEmployeeTimer;
+    // static ArrayList<ScheduledExecutorService> buildUpTimers;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -28,6 +42,7 @@ public class ParkShopApp extends Application {
             stage.setScene(scene);
             stage.show();
             myStage = stage;
+            player = new Player();
         } catch (Exception e) {
             e.printStackTrace();
         }

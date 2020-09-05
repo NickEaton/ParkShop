@@ -1,12 +1,19 @@
 package org.openjfx.entity;
 
 import javafx.fxml.FXML;
+import org.openjfx.bike.BikeManager;
 import org.openjfx.bike.BikeObj;
 import org.openjfx.components.Component;
+import org.openjfx.components.ComponentManager;
 import org.openjfx.util.Saveable;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 public class Player implements Saveable {
 
@@ -23,15 +30,26 @@ public class Player implements Saveable {
     private String name;
     private Rank playerRank;
     private double wallet;
+    private ComponentManager componentManager;
+    private BikeManager bikeManager;
+    Random rand;
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+    private ArrayList<Component> listComponents;
+    private ArrayList<BikeObj> listBikes;
+    private ArrayList<Employee> listEmployees;
 
     private ArrayList<Component> ownedComponents;
     private ArrayList<BikeObj> ownedBikes;
     private ArrayList<Employee> hiredEmployees;
 
-
     // Default Constructor
     public Player() {
+        rand = new Random();
+        String ID = ComponentManager.Part.values()[rand.nextInt(19)].toString();
 
+        Runnable getNewComp = () -> componentManager.addShopComponent(componentManager.getNewRandComponent(ComponentManager.Part.values()[rand.nextInt(19)].toString().toLowerCase()));
+        ScheduledFuture<?> newCompHandle = scheduler.scheduleAtFixedRate(getNewComp, 5, 50, TimeUnit.SECONDS);
     }
 
     // File Constructor

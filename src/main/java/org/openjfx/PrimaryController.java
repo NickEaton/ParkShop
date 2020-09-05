@@ -16,6 +16,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import org.openjfx.components.Component;
 import org.openjfx.components.ComponentManager;
+import org.openjfx.entity.Player;
 import org.openjfx.graphics.ComponentScrollView;
 
 import java.io.BufferedInputStream;
@@ -29,8 +30,12 @@ import java.util.ArrayList;
 // This class will handle most of the I/O in the main program
 public class PrimaryController {
 
+    private Player player;
+
     ArrayList<Component> listVisible;
     @FXML ArrayList<HBox> scrollContent;
+
+    //TODO: Manage text objects on RHS
 
     @FXML private VBox scrollContentFinal;
     @FXML private ScrollPane compBar;
@@ -48,6 +53,7 @@ public class PrimaryController {
     @FXML private ProgressBar downhillBar;
     @FXML private ProgressBar wearBar;
     @FXML private ProgressBar timeBar;
+    @FXML private Pane playerOverview;
 
     private int scrollHeight;
 
@@ -68,13 +74,6 @@ public class PrimaryController {
     public PrimaryController() {
         listVisible = new ArrayList<Component>();
     }
-
-    /*
-    @FXML
-    private void switchToPrimary() throws IOException {
-        ParkShopApp.setRoot("primary");
-    }
-    */
 
     // This will allow us to swap between component views
     @FXML
@@ -106,7 +105,7 @@ public class PrimaryController {
         ImageView view = new ImageView();
         Text title = new Text();
         Path pathToComp = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString()+
-                                    "\\src\\main\\resources\\org\\images\\"+_comp.getCompName()+".png");
+                                    "\\src\\main\\resources\\org\\images\\"+_comp.getCompName()+"shock.png");
 
         try (InputStream in = new BufferedInputStream(new FileInputStream(pathToComp.toString()))){
             view = new ImageView(new Image(in));
