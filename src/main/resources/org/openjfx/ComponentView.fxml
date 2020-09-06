@@ -42,7 +42,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1065.0" prefWidth="1523.0">
                <children>
-                  <Button layoutX="837.0" layoutY="478.0" mnemonicParsing="false" onAction="#addTestCMP" text="Button" />
+                  <Button layoutX="837.0" layoutY="478.0" mnemonicParsing="false" onAction="#refreshScrollBox" text="Button" />
                   <Pane fx:id="compExpandedView" prefHeight="760.0" prefWidth="400.0" styleClass="vTitle" stylesheets="@ComponentView-Style.css">
                      <children>
                         <VBox fx:id="gridTitle" alignment="TOP_CENTER" layoutY="1.0" prefHeight="133.0" prefWidth="400.0" spacing="10.0" stylesheets="@ComponentView-Style.css">

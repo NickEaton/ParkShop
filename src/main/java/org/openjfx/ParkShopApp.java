@@ -25,7 +25,7 @@ public class ParkShopApp extends Application {
 
     static Scene scene;
     static Stage myStage;
-    static ComponentManager cmpManager;
+    public static ComponentManager cmpManager;
     static BikeManager bkManager;
 
     // This may be a really bad idea

@@ -1,6 +1,8 @@
 package org.openjfx.entity;
 
 import javafx.fxml.FXML;
+import org.openjfx.ParkShopApp;
+import org.openjfx.PrimaryController;
 import org.openjfx.bike.BikeManager;
 import org.openjfx.bike.BikeObj;
 import org.openjfx.components.Component;
@@ -43,13 +45,17 @@ public class Player implements Saveable {
     private ArrayList<BikeObj> ownedBikes;
     private ArrayList<Employee> hiredEmployees;
 
-    // Default Constructor
+    // Default Constructor, there are some issues here
     public Player() {
+        componentManager = ParkShopApp.cmpManager;
+
         rand = new Random();
         String ID = ComponentManager.Part.values()[rand.nextInt(19)].toString();
 
-        Runnable getNewComp = () -> componentManager.addShopComponent(componentManager.getNewRandComponent(ComponentManager.Part.values()[rand.nextInt(19)].toString().toLowerCase()));
+        Runnable getNewComp = () -> { componentManager.addShopComponent(componentManager.getNewRandComponent(ComponentManager.Part.values()[rand.nextInt(19)].toString().toLowerCase())); System.out.println(ComponentManager.Part.values()[rand.nextInt(19)].toString().toLowerCase());};
+        Runnable test = () -> System.out.println("Test");
         ScheduledFuture<?> newCompHandle = scheduler.scheduleAtFixedRate(getNewComp, 5, 50, TimeUnit.SECONDS);
+        scheduler.scheduleWithFixedDelay(test, 5, 50, TimeUnit.SECONDS);
     }
 
     // File Constructor

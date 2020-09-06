@@ -5,10 +5,7 @@ import org.openjfx.util.Saveable;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Properties;
-import java.util.Random;
+import java.util.*;
 
 // This class will store, organize and manage the total list of components stored
 public class ComponentManager implements Saveable {
@@ -140,6 +137,17 @@ public class ComponentManager implements Saveable {
         Random rand = new Random();
         return new Component(100 * Math.random(), 100 * Math.random(), 100 * Math.random(), 100 * Math.random(),
                 iD, iD, 100 * Math.random(), 100 * Math.random(), 100 * Math.random(), Material.values()[rand.nextInt(8)], _part);
+    }
+
+    // Return all shop components in an ArrayList
+    public LinkedList<Component> getShopList() {
+        LinkedList<Component> fullList = new LinkedList<Component>();
+        for(Part _part : this.shopList.keySet()) {
+            for(Component cList : this.shopList.get(_part)) {
+                fullList.add(cList);
+            }
+        }
+        return fullList;
     }
 
     // Save all components to a file, then save an additional file listing all cataloged components, which will be separated via regex character

@@ -30,14 +30,12 @@ import java.util.ArrayList;
 // This class will handle most of the I/O in the main program
 public class PrimaryController {
 
-    private Player player;
-
     ArrayList<Component> listVisible;
     @FXML ArrayList<ComponentScrollView> scrollContent;
 
     //TODO: Manage text objects on RHS
 
-    @FXML private VBox scrollContentFinal;
+    @FXML private static VBox scrollContentFinal = new VBox();
     @FXML private ScrollPane compBar;
     @FXML private Pane compExpandedView;
     @FXML private GridPane gridPane;
@@ -56,6 +54,25 @@ public class PrimaryController {
     @FXML private Pane playerOverview;
 
     private int scrollHeight;
+
+    // Dynamic update using a static method??
+    //@FXML @Override static void rebuildScrollBox()
+    @FXML
+    public void refreshScrollBox(ActionEvent event) throws IOException {
+        scrollContentFinal = new VBox();
+        scrollContent = new ArrayList<ComponentScrollView>();
+        scrollHeight = 0;
+
+        for(Component _cmp : ParkShopApp.cmpManager.getShopList()) {
+            this.addCompDisplay(_cmp);
+        }
+        for(HBox box : scrollContent) {
+            scrollHeight += box.getHeight();
+        }
+        scrollContentFinal.setMinHeight(scrollHeight);
+        scrollContentFinal.getChildren().addAll(scrollContent);
+        compBar.setContent(scrollContentFinal);
+    }
 
     // Whenever a component is added/removed, update the scroll list
     @FXML
@@ -88,7 +105,7 @@ public class PrimaryController {
 
     @FXML
     public void addTestCMP(ActionEvent e) throws Exception {
-       addCompDisplay(ParkShopApp.cmpManager.addCatalogComponent(ParkShopApp.cmpManager.getNewRandComponent("chain", ComponentManager.Part.FORK)));
+        addCompDisplay(ParkShopApp.cmpManager.addCatalogComponent(ParkShopApp.cmpManager.getNewRandComponent("chain", ComponentManager.Part.FORK)));
     }
 
     // This creates a new instance of a visible component, and adds it to listVisible and listDetail;
