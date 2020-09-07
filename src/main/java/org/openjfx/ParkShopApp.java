@@ -26,7 +26,7 @@ public class ParkShopApp extends Application {
     static Scene scene;
     static Stage myStage;
     public static ComponentManager cmpManager;
-    static BikeManager bkManager;
+    public static BikeManager bkManager;
 
     // This may be a really bad idea
     // static ScheduledExecutorService newComponentTimer;
@@ -42,6 +42,8 @@ public class ParkShopApp extends Application {
             stage.setScene(scene);
             stage.show();
             myStage = stage;
+            cmpManager = new ComponentManager();
+            bkManager = new BikeManager();
             player = new Player();
         } catch (Exception e) {
             e.printStackTrace();

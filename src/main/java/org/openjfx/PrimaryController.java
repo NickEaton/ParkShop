@@ -63,8 +63,9 @@ public class PrimaryController {
         scrollContent = new ArrayList<ComponentScrollView>();
         scrollHeight = 0;
 
-        for(Component _cmp : ParkShopApp.cmpManager.getShopList()) {
+        for(Component _cmp : ParkShopApp.player.componentManager.getShopList()) {
             this.addCompDisplay(_cmp);
+            System.out.println("added:\n"+_cmp);
         }
         for(HBox box : scrollContent) {
             scrollHeight += box.getHeight();
@@ -72,6 +73,7 @@ public class PrimaryController {
         scrollContentFinal.setMinHeight(scrollHeight);
         scrollContentFinal.getChildren().addAll(scrollContent);
         compBar.setContent(scrollContentFinal);
+        System.out.println("Made it");
     }
 
     // Whenever a component is added/removed, update the scroll list
@@ -147,7 +149,7 @@ public class PrimaryController {
         temp.getChildren().addAll(viewBox, titleBox);
         temp.setVisible(true);
         scrollContent.add(temp);      // IOException on missing container could happen lol
-        this.rebuildScrollBox();
+        //this.rebuildScrollBox();
     }
 
     // Draw the display with appropriate component

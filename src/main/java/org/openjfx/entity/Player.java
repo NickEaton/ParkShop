@@ -32,8 +32,8 @@ public class Player implements Saveable {
     private String name;
     private Rank playerRank;
     private double wallet;
-    private ComponentManager componentManager;
-    private BikeManager bikeManager;
+    public ComponentManager componentManager;
+    public BikeManager bikeManager;
     Random rand;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
@@ -50,12 +50,11 @@ public class Player implements Saveable {
         componentManager = ParkShopApp.cmpManager;
 
         rand = new Random();
-        String ID = ComponentManager.Part.values()[rand.nextInt(19)].toString();
 
-        Runnable getNewComp = () -> { componentManager.addShopComponent(componentManager.getNewRandComponent(ComponentManager.Part.values()[rand.nextInt(19)].toString().toLowerCase())); System.out.println(ComponentManager.Part.values()[rand.nextInt(19)].toString().toLowerCase());};
+        Runnable getNewComp = () -> componentManager.addShopComponent(ParkShopApp.cmpManager.getNewRandComponent(ComponentManager.Part.values()[rand.nextInt(19)].toString().toLowerCase())); //System.out.println(ComponentManager.Part.values()[rand.nextInt(19)].toString().toLowerCase());
         Runnable test = () -> System.out.println("Test");
-        ScheduledFuture<?> newCompHandle = scheduler.scheduleAtFixedRate(getNewComp, 5, 50, TimeUnit.SECONDS);
-        scheduler.scheduleWithFixedDelay(test, 5, 50, TimeUnit.SECONDS);
+        ScheduledFuture<?> newCompHandle = scheduler.scheduleAtFixedRate(getNewComp, 0, 10, TimeUnit.SECONDS);
+        //scheduler.scheduleWithFixedDelay(test, 5, 50, TimeUnit.SECONDS);
     }
 
     // File Constructor

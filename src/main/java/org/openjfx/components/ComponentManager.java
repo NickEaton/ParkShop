@@ -82,6 +82,7 @@ public class ComponentManager implements Saveable {
     // Default Constructor on first time load
     public ComponentManager() {
         componentList = new HashMap<Part, LinkedList<Component>>();
+        shopList = new HashMap<Part, LinkedList<Component>>();
         curID = 1;
     }
 
@@ -121,6 +122,7 @@ public class ComponentManager implements Saveable {
         if(shopList.get(cmp.getPart()) == null)
             shopList.put(cmp.getPart(), new LinkedList<Component>());
         shopList.get(cmp.getPart()).add(cmp);
+        System.out.println("Added: "+cmp);
         return cmp;
     }
 
@@ -143,8 +145,9 @@ public class ComponentManager implements Saveable {
     public LinkedList<Component> getShopList() {
         LinkedList<Component> fullList = new LinkedList<Component>();
         for(Part _part : this.shopList.keySet()) {
-            for(Component cList : this.shopList.get(_part)) {
-                fullList.add(cList);
+            if(shopList.get(_part) != null) {
+                fullList.addAll(this.shopList.get(_part));
+                System.out.println(shopList.get(_part)+" TEST\n");
             }
         }
         return fullList;
