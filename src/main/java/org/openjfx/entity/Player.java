@@ -35,7 +35,7 @@ public class Player implements Saveable {
     public ComponentManager componentManager;
     public BikeManager bikeManager;
     Random rand;
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    //private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     private ArrayList<Component> listComponents;
     private ArrayList<BikeObj> listBikes;
@@ -48,13 +48,6 @@ public class Player implements Saveable {
     // Default Constructor, there are some issues here
     public Player() {
         componentManager = ParkShopApp.cmpManager;
-
-        rand = new Random();
-
-        Runnable getNewComp = () -> componentManager.addShopComponent(ParkShopApp.cmpManager.getNewRandComponent(ComponentManager.Part.values()[rand.nextInt(19)].toString().toLowerCase())); //System.out.println(ComponentManager.Part.values()[rand.nextInt(19)].toString().toLowerCase());
-        Runnable test = () -> System.out.println("Test");
-        ScheduledFuture<?> newCompHandle = scheduler.scheduleAtFixedRate(getNewComp, 0, 10, TimeUnit.SECONDS);
-        //scheduler.scheduleWithFixedDelay(test, 5, 50, TimeUnit.SECONDS);
     }
 
     // File Constructor

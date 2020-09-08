@@ -1,6 +1,7 @@
 package org.openjfx;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.ProgressBar;
@@ -8,6 +9,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -32,6 +34,7 @@ public class PrimaryController {
 
     ArrayList<Component> listVisible;
     @FXML ArrayList<ComponentScrollView> scrollContent;
+    @FXML private ComponentScrollView selectedComponent;
 
     //TODO: Manage text objects on RHS
 
@@ -63,9 +66,8 @@ public class PrimaryController {
         scrollContent = new ArrayList<ComponentScrollView>();
         scrollHeight = 0;
 
-        for(Component _cmp : ParkShopApp.player.componentManager.getShopList()) {
+        for(Component _cmp : ParkShopApp.cmpManager.getShopList()) {
             this.addCompDisplay(_cmp);
-            System.out.println("added:\n"+_cmp);
         }
         for(HBox box : scrollContent) {
             scrollHeight += box.getHeight();
@@ -73,7 +75,6 @@ public class PrimaryController {
         scrollContentFinal.setMinHeight(scrollHeight);
         scrollContentFinal.getChildren().addAll(scrollContent);
         compBar.setContent(scrollContentFinal);
-        System.out.println("Made it");
     }
 
     // Whenever a component is added/removed, update the scroll list
@@ -105,11 +106,6 @@ public class PrimaryController {
         compExpandedView.setVisible(!compExpandedView.isVisible());
     }
 
-    @FXML
-    public void addTestCMP(ActionEvent e) throws Exception {
-        addCompDisplay(ParkShopApp.cmpManager.addCatalogComponent(ParkShopApp.cmpManager.getNewRandComponent("chain", ComponentManager.Part.FORK)));
-    }
-
     // This creates a new instance of a visible component, and adds it to listVisible and listDetail;
     @FXML
     public void addCompDisplay(Component _comp) throws IOException {
@@ -123,9 +119,10 @@ public class PrimaryController {
         temp.setPrefHeight(100);
         ImageView view = new ImageView();
         Text title = new Text();
+
+        // Read image data
         Path pathToComp = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString()+
                                     "\\src\\main\\resources\\org\\images\\"+_comp.getCompName()+".png");
-
         try (InputStream in = new BufferedInputStream(new FileInputStream(pathToComp.toString()))){
             view = new ImageView(new Image(in));
             title = new Text(_comp.getCompName());
@@ -135,28 +132,46 @@ public class PrimaryController {
         }
 
         temp.setAlignment(Pos.CENTER);
-        //title.setTranslateX((190-title.getLayoutBounds().getWidth())/2);
 
-        VBox titleBox = new VBox();
+        VBox titleBox = new VBox();                                     // Title and it's properties
         titleBox.getChildren().add(title);
         titleBox.setAlignment(Pos.CENTER);
-        titleBox.setPrefWidth(150d);
-        VBox viewBox = new VBox();
+        titleBox.setPrefWidth(200d);
+        VBox viewBox = new VBox();                                      // Image and it's properties
+        view.setFitWidth(200);
+        view.setFitHeight(200);
         viewBox.getChildren().add(view);
         viewBox.setAlignment(Pos.CENTER);
-        viewBox.setPrefWidth(150d);
+        viewBox.setPrefWidth(200d);
 
-        temp.getChildren().addAll(viewBox, titleBox);
-        temp.setVisible(true);
-        scrollContent.add(temp);      // IOException on missing container could happen lol
-        //this.rebuildScrollBox();
+        temp.getChildren().addAll(viewBox, titleBox);                   // Add the image and title to the box
+        temp.setStyle("-fx-border-color: black");                       // Apply css styling via string input
+
+        temp.setOnMouseClicked(new EventHandler<MouseEvent>() {         // Write to the UI on mouse click event
+            @Override
+            public void handle(MouseEvent event) {
+                displayComponentExpanded(temp.getComponent());
+            }
+        });
+        temp.setVisible(true);                                          // Draw the component
+        scrollContent.add(temp);                                        // IOException on missing container
     }
 
     // Draw the display with appropriate component
     @FXML
-    public void displayComponentExpanded(Component _comp) {
+    public void displayComponentExpanded(Component _cmp) {
         compExpandedView.setVisible(true);
-
+        this.climbingBar.setProgress(_cmp.getFitXC()/100);
+        this.enduranceBar.setProgress(_cmp.getFitEND()/100);
+        this.downhillBar.setProgress(_cmp.getFitDH()/100);
+        this.wearBar.setProgress(_cmp.getWearPercent()/100);
+        this.timeBar.setProgress(_cmp.getTimeModifier()/100);
+        this.mat.setText(_cmp.getMaterial().toString());
+        this.fitPart.setText(_cmp.getPart().toString());
+        this.price.setText(""+_cmp.getCostUSD());
+        this.profitability.setText(""+_cmp.getMarginUSD());
+        this.title_I.setText(_cmp.getCompName());
+        this.title_II.setText(_cmp.getCompID());
     }
 
     // Toggled on clicking the purchase button on expanded component view

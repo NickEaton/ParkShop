@@ -33,11 +33,11 @@ public class StartController {
     public void startNew(ActionEvent event) throws IOException {
         try {
             ParkShopApp.scene = new Scene(ParkShopApp.loadFXML("ComponentView"));
-            ParkShopApp.myStage = new Stage();
-            ParkShopApp.myStage.setTitle("Park Shop");
-            ParkShopApp.myStage.setResizable(true);
-            ParkShopApp.myStage.setScene(ParkShopApp.scene);
-            ParkShopApp.myStage.show();
+            ParkShopApp.window = new Stage();
+            ParkShopApp.window.setTitle("Park Shop");
+            ParkShopApp.window.setResizable(true);
+            ParkShopApp.window.setScene(ParkShopApp.scene);
+            ParkShopApp.window.show();
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Error Loadidng Component Scene");

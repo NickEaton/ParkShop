@@ -6,9 +6,16 @@ import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 // This class will store, organize and manage the total list of components stored
 public class ComponentManager implements Saveable {
+
+    // Scheduler
+    // private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     // There are 19 distinct parts required to compose a BikeObj
     // Frame, Wheel-F, Wheel-R, Tire-F, Tire-R, Fork, Shock, Brakes, Rotor-F, Rotor-R, Shifters, Cranks, Pedals, Chainring, Chain, Cassette, Derailer, Handlebar, Grips
@@ -118,12 +125,12 @@ public class ComponentManager implements Saveable {
     }
 
     // Add a new part to the shop
-    public Component addShopComponent(Component cmp) {
+    public void addShopComponent(Component cmp) {
         if(shopList.get(cmp.getPart()) == null)
             shopList.put(cmp.getPart(), new LinkedList<Component>());
         shopList.get(cmp.getPart()).add(cmp);
         System.out.println("Added: "+cmp);
-        return cmp;
+        //return cmp;
     }
 
     // Generate a new completely random component for testing
@@ -131,7 +138,7 @@ public class ComponentManager implements Saveable {
         Random rand = new Random();
         return new Component(100 * Math.random(), 100 * Math.random(), 100 * Math.random(), 100 * Math.random(),
                              iD, iD, 100 * Math.random(), 100 * Math.random(), 100 * Math.random(),
-                             Material.values()[rand.nextInt(8)], Part.values()[rand.nextInt(24)]);
+                             Material.values()[rand.nextInt(8)], Part.values()[rand.nextInt(19)]);
     }
 
     // Generate a new random component of a particular Part type for testing

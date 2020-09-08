@@ -32,4 +32,5 @@ public class ComponentScrollView extends HBox {
     @FXML public Text getTitle() { return this.title; }
     @FXML public VBox getViewBox() { return this.viewBox; }
     @FXML public VBox getTitleBox() { return this.titleBox; }
+    public Component getComponent() { return this.myComponent; }
 }

@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
@@ -17,11 +18,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="1080.0" minWidth="1918.0" prefHeight="1080.0" prefWidth="1918.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.PrimaryController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="1080.0" minWidth="1918.0" prefHeight="1105.0" prefWidth="1918.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.PrimaryController">
    <children>
       <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="1920.0">
         <menus>
-          <Menu mnemonicParsing="false" text="Components" />
+          <Menu mnemonicParsing="false" text="Components">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#refreshScrollBox" text="View" />
+               </items></Menu>
           <Menu mnemonicParsing="false" text="Bikes" />
           <Menu mnemonicParsing="false" text="Trail System" />
             <Menu mnemonicParsing="false" text="Shop" />
@@ -29,7 +33,7 @@
             <Menu mnemonicParsing="false" text="Quit" />
         </menus>
       </MenuBar>
-      <SplitPane dividerPositions="0.20802919708029197" layoutX="-2.0" layoutY="25.0" prefHeight="1067.0" prefWidth="1920.0">
+      <SplitPane dividerPositions="0.20802919708029197" layoutX="-2.0" layoutY="25.0" prefHeight="1080.0" prefWidth="1920.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1065.0" prefWidth="536.0">
                <children>
@@ -42,7 +46,6 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1065.0" prefWidth="1523.0">
                <children>
-                  <Button layoutX="837.0" layoutY="478.0" mnemonicParsing="false" onAction="#refreshScrollBox" text="Button" />
                   <Pane fx:id="compExpandedView" prefHeight="760.0" prefWidth="400.0" styleClass="vTitle" stylesheets="@ComponentView-Style.css">
                      <children>
                         <VBox fx:id="gridTitle" alignment="TOP_CENTER" layoutY="1.0" prefHeight="133.0" prefWidth="400.0" spacing="10.0" stylesheets="@ComponentView-Style.css">
