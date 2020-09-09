@@ -53,6 +53,32 @@ public class ComponentManager implements Saveable {
         GRIPS
     }
 
+    // List of manufacturers, in no particular order
+    public enum Company {
+        Falcon_Dynamics,
+        X_Ram,
+        Arcon,
+        Collossal,
+        Reverb_Cycles,
+        Cruzin_Cali,
+        K2_Custom,
+        Omni,
+        Valeriant
+    }
+
+    public enum Model {
+        Basic,
+        Comp,
+        Intermediate,
+        Woodland,
+        Comp_Plus,
+        Advanced,
+        Expert,
+        Mountaineer,
+        Pro,
+        Master
+    }
+
     // Fields
     private HashMap<Part, LinkedList<Component>> componentList;
     private HashMap<Part, LinkedList<Component>> shopList;         // Will be implemented later
@@ -130,14 +156,22 @@ public class ComponentManager implements Saveable {
             shopList.put(cmp.getPart(), new LinkedList<Component>());
         shopList.get(cmp.getPart()).add(cmp);
         System.out.println("Added: "+cmp);
-        //return cmp;
+    }
+
+    // Better Component Generation Method
+    public Component genNewComponent(String iD, int level) {
+        Random rand = new Random();
+        Component myComp = new Component(20*(level-1)+20*Math.random(), 20*(level-1)+20*Math.random(), 20*(level-1)+20*Math.random(), 20*(level-1)+20*Math.random(),
+                                        iD, Company.values()[rand.nextInt(9)], level, iD, 20*(level-1)+20*Math.random(), 20*(level-1)+20*Math.random(), 20*(level-1)+20*Math.random(),
+                                        Material.values()[rand.nextInt(8)], Part.values()[rand.nextInt(19)]);
+        return myComp;
     }
 
     // Generate a new completely random component for testing
     public Component getNewRandComponent(String iD) {
         Random rand = new Random();
         return new Component(100 * Math.random(), 100 * Math.random(), 100 * Math.random(), 100 * Math.random(),
-                             iD, iD, 100 * Math.random(), 100 * Math.random(), 100 * Math.random(),
+                             iD, Company.values()[rand.nextInt(9)], rand.nextInt(5)+1, iD, 100 * Math.random(), 100 * Math.random(), 100 * Math.random(),
                              Material.values()[rand.nextInt(8)], Part.values()[rand.nextInt(19)]);
     }
 
@@ -145,7 +179,7 @@ public class ComponentManager implements Saveable {
     public Component getNewRandComponent(String iD, ComponentManager.Part _part) {
         Random rand = new Random();
         return new Component(100 * Math.random(), 100 * Math.random(), 100 * Math.random(), 100 * Math.random(),
-                iD, iD, 100 * Math.random(), 100 * Math.random(), 100 * Math.random(), Material.values()[rand.nextInt(8)], _part);
+                iD, Company.values()[rand.nextInt(9)], rand.nextInt(5)+1, iD, 100 * Math.random(), 100 * Math.random(), 100 * Math.random(), Material.values()[rand.nextInt(8)], _part);
     }
 
     // Return all shop components in an ArrayList

@@ -48,11 +48,11 @@
                <children>
                   <Pane fx:id="compExpandedView" prefHeight="760.0" prefWidth="400.0" styleClass="vTitle" stylesheets="@ComponentView-Style.css">
                      <children>
-                        <VBox fx:id="gridTitle" alignment="TOP_CENTER" layoutY="1.0" prefHeight="133.0" prefWidth="400.0" spacing="10.0" stylesheets="@ComponentView-Style.css">
+                        <VBox fx:id="gridTitle" alignment="TOP_CENTER" layoutY="1.0" prefHeight="133.0" prefWidth="400.0" spacing="5.0" stylesheets="@ComponentView-Style.css">
                            <children>
                               <Text fx:id="title_I" strokeType="OUTSIDE" strokeWidth="0.0">
                                  <font>
-                                    <Font size="48.0" />
+                                    <Font size="34.0" />
                                  </font>
                               </Text>
                               <Text fx:id="title_II" strokeType="OUTSIDE" strokeWidth="0.0">

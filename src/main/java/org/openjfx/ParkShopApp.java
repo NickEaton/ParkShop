@@ -40,7 +40,7 @@ public class ParkShopApp extends Application {
         player = new Player();
         rand = new Random();
 
-        //TimerService ts = new TimerService(cmpManager);
+        // Timer for new part generation
         Timeline timerService = new Timeline(new KeyFrame(Duration.seconds(5), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

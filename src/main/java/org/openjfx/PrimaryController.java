@@ -16,6 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import org.openjfx.components.Component;
 import org.openjfx.components.ComponentManager;
 import org.openjfx.entity.Player;
@@ -25,8 +26,10 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.RoundingMode;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 // This class will handle most of the I/O in the main program
@@ -160,6 +163,10 @@ public class PrimaryController {
     // Draw the display with appropriate component
     @FXML
     public void displayComponentExpanded(Component _cmp) {
+        DecimalFormat format = new DecimalFormat();
+        format.setRoundingMode(RoundingMode.FLOOR);
+        format.setMaximumFractionDigits(2);
+
         compExpandedView.setVisible(true);
         this.climbingBar.setProgress(_cmp.getFitXC()/100);
         this.enduranceBar.setProgress(_cmp.getFitEND()/100);
@@ -168,10 +175,65 @@ public class PrimaryController {
         this.timeBar.setProgress(_cmp.getTimeModifier()/100);
         this.mat.setText(_cmp.getMaterial().toString());
         this.fitPart.setText(_cmp.getPart().toString());
-        this.price.setText(""+_cmp.getCostUSD());
-        this.profitability.setText(""+_cmp.getMarginUSD());
-        this.title_I.setText(_cmp.getCompName());
+        this.price.setText("$"+format.format(_cmp.getCostUSD()*getPriceLookup(_cmp.getPart())));
+        this.profitability.setText("$"+format.format(_cmp.getMarginUSD()));
+
+        String[] x = (_cmp.getDisplayName().split("_"));
+        String z = "";
+        for(int i=0; i<x.length-1; i++)
+            z += x[i] + " ";
+        z += x[x.length-1];
+
+        this.title_I.setText(z);
+        this.title_I.setWrappingWidth(400);
+        this.title_I.setTextAlignment(TextAlignment.CENTER);
         this.title_II.setText(_cmp.getCompID());
+    }
+
+    // Will modify this at a later point
+    public int getPriceLookup(ComponentManager.Part _part) {
+        switch(_part) {
+            case FORK:
+                return 75;
+            case SEAT:
+                return 4;
+            case TIRE:
+                return 10;
+            case BRAKE:
+                return 4;
+            case CHAIN:
+                return 1;
+            case FRAME:
+                return 100;
+            case GRIPS:
+                return 2;
+            case ROTOR:
+                return 3;
+            case SHOCK:
+                return 50;
+            case WHEEL:
+                return 10;
+            case CRANKS:
+                return 4;
+            case PEDALS:
+                return 4;
+            case SHIFTER:
+                return 6;
+            case CASSETTE:
+                return 18;
+            case SEATPOST:
+                return 5;
+            case CHAINRING:
+                return 5;
+            case HANDLEBAR:
+                return 8;
+            case DERAILLEUR:
+                return 12;
+            case BRAKE_LEVER:
+                return 6;
+            default:
+                return 1;
+        }
     }
 
     // Toggled on clicking the purchase button on expanded component view
