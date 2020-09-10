@@ -212,7 +212,7 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="80.0" prefWidth="400.0">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="180.0" text="Purchase">
+                                    <Button mnemonicParsing="false" onAction="#purchaseSelectedComponent" prefHeight="50.0" prefWidth="180.0" text="Purchase">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
@@ -229,12 +229,12 @@
                            <children>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="vTitle" stylesheets="@ComponentView-Style.css">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                    <Text fx:id="shopName" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
                                        <font>
-                                          <Font size="48.0" />
+                                          <Font size="36.0" />
                                        </font>
                                     </Text>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                    <Text fx:id="shopLevel" strokeType="OUTSIDE" strokeWidth="0.0">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
@@ -259,9 +259,9 @@
                                           </Text>
                                        </children>
                                     </HBox>
-                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                    <HBox alignment="CENTER" prefHeight="58.0" prefWidth="180.0" GridPane.columnIndex="1">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                          <Text fx:id="wallet" strokeType="OUTSIDE" strokeWidth="0.0">
                                              <font>
                                                 <Font size="28.0" />
                                              </font>
@@ -476,12 +476,12 @@
                                              <children>
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                                    <children>
-                                                      <Text fx:id="compCounts" strokeType="OUTSIDE" strokeWidth="0.0">
+                                                      <Text fx:id="frameCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                          <font>
                                                             <Font size="24.0" />
                                                          </font>
                                                       </Text>
-                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                      <Text fx:id="framePriceCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                          <font>
                                                             <Font size="18.0" />
                                                          </font>
@@ -490,12 +490,12 @@
                                              </children></VBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="forkCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="24.0" />
                                                    </font>
                                                 </Text>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="forkPriceCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
@@ -503,12 +503,12 @@
                                              </children></HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="shockCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="24.0" />
                                                    </font>
                                                 </Text>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="shockPriceCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
@@ -516,12 +516,12 @@
                                              </children></HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="wheelCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="24.0" />
                                                    </font>
                                                 </Text>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="wheelPriceCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
@@ -529,12 +529,12 @@
                                              </children></HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="tireCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="24.0" />
                                                    </font>
                                                 </Text>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="tirePriceCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
@@ -542,12 +542,12 @@
                                              </children></HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="brakeCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="24.0" />
                                                    </font>
                                                 </Text>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="brakePriceCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
@@ -555,12 +555,12 @@
                                              </children></HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="rotorCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="24.0" />
                                                    </font>
                                                 </Text>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="rotorPriceCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
@@ -568,12 +568,12 @@
                                              </children></HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="cassetteCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="24.0" />
                                                    </font>
                                                 </Text>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="cassettePriceCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
@@ -581,12 +581,12 @@
                                              </children></HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="derailleurCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="24.0" />
                                                    </font>
                                                 </Text>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="derailleurPriceCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
@@ -594,12 +594,12 @@
                                              </children></HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="chainringCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="24.0" />
                                                    </font>
                                                 </Text>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="chainringPriceCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
@@ -607,12 +607,12 @@
                                              </children></HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="chainCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="24.0" />
                                                    </font>
                                                 </Text>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="chainPriceCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
@@ -620,12 +620,12 @@
                                              </children></HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="11">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="crankCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="24.0" />
                                                    </font>
                                                 </Text>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="crankPriceCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
@@ -633,12 +633,12 @@
                                              </children></HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="pedalCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="24.0" />
                                                    </font>
                                                 </Text>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="pedalPriceCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
@@ -646,12 +646,12 @@
                                              </children></HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="18">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="gripCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="24.0" />
                                                    </font>
                                                 </Text>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="gripPriceCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
@@ -659,12 +659,12 @@
                                              </children></HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="17">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="shifterCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="24.0" />
                                                    </font>
                                                 </Text>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="shifterPriceCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
@@ -672,12 +672,12 @@
                                              </children></HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="16">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="brakeleverCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="24.0" />
                                                    </font>
                                                 </Text>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="brakeleverPriceCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
@@ -685,12 +685,12 @@
                                              </children></HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="15">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="handlebarCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="24.0" />
                                                    </font>
                                                 </Text>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="handlebarPriceCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
@@ -698,12 +698,12 @@
                                              </children></HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="13">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="seatpostCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="24.0" />
                                                    </font>
                                                 </Text>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="seatpostPriceCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>
@@ -711,12 +711,12 @@
                                              </children></HBox>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="14">
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="seatCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="24.0" />
                                                    </font>
                                                 </Text>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0">
+                                                <Text fx:id="seatPriceCount" strokeType="OUTSIDE" strokeWidth="0.0">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font>

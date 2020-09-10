@@ -130,7 +130,7 @@ public class ComponentManager implements Saveable {
         Component C = null;
         for (int i = 0; i < subList.size(); i++) {
             C = subList.get(i);
-            if (C.getCompID() == componentId) {
+            if (C.getCompID().equals(componentId)) {
                 componentList.get(type).remove(C);
                 return C;
             }

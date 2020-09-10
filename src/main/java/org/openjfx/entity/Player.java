@@ -11,6 +11,7 @@ import org.openjfx.util.Saveable;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -37,17 +38,18 @@ public class Player implements Saveable {
     Random rand;
     //private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-    private ArrayList<Component> listComponents;
-    private ArrayList<BikeObj> listBikes;
-    private ArrayList<Employee> listEmployees;
-
-    private ArrayList<Component> ownedComponents;
+    private HashMap<ComponentManager.Part, ArrayList<Component>> ownedComponents;
     private ArrayList<BikeObj> ownedBikes;
     private ArrayList<Employee> hiredEmployees;
 
-    // Default Constructor, there are some issues here
+
+    // Default Constructor
     public Player() {
-        componentManager = ParkShopApp.cmpManager;
+        this.componentManager = ParkShopApp.cmpManager;
+        this.ownedComponents = new HashMap<ComponentManager.Part, ArrayList<Component>>();
+        for(ComponentManager.Part p : ComponentManager.Part.values())
+            ownedComponents.put(p, new ArrayList<Component>());
+        this.wallet = 25000;
     }
 
     // File Constructor
@@ -63,7 +65,7 @@ public class Player implements Saveable {
     public String getName() { return this.name; }
     public Rank getPlayerRank() { return this.playerRank; }
     public double getWallet() { return this.wallet; }
-    public ArrayList<Component> getOwnedComponents() { return this.ownedComponents; }
+    public HashMap<ComponentManager.Part, ArrayList<Component>> getOwnedComponents() { return this.ownedComponents; }
     public ArrayList<BikeObj> getOwnedBikes() { return this.ownedBikes; }
     public ArrayList<Employee> getHiredEmployees() { return this.hiredEmployees; }
 
@@ -73,10 +75,9 @@ public class Player implements Saveable {
     public void setWallet(double _wallet) { this.wallet = _wallet; }
 
     // Mutators
+    //TODO
     public void addComponent(Component _comp) {
-        if(ownedComponents.contains(_comp))
-            return;
-        ownedComponents.add(_comp);
+        this.ownedComponents.get(_comp.getPart()).add(_comp);
     }
 
     public void addBike(BikeObj _bike) {
@@ -92,10 +93,12 @@ public class Player implements Saveable {
     }
 
     public Component removeComponent(String _compName) {
-        for(Component c : ownedComponents) {
-            if(c.getCompName().equals(_compName)) {
-                this.ownedComponents.remove(c);
-                return c;
+        for(ArrayList<Component> ac : this.ownedComponents.values()) {
+            for(Component c : ac) {
+                if (c.getCompName().equals(_compName)) {
+                    ac.remove(c);
+                    return c;
+                }
             }
         }
         return null;
@@ -119,6 +122,11 @@ public class Player implements Saveable {
             }
         }
         return null;
+    }
+
+    // Pre: Wallet > Price
+    public void spend(double amount) {
+        this.wallet -= amount;
     }
 
     // Save method

@@ -41,6 +41,7 @@ public class PrimaryController {
 
     //TODO: Manage text objects on RHS
 
+    // Components of Scroll Bar
     @FXML private static VBox scrollContentFinal = new VBox();
     @FXML private ScrollPane compBar;
     @FXML private Pane compExpandedView;
@@ -58,6 +59,51 @@ public class PrimaryController {
     @FXML private ProgressBar wearBar;
     @FXML private ProgressBar timeBar;
     @FXML private Pane playerOverview;
+
+    // Components of Player Stats Bar
+    // counts
+    @FXML private Text wallet;
+    @FXML private Text shopName;
+    @FXML private Text shopLevel;
+    @FXML private Text frameCount;
+    @FXML private Text forkCount;
+    @FXML private Text shockCount;
+    @FXML private Text wheelCount;
+    @FXML private Text brakeCount;
+    @FXML private Text rotorCount;
+    @FXML private Text cassetteCount;
+    @FXML private Text derailleurCount;
+    @FXML private Text chainringCount;
+    @FXML private Text chainCount;
+    @FXML private Text crankCount;
+    @FXML private Text pedalCount;
+    @FXML private Text seatpostCount;
+    @FXML private Text seatCount;
+    @FXML private Text handlebarCount;
+    @FXML private Text brakeleverCount;
+    @FXML private Text shifterCount;
+    @FXML private Text gripCount;
+    @FXML private Text tireCount;
+    // cumulative prices
+    @FXML private Text framePriceCount;
+    @FXML private Text forkPriceCount;
+    @FXML private Text shockPriceCount;
+    @FXML private Text wheelPriceCount;
+    @FXML private Text brakePriceCount;
+    @FXML private Text rotorPriceCount;
+    @FXML private Text cassettePriceCount;
+    @FXML private Text derailleurPriceCount;
+    @FXML private Text chainringPriceCount;
+    @FXML private Text chainPriceCount;
+    @FXML private Text crankPriceCount;
+    @FXML private Text pedalPriceCount;
+    @FXML private Text seatpostPriceCount;
+    @FXML private Text seatPriceCount;
+    @FXML private Text handlebarPriceCount;
+    @FXML private Text brakeleverPriceCount;
+    @FXML private Text shifterPriceCount;
+    @FXML private Text gripPriceCount;
+    @FXML private Text tirePriceCount;
 
     private int scrollHeight;
 
@@ -80,7 +126,7 @@ public class PrimaryController {
         compBar.setContent(scrollContentFinal);
     }
 
-    // Whenever a component is added/removed, update the scroll list
+    // Renull the box
     @FXML
     private void rebuildScrollBox() {
         scrollContentFinal = new VBox();
@@ -91,6 +137,12 @@ public class PrimaryController {
         scrollContentFinal.setMinHeight(scrollHeight);
         scrollContentFinal.getChildren().addAll(scrollContent);
         compBar.setContent(scrollContentFinal);
+    }
+
+    // Renull expanded component view
+    @FXML
+    private void rebuildExpandedView() {
+        
     }
 
     // May need another constructor for files, but that is for later
@@ -154,6 +206,8 @@ public class PrimaryController {
             @Override
             public void handle(MouseEvent event) {
                 displayComponentExpanded(temp.getComponent());
+                selectedComponent = temp;
+                redrawPlayerStats();
             }
         });
         temp.setVisible(true);                                          // Draw the component
@@ -240,6 +294,41 @@ public class PrimaryController {
     // TODO: Create Player class
     @FXML
     public void purchaseSelectedComponent(ActionEvent e) {
+        if(this.selectedComponent == null) {
+            System.out.println("Error no Component Selected");
+            return;
+        }
 
+        if(ParkShopApp.player.getWallet() > this.selectedComponent.getComponent().getCostUSD()*getPriceLookup(this.selectedComponent.getComponent().getPart())) {
+            ParkShopApp.player.addComponent(this.selectedComponent.getComponent());
+            ParkShopApp.cmpManager.getShopList().remove(this.selectedComponent.getComponent());
+            ParkShopApp.player.spend(this.selectedComponent.getComponent().getCostUSD()*getPriceLookup(this.selectedComponent.getComponent().getPart()));
+            this.selectedComponent = null;
+            this.rebuildScrollBox();
+        }
+    }
+
+    @FXML
+    public void redrawPlayerStats() {
+        this.wallet.setText("$"+ParkShopApp.player.getWallet());
+        this.brakeCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("BRAKE")).size());
+        this.frameCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("FRAME")).size());
+        this.forkCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("FORK")).size());
+        this.shockCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("SHOCK")).size());
+        this.wheelCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("WHEEL")).size());
+        this.tireCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("TIRE")).size());
+        this.rotorCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("ROTOR")).size());
+        this.cassetteCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("CASSETTE")).size());
+        this.derailleurCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("DERAILLEUR")).size());
+        this.chainringCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("CHAINRING")).size());
+        this.chainCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("CHAIN")).size());
+        this.crankCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("CRANKS")).size());
+        this.pedalCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("PEDALS")).size());
+        this.seatpostCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("SEATPOST")).size());
+        this.seatCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("SEAT")).size());
+        this.handlebarCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("HANDLEBAR")).size());
+        this.brakeleverCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("BRAKE_LEVER")).size());
+        this.shifterCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("SHIFTER")).size());
+        this.gripCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("GRIPS")).size());
     }
 }

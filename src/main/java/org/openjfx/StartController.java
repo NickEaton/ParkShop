@@ -24,8 +24,22 @@ public class StartController {
     }
 
     @FXML
-    public void loadState() throws IOException {
-        System.out.println("This method will context-switch to main runtime threads and use load Contructors to recreate prior gamestate");
+    public void loadState(ActionEvent event) throws IOException {
+        try {
+            ParkShopApp.scene = new Scene(ParkShopApp.loadFXML("ComponentView"));
+            ParkShopApp.window = new Stage();
+            ParkShopApp.window.setTitle("Park Shop");
+            ParkShopApp.window.setResizable(true);
+            ParkShopApp.window.setScene(ParkShopApp.scene);
+            ParkShopApp.window.show();
+        } catch(IOException e) {
+            e.printStackTrace();
+            System.err.println("Error in Load access to Component Scene");
+        }
+
+        // Initialize load gamestate
+        ParkShopApp.cmpManager = new ComponentManager("ComponentManager");
+        ParkShopApp.bkManager = new BikeManager("BikeManager");
     }
 
     // Initialize new managers, setup data, switch scene
@@ -40,7 +54,7 @@ public class StartController {
             ParkShopApp.window.show();
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("Error Loadidng Component Scene");
+            System.err.println("Error in New access to Component Scene");
         }
 
         // This is where we should split between new and load gamestate

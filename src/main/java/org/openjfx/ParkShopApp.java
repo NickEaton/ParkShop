@@ -35,8 +35,6 @@ public class ParkShopApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         window = stage;
-        cmpManager = new ComponentManager();
-        bkManager = new BikeManager();
         player = new Player();
         rand = new Random();
 
