@@ -13,11 +13,12 @@ import javafx.util.Duration;
 import org.openjfx.bike.BikeManager;
 import org.openjfx.components.ComponentManager;
 import org.openjfx.entity.Player;
+import org.openjfx.util.Saveable;
 
 import java.io.IOException;
 import java.util.Random;
 
-public class ParkShopApp extends Application {
+public class ParkShopApp extends Application implements Saveable {
 
     static Player player;
 
@@ -39,6 +40,7 @@ public class ParkShopApp extends Application {
         rand = new Random();
 
         // Timer for new part generation
+        // The longer the timer goes on, the better components should arise, so count iterations and build based off that.
         Timeline timerService = new Timeline(new KeyFrame(Duration.seconds(5), new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -56,6 +58,7 @@ public class ParkShopApp extends Application {
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
+            System.err.println("Crucial Error loading Login.fxml");
         }
     }
 
@@ -71,5 +74,10 @@ public class ParkShopApp extends Application {
 
     public static void main(String[] args) throws IOException {
         launch(args);
+    }
+
+    @Override
+    public void saveToFile() throws IOException {
+
     }
 }
