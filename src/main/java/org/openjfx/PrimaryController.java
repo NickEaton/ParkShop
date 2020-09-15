@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -31,6 +32,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 // This class will handle most of the I/O in the main program
 public class PrimaryController {
@@ -59,6 +61,7 @@ public class PrimaryController {
     @FXML private ProgressBar wearBar;
     @FXML private ProgressBar timeBar;
     @FXML private Pane playerOverview;
+    @FXML private Button purchaseButton;
 
     // Components of Player Stats Bar
     // counts
@@ -115,8 +118,10 @@ public class PrimaryController {
         scrollContent = new ArrayList<ComponentScrollView>();
         scrollHeight = 0;
 
-        for(Component _cmp : ParkShopApp.cmpManager.getShopList()) {
-            this.addCompDisplay(_cmp);
+        for(LinkedList<Component> list : ParkShopApp.cmpManager.getShopList().values()) {
+            for (Component _cmp : list) {
+                this.addCompDisplay(_cmp);
+            }
         }
         for(HBox box : scrollContent) {
             scrollHeight += box.getHeight();
@@ -124,6 +129,8 @@ public class PrimaryController {
         scrollContentFinal.setMinHeight(scrollHeight);
         scrollContentFinal.getChildren().addAll(scrollContent);
         compBar.setContent(scrollContentFinal);
+        this.rebuildExpandedView();
+        purchaseButton.setVisible(true);
     }
 
     // Renull the box
@@ -142,7 +149,17 @@ public class PrimaryController {
     // Renull expanded component view
     @FXML
     private void rebuildExpandedView() {
-        
+        title_I.setText("");
+        title_II.setText("");
+        fitPart.setText("");
+        mat.setText("");
+        price.setText("");
+        profitability.setText("");
+        climbingBar.setProgress(0);
+        enduranceBar.setProgress(0);
+        downhillBar.setProgress(0);
+        wearBar.setProgress(0);
+        timeBar.setProgress(0);
     }
 
     // May need another constructor for files, but that is for later
@@ -301,13 +318,18 @@ public class PrimaryController {
 
         if(ParkShopApp.player.getWallet() > this.selectedComponent.getComponent().getCostUSD()*getPriceLookup(this.selectedComponent.getComponent().getPart())) {
             ParkShopApp.player.addComponent(this.selectedComponent.getComponent());
-            ParkShopApp.cmpManager.getShopList().remove(this.selectedComponent.getComponent());
+            ParkShopApp.cmpManager.getShopList().get(this.selectedComponent.getComponent().getPart()).remove(this.selectedComponent.getComponent());
+            ParkShopApp.cmpManager.getPlayerList().get(this.selectedComponent.getComponent().getPart()).add(this.selectedComponent.getComponent());
             ParkShopApp.player.spend(this.selectedComponent.getComponent().getCostUSD()*getPriceLookup(this.selectedComponent.getComponent().getPart()));
+            scrollContent.remove(this.selectedComponent);
             this.selectedComponent = null;
+            this.redrawPlayerStats();
             this.rebuildScrollBox();
+            this.rebuildExpandedView();
         }
     }
 
+    // Redraw RHS of ComponentView
     @FXML
     public void redrawPlayerStats() {
         this.wallet.setText("$"+ParkShopApp.player.getWallet());
@@ -330,5 +352,27 @@ public class PrimaryController {
         this.brakeleverCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("BRAKE_LEVER")).size());
         this.shifterCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("SHIFTER")).size());
         this.gripCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("GRIPS")).size());
+    }
+
+    // Swap to player inventory view
+    @FXML
+    public void showPlayerInventory() throws IOException {
+        scrollContentFinal = new VBox();
+        scrollContent = new ArrayList<ComponentScrollView>();
+        scrollHeight = 0;
+
+        for(LinkedList<Component> list : ParkShopApp.cmpManager.getPlayerList().values()) {
+            for (Component _cmp : list) {
+                this.addCompDisplay(_cmp);
+            }
+        }
+        for(HBox box : scrollContent) {
+            scrollHeight += box.getHeight();
+        }
+        scrollContentFinal.setMinHeight(scrollHeight);
+        scrollContentFinal.getChildren().addAll(scrollContent);
+        compBar.setContent(scrollContentFinal);
+        this.rebuildExpandedView();
+        purchaseButton.setVisible(false);
     }
 }

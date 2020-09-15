@@ -10,11 +10,7 @@
    <children>
       <StackPane prefHeight="200.0" prefWidth="200.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="129.0" prefWidth="600.0" text="Park Shop " textAlignment="CENTER" textFill="#b53c08">
-               <font>
-                  <Font name="Trebuchet MS" size="72.0" />
-               </font>
-            </Label>
+            <Label contentDisplay="CENTER" prefHeight="200.0" prefWidth="401.0" styleClass="titleFont" stylesheets="@Login-Style.css" text="Park Shop" textAlignment="CENTER" textFill="#c64242" wrapText="true" />
          </children></StackPane>
       <VBox alignment="CENTER" prefHeight="590.0" prefWidth="600.0" spacing="35.0">
          <children>
@@ -23,7 +19,7 @@
                   <Font name="Nirmala UI Semilight" size="32.0" />
                </font>
             </Button>
-            <Button lineSpacing="10.0" mnemonicParsing="false" onAction="#loadState" prefHeight="69.0" prefWidth="420.0" styleClass="noLoad" stylesheets="@Login-Style.css" text="Load" textAlignment="CENTER" textFill="#a49f9f">
+            <Button disable="true" lineSpacing="10.0" mnemonicParsing="false" onAction="#loadState" prefHeight="69.0" prefWidth="420.0" styleClass="noLoad" stylesheets="@Login-Style.css" text="Load" textAlignment="CENTER" textFill="#a49f9f">
                <font>
                   <Font name="Nirmala UI Semilight" size="32.0" />
                </font>

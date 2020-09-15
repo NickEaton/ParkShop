@@ -80,8 +80,8 @@ public class ComponentManager implements Saveable {
     }
 
     // Fields
-    private HashMap<Part, LinkedList<Component>> componentList;
-    private HashMap<Part, LinkedList<Component>> shopList;         // Will be implemented later
+    private HashMap<Part, LinkedList<Component>> componentList;    // Player Component Inventory
+    private HashMap<Part, LinkedList<Component>> shopList;         // Shop Component Inventory
     private static LinkedList<Component> tempLoadList;
     private static int curID;
 
@@ -117,6 +117,11 @@ public class ComponentManager implements Saveable {
         componentList = new HashMap<Part, LinkedList<Component>>();
         shopList = new HashMap<Part, LinkedList<Component>>();
         curID = 1;
+
+        for(Part p : Part.values()) {
+            componentList.put(p, new LinkedList<Component>());
+            shopList.put(p, new LinkedList<Component>());
+        }
     }
 
     // public methods
@@ -183,6 +188,7 @@ public class ComponentManager implements Saveable {
     }
 
     // Return all shop components in an ArrayList
+    /*
     public LinkedList<Component> getShopList() {
         LinkedList<Component> fullList = new LinkedList<Component>();
         for(Part _part : this.shopList.keySet()) {
@@ -192,6 +198,15 @@ public class ComponentManager implements Saveable {
             }
         }
         return fullList;
+    }
+    */
+
+    public HashMap<Part, LinkedList<Component>> getShopList() {
+        return this.shopList;
+    }
+
+    public HashMap<Part, LinkedList<Component>> getPlayerList() {
+        return this.componentList;
     }
 
     // Save all components to a file, then save an additional file listing all cataloged components, which will be separated via regex character

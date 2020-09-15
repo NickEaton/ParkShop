@@ -24,11 +24,15 @@
         <menus>
           <Menu mnemonicParsing="false" text="Components">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#refreshScrollBox" text="View" />
+                  <MenuItem mnemonicParsing="false" onAction="#refreshScrollBox" text="Shop" />
+                  <MenuItem mnemonicParsing="false" onAction="#showPlayerInventory" text="Inventory" />
                </items></Menu>
-          <Menu mnemonicParsing="false" text="Bikes" />
+          <Menu mnemonicParsing="false" text="Bikes">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Build" />
+                  <MenuItem mnemonicParsing="false" text="Inventory" />
+               </items></Menu>
           <Menu mnemonicParsing="false" text="Trail System" />
-            <Menu mnemonicParsing="false" text="Shop" />
             <Menu mnemonicParsing="false" text="Help" />
             <Menu mnemonicParsing="false" text="Quit" />
         </menus>
@@ -212,7 +216,7 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="80.0" prefWidth="400.0">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#purchaseSelectedComponent" prefHeight="50.0" prefWidth="180.0" text="Purchase">
+                                    <Button fx:id="purchaseButton" mnemonicParsing="false" onAction="#purchaseSelectedComponent" prefHeight="50.0" prefWidth="180.0" text="Purchase">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
