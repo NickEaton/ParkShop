@@ -17,7 +17,7 @@ public class BikeManager implements Saveable {
 
     // While the user is selecting parts, the data will be stored here
     // Note, this is empty on load
-    public Map<ComponentManager.Part, Component> activePartList;
+    public HashMap<ComponentManager.Part, Component> activePartList;
 
     // This variable assists in assigning a unique ID to each bike created
     private static int curID;

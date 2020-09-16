@@ -11,10 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -87,26 +84,32 @@ public class PrimaryController {
     @FXML private Text shifterCount;
     @FXML private Text gripCount;
     @FXML private Text tireCount;
-    // cumulative prices
-    @FXML private Text framePriceCount;
-    @FXML private Text forkPriceCount;
-    @FXML private Text shockPriceCount;
-    @FXML private Text wheelPriceCount;
-    @FXML private Text brakePriceCount;
-    @FXML private Text rotorPriceCount;
-    @FXML private Text cassettePriceCount;
-    @FXML private Text derailleurPriceCount;
-    @FXML private Text chainringPriceCount;
-    @FXML private Text chainPriceCount;
-    @FXML private Text crankPriceCount;
-    @FXML private Text pedalPriceCount;
-    @FXML private Text seatpostPriceCount;
-    @FXML private Text seatPriceCount;
-    @FXML private Text handlebarPriceCount;
-    @FXML private Text brakeleverPriceCount;
-    @FXML private Text shifterPriceCount;
-    @FXML private Text gripPriceCount;
-    @FXML private Text tirePriceCount;
+
+    // toggle views for bike construction
+    @FXML private ImageView frameIn;
+    @FXML private ImageView forkIn;
+    @FXML private ImageView shockIn;
+    @FXML private ImageView wheelFIn;;
+    @FXML private ImageView wheelRIn;
+    @FXML private ImageView tireFIn;
+    @FXML private ImageView tireRIn;
+    @FXML private ImageView rotorFIn;
+    @FXML private ImageView rotorRIn;
+    @FXML private ImageView cassetteIn;
+    @FXML private ImageView chainringIn;
+    @FXML private ImageView brakeFIn;
+    @FXML private ImageView brakeRIn;
+    @FXML private ImageView derailleurIn;
+    @FXML private ImageView chainIn;
+    @FXML private ImageView cranksIn;
+    @FXML private ImageView pedalsIn;
+    @FXML private ImageView seatpostIn;
+    @FXML private ImageView seatIn;
+    @FXML private ImageView handlebarIn;
+    @FXML private ImageView shifterIn;
+    @FXML private ImageView gripsIn;
+
+    @FXML private AnchorPane bikePane;
 
     private int scrollHeight;
 
@@ -374,5 +377,22 @@ public class PrimaryController {
         compBar.setContent(scrollContentFinal);
         this.rebuildExpandedView();
         purchaseButton.setVisible(false);
+    }
+
+    // Swap to bike constructor view
+    @FXML
+    public void showBuilderView() throws IOException {
+        bikePane.setVisible(true);
+        this.showPlayerInventory();
+        purchaseButton.setVisible(true);
+        purchaseButton.setText("Add");
+
+        purchaseButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+
+            }
+        });
     }
 }
