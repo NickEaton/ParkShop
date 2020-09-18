@@ -565,6 +565,6 @@ public class PrimaryController {
     // Build the bike, assign owner as player
     @FXML
     public void buildBikeInitial(ActionEvent e) {
-        
+
     }
 }
