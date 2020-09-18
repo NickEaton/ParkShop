@@ -108,6 +108,7 @@ public class PrimaryController {
     @FXML private ImageView handlebarIn;
     @FXML private ImageView shifterIn;
     @FXML private ImageView gripsIn;
+    @FXML private ImageView brakeLeverIn;
 
     @FXML private AnchorPane bikePane;
 
@@ -134,6 +135,7 @@ public class PrimaryController {
         compBar.setContent(scrollContentFinal);
         this.rebuildExpandedView();
         purchaseButton.setVisible(true);
+        bikePane.setVisible(false);
     }
 
     // Renull the box
@@ -377,6 +379,100 @@ public class PrimaryController {
         compBar.setContent(scrollContentFinal);
         this.rebuildExpandedView();
         purchaseButton.setVisible(false);
+    }
+
+    // Draw x's and checks on bike construction view
+    // This is a bad way to do this, but the alternative requires changing the way things work across many files
+    @FXML
+    public void refreshBuilderImages() throws IOException {
+        ImageView checkMark = new ImageView();
+        ImageView xMark = new ImageView();
+
+        Path pathToCheck = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString()+
+                "\\src\\main\\resources\\org\\images\\checkmark.png");
+        try (InputStream in = new BufferedInputStream(new FileInputStream(pathToCheck.toString()))){
+            checkMark = new ImageView(new Image(in));
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        Path pathToX = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString()+
+                "\\src\\main\\resources\\org\\images\\x-mark.png");
+        try (InputStream in = new BufferedInputStream(new FileInputStream(pathToX.toString()))){
+            xMark = new ImageView(new Image(in));
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+
+        if(ParkShopApp.bkManager.activeFrame != null) {
+            this.frameIn = checkMark;
+        } else this.frameIn = xMark;
+        if(ParkShopApp.bkManager.activeFork != null) {
+            this.forkIn = checkMark;
+        } else this.forkIn = xMark;
+        if(ParkShopApp.bkManager.activeShock != null) {
+            this.shockIn = checkMark;
+        } else this.shockIn = xMark;
+        if(ParkShopApp.bkManager.activeWheelF != null) {
+            this.wheelFIn = checkMark;
+        } else this.wheelFIn = xMark;
+        if(ParkShopApp.bkManager.activeWheelR != null) {
+            this.wheelRIn = checkMark;
+        } else this.wheelRIn = xMark;
+        if(ParkShopApp.bkManager.activeTireF != null) {
+            this.tireFIn = checkMark;
+        } else this.tireFIn = xMark;
+        if(ParkShopApp.bkManager.activeTireR != null) {
+            this.tireRIn = checkMark;
+        } else this.tireRIn = xMark;
+        if(ParkShopApp.bkManager.activeBrakeF != null) {
+            this.brakeFIn = checkMark;
+        } else this.brakeFIn = xMark;
+        if(ParkShopApp.bkManager.activeBrakeR != null) {
+            this.brakeRIn = checkMark;
+        } else this.brakeRIn = xMark;
+        if(ParkShopApp.bkManager.activeRotorF != null) {
+            this.rotorFIn = checkMark;
+        } else this.rotorFIn = xMark;
+        if(ParkShopApp.bkManager.activeRotorR != null) {
+            this.rotorRIn = checkMark;
+        } else this.rotorRIn = xMark;
+        if(ParkShopApp.bkManager.activeChain != null) {
+            this.chainIn = checkMark;
+        } else this.chainIn = xMark;
+        if(ParkShopApp.bkManager.activeChainring != null) {
+            this.chainringIn = checkMark;
+        } else this.chainringIn = xMark;
+        if(ParkShopApp.bkManager.activeCassette != null) {
+            this.cassetteIn = checkMark;
+        } else this.cassetteIn = xMark;
+        if(ParkShopApp.bkManager.activeDerailleur != null) {
+            this.derailleurIn = checkMark;
+        } else this.derailleurIn = xMark;
+        if(ParkShopApp.bkManager.activeCranks != null) {
+            this.cranksIn = checkMark;
+        } else this.cranksIn = xMark;
+        if(ParkShopApp.bkManager.activePedals != null) {
+            this.pedalsIn = checkMark;
+        } else this.pedalsIn = xMark;
+        if(ParkShopApp.bkManager.activeHandlebar != null) {
+            this.handlebarIn = checkMark;
+        } else this.handlebarIn = xMark;
+        if(ParkShopApp.bkManager.activeShifter != null) {
+            this.shifterIn = checkMark;
+        } else this.shifterIn = xMark;
+        if(ParkShopApp.bkManager.activeBrakeLever != null) {
+            this.brakeLeverIn = checkMark;
+        } else this.brakeLeverIn = xMark;
+        if(ParkShopApp.bkManager.activeGrips != null) {
+            this.gripsIn = checkMark;
+        } else this.gripsIn = xMark;
+        if(ParkShopApp.bkManager.activeSeat != null) {
+            this.seatIn = checkMark;
+        } else this.seatIn = xMark;
+        if(ParkShopApp.bkManager.activeSeatpost != null) {
+            this.seatpostIn = checkMark;
+        } else this.seatpostIn = xMark;
+
     }
 
     // Swap to bike constructor view

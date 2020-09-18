@@ -17,7 +17,30 @@ public class BikeManager implements Saveable {
 
     // While the user is selecting parts, the data will be stored here
     // Note, this is empty on load
-    public HashMap<ComponentManager.Part, Component> activePartList;
+    // public HashMap<ComponentManager.Part, Component> activePartList;
+    public Component activeFrame;
+    public Component activeShock;
+    public Component activeFork;
+    public Component activeWheelF;
+    public Component activeWheelR;
+    public Component activeTireF;
+    public Component activeTireR;
+    public Component activeBrakeF;
+    public Component activeBrakeR;
+    public Component activeRotorF;
+    public Component activeRotorR;
+    public Component activeChain;
+    public Component activeChainring;
+    public Component activeCassette;
+    public Component activeDerailleur;
+    public Component activeCranks;
+    public Component activePedals;
+    public Component activeHandlebar;
+    public Component activeGrips;
+    public Component activeShifter;
+    public Component activeBrakeLever;
+    public Component activeSeat;
+    public Component activeSeatpost;
 
     // This variable assists in assigning a unique ID to each bike created
     private static int curID;
@@ -30,7 +53,7 @@ public class BikeManager implements Saveable {
 
         // Initialize maps for this manager
         riderCatalog = new ArrayList<Rider>();
-        activePartList = new HashMap<ComponentManager.Part, Component>();
+        //activePartList = new HashMap<ComponentManager.Part, Component>();
 
         Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() +
                                  "\\src\\main\\resources\\org\\saves\\" + fileID + ".properties");
@@ -55,18 +78,111 @@ public class BikeManager implements Saveable {
     // Primary constructor for first time launch
     public BikeManager() {
         riderCatalog = new ArrayList<Rider>();
-        activePartList = new HashMap<ComponentManager.Part, Component>();
+        //activePartList = new HashMap<ComponentManager.Part, Component>();
         curID = 1;
     }
 
     // This section deals with 'assembling' bikes
 
-    // While the bike is being built up, can use this method to add parts
-    public void setComponent(ComponentManager.Part partiD, Component comp) {
-        if(!activePartList.containsKey(partiD)) {
-            activePartList.put(partiD, comp);
-        } else {
-            activePartList.replace(partiD, comp);
+    // While the bike is being built up, can use this method to add parts to the active list
+    public void addSwapComponent(Component comp, int frontBackDelin) {
+        switch(comp.getPart()) {
+            case FORK:
+                activeFork = comp;
+                break;
+            case SEAT:
+                activeSeat = comp;
+                break;
+            case TIRE:
+                switch(frontBackDelin) {
+                    case 1:
+                        activeTireF = comp;
+                        break;
+                    case 2:
+                        activeTireR = comp;
+                        break;
+                    default:
+                        System.err.println("Err invalid delin value");
+                        break;
+                }
+            case BRAKE:
+                switch(frontBackDelin) {
+                    case 1:
+                        activeBrakeF = comp;
+                        break;
+                    case 2:
+                        activeBrakeR = comp;
+                        break;
+                    default:
+                        System.err.println("Err invalid delin value");
+                        break;
+                }
+            case CHAIN:
+                activeChain = comp;
+                break;
+            case FRAME:
+                activeFrame = comp;
+                break;
+            case GRIPS:
+                activeGrips = comp;
+                break;
+            case ROTOR:
+                switch(frontBackDelin) {
+                    case 1:
+                        activeRotorF = comp;
+                        break;
+                    case 2:
+                        activeRotorR = comp;
+                        break;
+                    default:
+                        System.err.println("Err invalid delin value");
+                        break;
+                }
+            case SHOCK:
+                activeShock = comp;
+                break;
+            case WHEEL:
+                switch(frontBackDelin) {
+                    case 1:
+                        activeWheelF = comp;
+                        break;
+                    case 2:
+                        activeWheelR = comp;
+                        break;
+                    default:
+                        System.err.println("Err invalid delin value");
+                        break;
+                }
+            case CRANKS:
+                activeCranks = comp;
+                break;
+            case PEDALS:
+                activePedals = comp;
+                break;
+            case SHIFTER:
+                activeShifter = comp;
+                break;
+            case CASSETTE:
+                activeCassette = comp;
+                break;
+            case SEATPOST:
+                activeSeatpost = comp;
+                break;
+            case CHAINRING:
+                activeChainring = comp;
+                break;
+            case HANDLEBAR:
+                activeHandlebar = comp;
+                break;
+            case DERAILLEUR:
+                activeDerailleur = comp;
+                break;
+            case BRAKE_LEVER:
+                activeBrakeLever = comp;
+                break;
+            default:
+                System.err.println("Err invalid component");
+                break;
         }
     }
 
