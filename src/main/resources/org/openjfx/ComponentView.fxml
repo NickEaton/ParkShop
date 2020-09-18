@@ -736,7 +736,7 @@
                         </VBox>
                      </children>
                   </Pane>
-                  <AnchorPane fx:id="bikePane" layoutX="400.0" prefHeight="1065.0" prefWidth="818.0" visible="false">
+                  <AnchorPane fx:id="bikePane" layoutX="400.0" prefHeight="1065.0" prefWidth="818.0">
                      <children>
                         <VBox alignment="TOP_CENTER" layoutX="109.0" prefHeight="1065.0" prefWidth="600.0" styleClass="vTitle" stylesheets="@ComponentView-Style.css">
                            <children>
@@ -902,6 +902,7 @@
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                              <children>
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -982,7 +983,7 @@
                                                          </font></Text>
                                                    </children>
                                                 </HBox>
-                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="21">
+                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="22">
                                                    <children>
                                                       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Grips">
                                                          <font>
@@ -1062,7 +1063,7 @@
                                                          </font></Text>
                                                    </children>
                                                 </HBox>
-                                                <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="21">
+                                                <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="22">
                                                    <children>
                                                       <ImageView fx:id="gripsIn" fitHeight="33.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true" />
                                                    </children></HBox>
@@ -1179,17 +1180,39 @@
                                                       <ImageView fx:id="shifterIn" fitHeight="33.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true" />
                                                    </children>
                                                 </HBox>
+                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="21">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Brake Lever">
+                                                         <font>
+                                                            <Font size="24.0" />
+                                                         </font>
+                                                      </Text>
+                                                   </children></HBox>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="21">
+                                                   <children>
+                                                      <ImageView fx:id="brakeLeverIn" fitHeight="33.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true" />
+                                                   </children></HBox>
                                              </children>
                                           </GridPane>
                                        </children>
                                     </VBox>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" prefHeight="164.0" prefWidth="598.0">
+                              <HBox alignment="CENTER" prefHeight="164.0" prefWidth="598.0" spacing="35.0">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="51.0" prefWidth="250.0" text="Build">
+                                    <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="80.0" text="View">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
+                                    <Button mnemonicParsing="false" prefHeight="51.0" prefWidth="200.0" text="Build">
                                        <font>
                                           <Font size="24.0" />
+                                       </font>
+                                    </Button>
+                                    <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="80.0" text="Cancel">
+                                       <font>
+                                          <Font size="18.0" />
                                        </font>
                                     </Button>
                                  </children>

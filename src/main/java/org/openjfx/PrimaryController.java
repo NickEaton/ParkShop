@@ -113,14 +113,17 @@ public class PrimaryController {
     @FXML private AnchorPane bikePane;
 
     private int scrollHeight;
+    private static boolean buildState = false;
 
     // Dynamic update using a static method??
     //@FXML @Override static void rebuildScrollBox()
     @FXML
     public void refreshScrollBox(ActionEvent event) throws IOException {
+        selectedComponent = null;                   // must keep selectedComp updated to avoid exploits
         scrollContentFinal = new VBox();
         scrollContent = new ArrayList<ComponentScrollView>();
         scrollHeight = 0;
+        buildState = false;
 
         for(LinkedList<Component> list : ParkShopApp.cmpManager.getShopList().values()) {
             for (Component _cmp : list) {
@@ -134,6 +137,7 @@ public class PrimaryController {
         scrollContentFinal.getChildren().addAll(scrollContent);
         compBar.setContent(scrollContentFinal);
         this.rebuildExpandedView();
+        purchaseButton.setText("Purchase");
         purchaseButton.setVisible(true);
         bikePane.setVisible(false);
     }
@@ -316,28 +320,35 @@ public class PrimaryController {
     // TODO: Create Player class
     @FXML
     public void purchaseSelectedComponent(ActionEvent e) {
-        if(this.selectedComponent == null) {
-            System.out.println("Error no Component Selected");
-            return;
-        }
+        if(!buildState) {
+            //System.out.println("Doing Handle I");
+            if (this.selectedComponent == null) {
+                System.out.println("Error no Component Selected");
+                return;
+            }
 
-        if(ParkShopApp.player.getWallet() > this.selectedComponent.getComponent().getCostUSD()*getPriceLookup(this.selectedComponent.getComponent().getPart())) {
-            ParkShopApp.player.addComponent(this.selectedComponent.getComponent());
-            ParkShopApp.cmpManager.getShopList().get(this.selectedComponent.getComponent().getPart()).remove(this.selectedComponent.getComponent());
-            ParkShopApp.cmpManager.getPlayerList().get(this.selectedComponent.getComponent().getPart()).add(this.selectedComponent.getComponent());
-            ParkShopApp.player.spend(this.selectedComponent.getComponent().getCostUSD()*getPriceLookup(this.selectedComponent.getComponent().getPart()));
-            scrollContent.remove(this.selectedComponent);
-            this.selectedComponent = null;
-            this.redrawPlayerStats();
-            this.rebuildScrollBox();
-            this.rebuildExpandedView();
+            if (ParkShopApp.player.getWallet() > this.selectedComponent.getComponent().getCostUSD() * getPriceLookup(this.selectedComponent.getComponent().getPart())) {
+                ParkShopApp.player.addComponent(this.selectedComponent.getComponent());
+                ParkShopApp.cmpManager.getShopList().get(this.selectedComponent.getComponent().getPart()).remove(this.selectedComponent.getComponent());
+                ParkShopApp.cmpManager.getPlayerList().get(this.selectedComponent.getComponent().getPart()).add(this.selectedComponent.getComponent());
+                ParkShopApp.player.spend(this.selectedComponent.getComponent().getCostUSD() * getPriceLookup(this.selectedComponent.getComponent().getPart()));
+                scrollContent.remove(this.selectedComponent);
+                this.selectedComponent = null;
+                this.redrawPlayerStats();
+                this.rebuildScrollBox();
+                this.rebuildExpandedView();
+            }
         }
     }
 
     // Redraw RHS of ComponentView
     @FXML
     public void redrawPlayerStats() {
-        this.wallet.setText("$"+ParkShopApp.player.getWallet());
+        DecimalFormat format = new DecimalFormat();
+        format.setRoundingMode(RoundingMode.FLOOR);
+        format.setMaximumFractionDigits(2);
+
+        this.wallet.setText("$"+format.format(ParkShopApp.player.getWallet()));
         this.brakeCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("BRAKE")).size());
         this.frameCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("FRAME")).size());
         this.forkCount.setText(""+ParkShopApp.player.getOwnedComponents().get(ComponentManager.Part.valueOf("FORK")).size());
@@ -362,6 +373,7 @@ public class PrimaryController {
     // Swap to player inventory view
     @FXML
     public void showPlayerInventory() throws IOException {
+        selectedComponent = null;                   // must keep selectedComp updated to avoid exploits
         scrollContentFinal = new VBox();
         scrollContent = new ArrayList<ComponentScrollView>();
         scrollHeight = 0;
@@ -404,74 +416,74 @@ public class PrimaryController {
         }
 
         if(ParkShopApp.bkManager.activeFrame != null) {
-            this.frameIn = checkMark;
-        } else this.frameIn = xMark;
+            this.frameIn.setImage(checkMark.getImage());
+        } else this.frameIn.setImage(xMark.getImage());
         if(ParkShopApp.bkManager.activeFork != null) {
-            this.forkIn = checkMark;
-        } else this.forkIn = xMark;
+            this.forkIn.setImage(checkMark.getImage());
+        } else this.forkIn.setImage(xMark.getImage());
         if(ParkShopApp.bkManager.activeShock != null) {
-            this.shockIn = checkMark;
-        } else this.shockIn = xMark;
+            this.shockIn.setImage(checkMark.getImage());
+        } else this.shockIn.setImage(xMark.getImage());
         if(ParkShopApp.bkManager.activeWheelF != null) {
-            this.wheelFIn = checkMark;
-        } else this.wheelFIn = xMark;
+            this.wheelFIn.setImage(checkMark.getImage());
+        } else this.wheelFIn.setImage(xMark.getImage());
         if(ParkShopApp.bkManager.activeWheelR != null) {
-            this.wheelRIn = checkMark;
-        } else this.wheelRIn = xMark;
+            this.wheelRIn.setImage(checkMark.getImage());
+        } else this.wheelRIn.setImage(xMark.getImage());
         if(ParkShopApp.bkManager.activeTireF != null) {
-            this.tireFIn = checkMark;
-        } else this.tireFIn = xMark;
+            this.tireFIn.setImage(checkMark.getImage());
+        } else this.tireFIn.setImage(xMark.getImage());
         if(ParkShopApp.bkManager.activeTireR != null) {
-            this.tireRIn = checkMark;
-        } else this.tireRIn = xMark;
+            this.tireRIn.setImage(checkMark.getImage());
+        } else this.tireRIn.setImage(xMark.getImage());
         if(ParkShopApp.bkManager.activeBrakeF != null) {
-            this.brakeFIn = checkMark;
-        } else this.brakeFIn = xMark;
+            this.brakeFIn.setImage(checkMark.getImage());
+        } else this.brakeFIn.setImage(xMark.getImage());
         if(ParkShopApp.bkManager.activeBrakeR != null) {
-            this.brakeRIn = checkMark;
-        } else this.brakeRIn = xMark;
+            this.brakeRIn.setImage(checkMark.getImage());
+        } else this.brakeRIn.setImage(xMark.getImage());
         if(ParkShopApp.bkManager.activeRotorF != null) {
-            this.rotorFIn = checkMark;
-        } else this.rotorFIn = xMark;
+            this.rotorFIn.setImage(checkMark.getImage());
+        } else this.rotorFIn.setImage(xMark.getImage());
         if(ParkShopApp.bkManager.activeRotorR != null) {
-            this.rotorRIn = checkMark;
-        } else this.rotorRIn = xMark;
+            this.rotorRIn.setImage(checkMark.getImage());
+        } else this.rotorRIn.setImage(xMark.getImage());
         if(ParkShopApp.bkManager.activeChain != null) {
-            this.chainIn = checkMark;
-        } else this.chainIn = xMark;
+            this.chainIn.setImage(checkMark.getImage());
+        } else this.chainIn.setImage(xMark.getImage());
         if(ParkShopApp.bkManager.activeChainring != null) {
-            this.chainringIn = checkMark;
-        } else this.chainringIn = xMark;
+            this.chainringIn.setImage(checkMark.getImage());
+        } else this.chainringIn.setImage(xMark.getImage());
         if(ParkShopApp.bkManager.activeCassette != null) {
-            this.cassetteIn = checkMark;
-        } else this.cassetteIn = xMark;
+            this.cassetteIn.setImage(checkMark.getImage());
+        } else this.cassetteIn.setImage(xMark.getImage());
         if(ParkShopApp.bkManager.activeDerailleur != null) {
-            this.derailleurIn = checkMark;
-        } else this.derailleurIn = xMark;
+            this.derailleurIn.setImage(checkMark.getImage());
+        } else this.derailleurIn.setImage(xMark.getImage());
         if(ParkShopApp.bkManager.activeCranks != null) {
-            this.cranksIn = checkMark;
-        } else this.cranksIn = xMark;
+            this.cranksIn.setImage(checkMark.getImage());
+        } else this.cranksIn.setImage(xMark.getImage());
         if(ParkShopApp.bkManager.activePedals != null) {
-            this.pedalsIn = checkMark;
-        } else this.pedalsIn = xMark;
+            this.pedalsIn.setImage(checkMark.getImage());
+        } else this.pedalsIn.setImage(xMark.getImage());
         if(ParkShopApp.bkManager.activeHandlebar != null) {
-            this.handlebarIn = checkMark;
-        } else this.handlebarIn = xMark;
+            this.handlebarIn.setImage(checkMark.getImage());
+        } else this.handlebarIn.setImage(xMark.getImage());
         if(ParkShopApp.bkManager.activeShifter != null) {
-            this.shifterIn = checkMark;
-        } else this.shifterIn = xMark;
+            this.shifterIn.setImage(checkMark.getImage());
+        } else this.shifterIn.setImage(xMark.getImage());
         if(ParkShopApp.bkManager.activeBrakeLever != null) {
-            this.brakeLeverIn = checkMark;
-        } else this.brakeLeverIn = xMark;
+            this.brakeLeverIn.setImage(checkMark.getImage());
+        } else this.brakeLeverIn.setImage(xMark.getImage());
         if(ParkShopApp.bkManager.activeGrips != null) {
-            this.gripsIn = checkMark;
-        } else this.gripsIn = xMark;
+            this.gripsIn.setImage(checkMark.getImage());
+        } else this.gripsIn.setImage(xMark.getImage());
         if(ParkShopApp.bkManager.activeSeat != null) {
-            this.seatIn = checkMark;
-        } else this.seatIn = xMark;
+            this.seatIn.setImage(checkMark.getImage());
+        } else this.seatIn.setImage(xMark.getImage());
         if(ParkShopApp.bkManager.activeSeatpost != null) {
-            this.seatpostIn = checkMark;
-        } else this.seatpostIn = xMark;
+            this.seatpostIn.setImage(checkMark.getImage());
+        } else this.seatpostIn.setImage(xMark.getImage());
 
     }
 
@@ -480,15 +492,79 @@ public class PrimaryController {
     public void showBuilderView() throws IOException {
         bikePane.setVisible(true);
         this.showPlayerInventory();
+        buildState = true;
         purchaseButton.setVisible(true);
         purchaseButton.setText("Add");
+        selectedComponent = null;                   // must keep selectedComp updated to avoid exploits
 
         purchaseButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
             @Override
             public void handle(MouseEvent event) {
+                // Instead of doing a purchase event, add the component from the player's inventory to the active part list
+                // When the construction is done, it is the BikeManager's job to then delete that part from the player's inventory
+                if(buildState && selectedComponent != null) {
+                    int delin = 0;
+                    switch (selectedComponent.getComponent().getPart()) {
+                        case BRAKE:
+                            if (ParkShopApp.bkManager.activeBrakeF == null) {
+                                delin = 1;
+                                break;
+                            }
+                            delin = ParkShopApp.bkManager.activeBrakeR == null ? 2 : 0;
+                            break;
+                        case WHEEL:
+                            if (ParkShopApp.bkManager.activeWheelF == null) {
+                                delin = 1;
+                                break;
+                            }
+                            delin = ParkShopApp.bkManager.activeWheelR == null ? 2 : 0;
+                            break;
+                        case ROTOR:
+                            if (ParkShopApp.bkManager.activeRotorF == null) {
+                                delin = 1;
+                                break;
+                            }
+                            delin = ParkShopApp.bkManager.activeRotorR == null ? 2 : 0;
+                            break;
+                        case TIRE:
+                            if (ParkShopApp.bkManager.activeTireF == null) {
+                                delin = 1;
+                                break;
+                            }
+                            delin = ParkShopApp.bkManager.activeTireR == null ? 2 : 0;
+                            break;
+                    }
+                    ParkShopApp.bkManager.addSwapComponent(selectedComponent.getComponent(), delin);
+                    scrollContent.remove(selectedComponent);
+                    selectedComponent = null;
 
+                    try {
+                        System.out.println("Attempting refresh");
+                        refreshBuilderImages();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
+    }
+
+    // Undo part queue, reset inventories
+    @FXML
+    public void cancelBuild(ActionEvent e) {
+
+    }
+
+    // Show another scene with a full part list
+    // TODO
+    @FXML
+    public void viewBikeDetail(ActionEvent e) {
+
+    }
+
+    // Build the bike, assign owner as player
+    @FXML
+    public void buildBikeInitial(ActionEvent e) {
+        
     }
 }
