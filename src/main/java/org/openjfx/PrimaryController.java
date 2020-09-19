@@ -110,6 +110,55 @@ public class PrimaryController {
     @FXML private ImageView gripsIn;
     @FXML private ImageView brakeLeverIn;
 
+    // Controls for bike overview
+    @FXML private HBox frameStar;
+    @FXML private HBox forkStar;
+    @FXML private HBox shockStar;
+    @FXML private HBox wheelFStar;
+    @FXML private HBox wheelRStar;
+    @FXML private HBox tireFStar;
+    @FXML private HBox tireRStar;
+    @FXML private HBox brakeFStar;
+    @FXML private HBox brakeRStar;
+    @FXML private HBox rotorFStar;
+    @FXML private HBox rotorRStar;
+    @FXML private HBox cassetteStar;
+    @FXML private HBox chainringStar;
+    @FXML private HBox chainStar;
+    @FXML private HBox derailleurStar;
+    @FXML private HBox cranksStar;
+    @FXML private HBox pedalsStar;
+    @FXML private HBox seatpostStar;
+    @FXML private HBox seatStar;
+    @FXML private HBox handlebarStar;
+    @FXML private HBox shifterStar;
+    @FXML private HBox brakeLeverStar;
+    @FXML private HBox gripsStar;
+
+    @FXML private Text frameName;
+    @FXML private Text forkName;
+    @FXML private Text shockName;
+    @FXML private Text wheelFName;
+    @FXML private Text wheelRName;
+    @FXML private Text tireFName;
+    @FXML private Text tireRName;
+    @FXML private Text brakeFName;
+    @FXML private Text brakeRName;
+    @FXML private Text rotorFName;
+    @FXML private Text rotorRName;
+    @FXML private Text cassetteName;
+    @FXML private Text chainringName;
+    @FXML private Text chainName;
+    @FXML private Text derailleurName;
+    @FXML private Text cranksName;
+    @FXML private Text pedalsName;
+    @FXML private Text seatpostName;
+    @FXML private Text seatName;
+    @FXML private Text handlebarName;
+    @FXML private Text shifterName;
+    @FXML private Text brakeLeverName;
+    @FXML private Text gripsName;
+
     @FXML private AnchorPane bikePane;
 
     private int scrollHeight;
@@ -394,7 +443,7 @@ public class PrimaryController {
     }
 
     // Draw x's and checks on bike construction view
-    // This is a bad way to do this, but the alternative requires changing the way things work across many files
+    // This is a bad way to do this, but the alternative requires changing key details across many files
     @FXML
     public void refreshBuilderImages() throws IOException {
         ImageView checkMark = new ImageView();
@@ -484,7 +533,6 @@ public class PrimaryController {
         if(ParkShopApp.bkManager.activeSeatpost != null) {
             this.seatpostIn.setImage(checkMark.getImage());
         } else this.seatpostIn.setImage(xMark.getImage());
-
     }
 
     // Swap to bike constructor view
@@ -539,9 +587,9 @@ public class PrimaryController {
                     selectedComponent = null;
 
                     try {
-                        System.out.println("Attempting refresh");
                         refreshBuilderImages();
                     } catch (IOException e) {
+                        System.err.println("Error on refreshBuilderImages");
                         e.printStackTrace();
                     }
                 }
