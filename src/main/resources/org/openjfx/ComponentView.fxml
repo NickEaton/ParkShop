@@ -1200,17 +1200,17 @@
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="164.0" prefWidth="598.0" spacing="35.0">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="80.0" text="View">
+                                    <Button mnemonicParsing="false" onAction="#viewBikeDetail" prefHeight="39.0" prefWidth="80.0" text="View">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Button>
-                                    <Button mnemonicParsing="false" prefHeight="51.0" prefWidth="200.0" text="Build">
+                                    <Button mnemonicParsing="false" onAction="#buildBikeInitial" prefHeight="51.0" prefWidth="200.0" text="Build">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
                                     </Button>
-                                    <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="80.0" text="Cancel">
+                                    <Button mnemonicParsing="false" onAction="#cancelBuild" prefHeight="39.0" prefWidth="80.0" text="Cancel">
                                        <font>
                                           <Font size="18.0" />
                                        </font>

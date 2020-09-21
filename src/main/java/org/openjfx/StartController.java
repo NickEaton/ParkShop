@@ -109,12 +109,12 @@ public class StartController {
 
     // Return to Start screen from About or Settings
     @FXML void returnStart(ActionEvent event) throws IOException {
-        try {
+        //try {
             ((Stage)ParkShopApp.scene.getWindow()).close();
-            ParkShopApp.scene = new Scene(ParkShopApp.loadFXML("Login"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            //ParkShopApp.scene = new Scene(ParkShopApp.loadFXML("Login"));
+        //} catch (IOException e) {
+        //    e.printStackTrace();
+        //}
     }
 
 }

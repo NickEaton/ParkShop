@@ -133,6 +133,11 @@ public class Component implements Saveable {
 
     // Public Methods
 
+    // Get a rating from 1-5 stars for this component based on stats
+    public int getRating() {
+        return (int)(this.fitness_XC+this.fitness_END+this.fitness_DH)/300*5;
+    }
+
     // Save this component to a properties file, since we are only storing field data
     @Override
     public void saveToFile() throws IOException {

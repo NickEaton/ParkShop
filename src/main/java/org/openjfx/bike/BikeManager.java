@@ -42,6 +42,8 @@ public class BikeManager implements Saveable {
     public Component activeSeat;
     public Component activeSeatpost;
 
+    public ArrayList<Component> activeCmpList;
+
     // This variable assists in assigning a unique ID to each bike created
     private static int curID;
 
@@ -78,7 +80,10 @@ public class BikeManager implements Saveable {
     // Primary constructor for first time launch
     public BikeManager() {
         riderCatalog = new ArrayList<Rider>();
-        //activePartList = new HashMap<ComponentManager.Part, Component>();
+        activeCmpList = new ArrayList<Component>(Arrays.asList(activeFrame, activeFork, activeShock, activeWheelF, activeWheelR, activeTireF, activeTireR,
+                                            activeRotorF, activeRotorR, activeBrakeF, activeBrakeR, activeChain, activeChainring,
+                                            activeDerailleur, activeCranks, activePedals, activeHandlebar, activeGrips, activeShifter,
+                                            activeBrakeLever, activeSeat, activeSeatpost));
         curID = 1;
     }
 
