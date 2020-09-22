@@ -1200,7 +1200,7 @@
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="164.0" prefWidth="598.0" spacing="35.0">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#viewBikeDetail" prefHeight="39.0" prefWidth="80.0" text="View">
+                                    <Button mnemonicParsing="false" onAction="#handoffDetail" prefHeight="39.0" prefWidth="80.0" text="View">
                                        <font>
                                           <Font size="18.0" />
                                        </font>

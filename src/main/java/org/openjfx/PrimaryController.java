@@ -3,7 +3,9 @@ package org.openjfx;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
@@ -113,6 +115,7 @@ public class PrimaryController {
     @FXML private ImageView gripsIn;
     @FXML private ImageView brakeLeverIn;
 
+    /*
     // Controls for bike overview
     @FXML private HBox frameStar = new HBox();
     @FXML private HBox forkStar = new HBox();
@@ -162,11 +165,13 @@ public class PrimaryController {
     @FXML private Text brakeLeverName = new Text();
     @FXML private Text gripsName = new Text();
 
+    */
     @FXML private AnchorPane bikePane;
-    @FXML private Text bikeName;
+    //@FXML private Text bikeName;
 
-    @FXML private ImageView dashIm;
-    @FXML private ImageView starIm;
+    //@FXML private ImageView dashIm;
+    //@FXML private ImageView starIm;
+
 
     private int scrollHeight;
     private static boolean buildState = false;
@@ -610,10 +615,11 @@ public class PrimaryController {
 
     }
 
+    /*
     // private submethod to do drawing for viewBikeDetail
     @FXML
     private void subUpdateBikeDetail() {
-        frameName = new Text((ParkShopApp.bkManager.activeFrame == null) ? "-" : ParkShopApp.bkManager.activeFrame.getCompName());
+        frameName.setText((ParkShopApp.bkManager.activeFrame == null) ? "-" : ParkShopApp.bkManager.activeFrame.getCompName());
         forkName.setText((ParkShopApp.bkManager.activeFork == null) ? "-" : ParkShopApp.bkManager.activeFork.getCompName());
         shockName.setText((ParkShopApp.bkManager.activeShock == null) ? "-" : ParkShopApp.bkManager.activeShock.getCompName());
         wheelFName.setText((ParkShopApp.bkManager.activeWheelF == null) ? "-" : ParkShopApp.bkManager.activeWheelF.getCompName());
@@ -775,20 +781,39 @@ public class PrimaryController {
         } else gripsStar.getChildren().addAll(dashIm);
     }
 
+
     // Show another scene with a full part list
     // TODO
     @FXML
     public void viewBikeDetail(ActionEvent e) throws IOException {
-        subUpdateBikeDetail();
-        subUpdateBikeDetailStars();
-
         try {
             Stage sub = new Stage();
-            sub.initOwner(ParkShopApp.window);
             sub.setScene(new Scene(ParkShopApp.loadFXML("BikeDetail")));
             sub.show();
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+    }
+    */
+
+    @FXML
+    public void handoffDetail(ActionEvent e) throws IOException {
+        try {
+            FXMLLoader fxload = new FXMLLoader(ParkShopApp.class.getResource("BikeDetail.fxml"));
+            Parent root = fxload.load();
+            DetailController x = fxload.getController();
+            x.subUpdateBikeDetail();
+            x.subUpdateBikeDetailStars();
+
+            Scene sus = new Scene(root, 400, 800);
+            Stage myStage = new Stage();
+            myStage.setTitle("End Me :)");
+            myStage.setResizable(true);
+            myStage.setScene(sus);
+            myStage.sizeToScene();
+            myStage.show();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
 
