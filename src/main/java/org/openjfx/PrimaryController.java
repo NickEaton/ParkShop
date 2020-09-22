@@ -43,8 +43,6 @@ public class PrimaryController {
     @FXML ArrayList<ComponentScrollView> scrollContent;
     @FXML private ComponentScrollView selectedComponent;
 
-    //TODO: Manage text objects on RHS
-
     // Components of Scroll Bar
     @FXML private static VBox scrollContentFinal = new VBox();
     @FXML private ScrollPane compBar;
@@ -66,7 +64,6 @@ public class PrimaryController {
     @FXML private Button purchaseButton;
 
     // Components of Player Stats Bar
-    // counts
     @FXML private Text wallet;
     @FXML private Text shopName;
     @FXML private Text shopLevel;
@@ -115,63 +112,8 @@ public class PrimaryController {
     @FXML private ImageView gripsIn;
     @FXML private ImageView brakeLeverIn;
 
-    /*
-    // Controls for bike overview
-    @FXML private HBox frameStar = new HBox();
-    @FXML private HBox forkStar = new HBox();
-    @FXML private HBox shockStar = new HBox();
-    @FXML private HBox wheelFStar = new HBox();
-    @FXML private HBox wheelRStar = new HBox();
-    @FXML private HBox tireFStar = new HBox();
-    @FXML private HBox tireRStar = new HBox();
-    @FXML private HBox brakeFStar = new HBox();
-    @FXML private HBox brakeRStar = new HBox();
-    @FXML private HBox rotorFStar = new HBox();
-    @FXML private HBox rotorRStar = new HBox();
-    @FXML private HBox cassetteStar = new HBox();
-    @FXML private HBox chainringStar = new HBox();
-    @FXML private HBox chainStar = new HBox();
-    @FXML private HBox derailleurStar = new HBox();
-    @FXML private HBox cranksStar = new HBox();
-    @FXML private HBox pedalsStar = new HBox();
-    @FXML private HBox seatpostStar = new HBox();
-    @FXML private HBox seatStar = new HBox();
-    @FXML private HBox handlebarStar = new HBox();
-    @FXML private HBox shifterStar = new HBox();
-    @FXML private HBox brakeLeverStar = new HBox();
-    @FXML private HBox gripsStar = new HBox();
-
-    @FXML private Text frameName = new Text("-");
-    @FXML private Text forkName = new Text();
-    @FXML private Text shockName = new Text();
-    @FXML private Text wheelFName = new Text();
-    @FXML private Text wheelRName = new Text();
-    @FXML private Text tireFName = new Text();
-    @FXML private Text tireRName = new Text();
-    @FXML private Text brakeFName = new Text();
-    @FXML private Text brakeRName = new Text();
-    @FXML private Text rotorFName = new Text();
-    @FXML private Text rotorRName = new Text();
-    @FXML private Text cassetteName = new Text();
-    @FXML private Text chainringName = new Text();
-    @FXML private Text chainName = new Text();
-    @FXML private Text derailleurName = new Text();
-    @FXML private Text cranksName = new Text();
-    @FXML private Text pedalsName = new Text();
-    @FXML private Text seatpostName = new Text();
-    @FXML private Text seatName = new Text();
-    @FXML private Text handlebarName = new Text();
-    @FXML private Text shifterName = new Text();
-    @FXML private Text brakeLeverName = new Text();
-    @FXML private Text gripsName = new Text();
-
-    */
     @FXML private AnchorPane bikePane;
-    //@FXML private Text bikeName;
-
-    //@FXML private ImageView dashIm;
-    //@FXML private ImageView starIm;
-
+    @FXML private TextField bikeName;
 
     private int scrollHeight;
     private static boolean buildState = false;
@@ -636,6 +578,7 @@ public class PrimaryController {
         ParkShopApp.bkManager.activeShifter = null;
         ParkShopApp.bkManager.activeBrakeLever = null;
         ParkShopApp.bkManager.activeGrips = null;
+        this.bikeName.clear();
         this.refreshBuilderImages();
     }
 
@@ -648,6 +591,7 @@ public class PrimaryController {
             DetailController x = fxload.getController();
             x.subUpdateBikeDetail();
             x.subUpdateBikeDetailStars();
+            x.drawName(this.bikeName);
 
             Scene sus = new Scene(root, 400, 800);
             Stage myStage = new Stage();

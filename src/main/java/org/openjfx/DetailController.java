@@ -3,6 +3,7 @@ package org.openjfx;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -93,6 +94,12 @@ public class DetailController {
         for(String s : temp)
             res += s + " ";
         return res;
+    }
+
+    // Draw current bike name
+    @FXML
+    public void drawName(TextField nameParse) {
+        this.bikeName.setText(nameParse.getText());
     }
 
     // Draw display names for bike detail construction view
@@ -267,7 +274,6 @@ public class DetailController {
 
     // Default construction
     public DetailController() {
-        // subUpdateBikeDetail();
-        // subUpdateBikeDetailStars();
+
     }
 }

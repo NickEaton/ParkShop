@@ -42,8 +42,6 @@ public class BikeManager implements Saveable {
     public Component activeSeat;
     public Component activeSeatpost;
 
-    public ArrayList<Component> activeCmpList;
-
     // This variable assists in assigning a unique ID to each bike created
     private static int curID;
 

@@ -740,7 +740,7 @@
                      <children>
                         <VBox alignment="TOP_CENTER" layoutX="109.0" prefHeight="1065.0" prefWidth="600.0" styleClass="vTitle" stylesheets="@ComponentView-Style.css">
                            <children>
-                              <TextField alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="300.0" promptText="&lt; Bike Name &gt;" styleClass="vTitle" stylesheets="@ComponentView-Style.css">
+                              <TextField fx:id="bikeName" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="300.0" promptText="&lt; Bike Name &gt;" styleClass="vTitle" stylesheets="@ComponentView-Style.css">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -1210,7 +1210,7 @@
                                           <Font size="24.0" />
                                        </font>
                                     </Button>
-                                    <Button mnemonicParsing="false" onAction="#cancelBuild" prefHeight="39.0" prefWidth="80.0" text="Cancel">
+                                    <Button mnemonicParsing="false" onAction="#cancelBuild" prefHeight="39.0" prefWidth="80.0" text="Clear">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
