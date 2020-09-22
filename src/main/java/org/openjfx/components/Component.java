@@ -109,7 +109,6 @@ public class Component implements Saveable {
         this.manufacturer = _manufacturer;
         this.partLevel = (int)((fitness_DH+fitness_XC+fitness_END)/300*5);
 
-        //this.part = ComponentManager.Part.valueOf(this.compName);
         this.model = ComponentManager.Model.values()[(int)(this.fitness_XC+this.fitness_END+this.fitness_DH)/30-1];
         this.displayName = this.manufacturer.toString() + " " + this.model + " " + this.partLevel;
     }

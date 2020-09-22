@@ -736,7 +736,7 @@
                         </VBox>
                      </children>
                   </Pane>
-                  <AnchorPane fx:id="bikePane" layoutX="400.0" prefHeight="1065.0" prefWidth="818.0">
+                  <AnchorPane fx:id="bikePane" layoutX="400.0" prefHeight="1065.0" prefWidth="818.0" visible="false">
                      <children>
                         <VBox alignment="TOP_CENTER" layoutX="109.0" prefHeight="1065.0" prefWidth="600.0" styleClass="vTitle" stylesheets="@ComponentView-Style.css">
                            <children>

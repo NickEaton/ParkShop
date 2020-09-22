@@ -552,6 +552,7 @@ public class PrimaryController {
     public void showBuilderView() throws IOException {
         bikePane.setVisible(true);
         this.showPlayerInventory();
+        this.refreshBuilderImages();
         buildState = true;
         purchaseButton.setVisible(true);
         purchaseButton.setText("Add");
@@ -611,191 +612,34 @@ public class PrimaryController {
 
     // Undo part queue, reset inventories
     @FXML
-    public void cancelBuild(ActionEvent e) {
-
+    public void cancelBuild(ActionEvent e) throws IOException {
+        ParkShopApp.bkManager.activeFrame = null;
+        ParkShopApp.bkManager.activeFork = null;
+        ParkShopApp.bkManager.activeShock = null;
+        ParkShopApp.bkManager.activeWheelF = null;
+        ParkShopApp.bkManager.activeWheelR = null;
+        ParkShopApp.bkManager.activeTireF = null;
+        ParkShopApp.bkManager.activeTireR = null;
+        ParkShopApp.bkManager.activeBrakeF = null;
+        ParkShopApp.bkManager.activeBrakeR = null;
+        ParkShopApp.bkManager.activeRotorF = null;
+        ParkShopApp.bkManager.activeRotorR = null;
+        ParkShopApp.bkManager.activeChain = null;
+        ParkShopApp.bkManager.activeChainring = null;
+        ParkShopApp.bkManager.activeSeatpost = null;
+        ParkShopApp.bkManager.activeSeat = null;
+        ParkShopApp.bkManager.activeDerailleur = null;
+        ParkShopApp.bkManager.activeCassette = null;
+        ParkShopApp.bkManager.activeCranks = null;
+        ParkShopApp.bkManager.activePedals = null;
+        ParkShopApp.bkManager.activeHandlebar = null;
+        ParkShopApp.bkManager.activeShifter = null;
+        ParkShopApp.bkManager.activeBrakeLever = null;
+        ParkShopApp.bkManager.activeGrips = null;
+        this.refreshBuilderImages();
     }
 
-    /*
-    // private submethod to do drawing for viewBikeDetail
-    @FXML
-    private void subUpdateBikeDetail() {
-        frameName.setText((ParkShopApp.bkManager.activeFrame == null) ? "-" : ParkShopApp.bkManager.activeFrame.getCompName());
-        forkName.setText((ParkShopApp.bkManager.activeFork == null) ? "-" : ParkShopApp.bkManager.activeFork.getCompName());
-        shockName.setText((ParkShopApp.bkManager.activeShock == null) ? "-" : ParkShopApp.bkManager.activeShock.getCompName());
-        wheelFName.setText((ParkShopApp.bkManager.activeWheelF == null) ? "-" : ParkShopApp.bkManager.activeWheelF.getCompName());
-        wheelRName.setText((ParkShopApp.bkManager.activeWheelR == null) ? "-" : ParkShopApp.bkManager.activeWheelR.getCompName());
-        tireFName.setText((ParkShopApp.bkManager.activeTireF == null) ? "-" : ParkShopApp.bkManager.activeTireF.getCompName());
-        tireRName.setText((ParkShopApp.bkManager.activeTireR == null) ? "-" : ParkShopApp.bkManager.activeTireR.getCompName());
-        brakeFName.setText((ParkShopApp.bkManager.activeBrakeF == null) ? "-" : ParkShopApp.bkManager.activeBrakeF.getCompName());
-        brakeRName.setText((ParkShopApp.bkManager.activeBrakeR == null) ? "-" : ParkShopApp.bkManager.activeBrakeR.getCompName());
-        rotorFName.setText((ParkShopApp.bkManager.activeRotorF == null) ? "-" : ParkShopApp.bkManager.activeRotorF.getCompName());
-        rotorRName.setText((ParkShopApp.bkManager.activeRotorR == null) ? "-" : ParkShopApp.bkManager.activeRotorR.getCompName());
-        cassetteName.setText((ParkShopApp.bkManager.activeCassette == null) ? "-" : ParkShopApp.bkManager.activeCassette.getCompName());
-        chainringName.setText((ParkShopApp.bkManager.activeChainring == null) ? "-" : ParkShopApp.bkManager.activeChainring.getCompName());
-        chainName.setText((ParkShopApp.bkManager.activeChain == null) ? "-" : ParkShopApp.bkManager.activeChain.getCompName());
-        derailleurName.setText((ParkShopApp.bkManager.activeDerailleur == null) ? "-" : ParkShopApp.bkManager.activeDerailleur.getCompName());
-        cranksName.setText((ParkShopApp.bkManager.activeCranks == null) ? "-" : ParkShopApp.bkManager.activeCranks.getCompName());
-        pedalsName.setText((ParkShopApp.bkManager.activePedals == null) ? "-" : ParkShopApp.bkManager.activePedals.getCompName());
-        seatpostName.setText((ParkShopApp.bkManager.activeSeatpost == null) ? "-" : ParkShopApp.bkManager.activeSeatpost.getCompName());
-        seatName.setText((ParkShopApp.bkManager.activeSeat == null) ? "-" : ParkShopApp.bkManager.activeSeat.getCompName());
-        handlebarName.setText((ParkShopApp.bkManager.activeHandlebar == null) ? "-" : ParkShopApp.bkManager.activeHandlebar.getCompName());
-        shifterName.setText((ParkShopApp.bkManager.activeShifter == null) ? "-" : ParkShopApp.bkManager.activeShifter.getCompName());
-        brakeLeverName.setText((ParkShopApp.bkManager.activeBrakeLever == null) ? "-" : ParkShopApp.bkManager.activeBrakeLever.getCompName());
-        gripsName.setText((ParkShopApp.bkManager.activeGrips == null) ? "-" : ParkShopApp.bkManager.activeGrips.getCompName());
-        System.out.println(gripsName.getText());
-    }
-
-    // private submethod  to draw stars for viewBikeDetail
-    @FXML
-    private void subUpdateBikeDetailStars() {
-        Path pathToDash = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString()+
-                "\\src\\main\\resources\\org\\images\\black-line.png");
-        try (InputStream in = new BufferedInputStream(new FileInputStream(pathToDash.toString()))){
-            dashIm = new ImageView(new Image(in));
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
-        Path pathToStar = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString()+
-                "\\src\\main\\resources\\org\\images\\star-1.png");
-        try (InputStream in = new BufferedInputStream(new FileInputStream(pathToStar.toString()))){
-            starIm = new ImageView(new Image(in));
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
-        int i;
-
-        frameStar.getChildren().clear();
-        if(ParkShopApp.bkManager.activeFrame != null) {
-            for(i=0; i<ParkShopApp.bkManager.activeFrame.getRating(); i++)
-                frameStar.getChildren().add(new ImageView(starIm.getImage()));
-        } else frameStar.getChildren().add(new ImageView(dashIm.getImage()));
-        shockStar.getChildren().clear();
-        if(ParkShopApp.bkManager.activeShock != null) {
-            for(i=0; i<ParkShopApp.bkManager.activeShock.getRating(); i++)
-                shockStar.getChildren().add(starIm);
-        } else shockStar.getChildren().addAll(dashIm);
-        forkStar.getChildren().clear();
-        if(ParkShopApp.bkManager.activeFork != null) {
-            for(i=0; i<ParkShopApp.bkManager.activeFork.getRating(); i++)
-                forkStar.getChildren().add(starIm);
-        } else forkStar.getChildren().addAll(dashIm);
-        wheelFStar.getChildren().clear();
-        if(ParkShopApp.bkManager.activeWheelF != null) {
-            for(i=0; i<ParkShopApp.bkManager.activeWheelF.getRating(); i++)
-                wheelFStar.getChildren().add(starIm);
-        } else wheelFStar.getChildren().addAll(dashIm);
-        wheelRStar.getChildren().clear();
-        if(ParkShopApp.bkManager.activeWheelR != null) {
-            for(i=0; i<ParkShopApp.bkManager.activeWheelR.getRating(); i++)
-                wheelRStar.getChildren().add(starIm);
-        } else wheelRStar.getChildren().addAll(dashIm);
-        tireFStar.getChildren().clear();
-        if(ParkShopApp.bkManager.activeTireF != null) {
-            for(i=0; i<ParkShopApp.bkManager.activeTireF.getRating(); i++)
-                tireFStar.getChildren().add(starIm);
-        } else tireFStar.getChildren().addAll(dashIm);
-        tireRStar.getChildren().clear();
-        if(ParkShopApp.bkManager.activeTireR != null) {
-            for(i=0; i<ParkShopApp.bkManager.activeTireR.getRating(); i++)
-                tireRStar.getChildren().add(starIm);
-        } else tireRStar.getChildren().addAll(dashIm);
-        brakeFStar.getChildren().clear();
-        if(ParkShopApp.bkManager.activeBrakeF != null) {
-            for(i=0; i<ParkShopApp.bkManager.activeBrakeF.getRating(); i++)
-                brakeFStar.getChildren().add(starIm);
-        } else brakeFStar.getChildren().addAll(dashIm);
-        brakeRStar.getChildren().clear();
-        if(ParkShopApp.bkManager.activeBrakeR != null) {
-            for(i=0; i<ParkShopApp.bkManager.activeBrakeR.getRating(); i++)
-                brakeRStar.getChildren().add(starIm);
-        } else brakeRStar.getChildren().addAll(dashIm);
-        rotorFStar.getChildren().clear();
-        if(ParkShopApp.bkManager.activeRotorF != null) {
-            for(i=0; i<ParkShopApp.bkManager.activeRotorF.getRating(); i++)
-                rotorFStar.getChildren().add(starIm);
-        } else rotorFStar.getChildren().addAll(dashIm);
-        rotorRStar.getChildren().clear();
-        if(ParkShopApp.bkManager.activeRotorR != null) {
-            for(i=0; i<ParkShopApp.bkManager.activeRotorR.getRating(); i++)
-                rotorRStar.getChildren().add(starIm);
-        } else rotorRStar.getChildren().addAll(dashIm);
-        cassetteStar.getChildren().clear();
-        if(ParkShopApp.bkManager.activeCassette != null) {
-            for(i=0; i<ParkShopApp.bkManager.activeCassette.getRating(); i++)
-                cassetteStar.getChildren().add(starIm);
-        } else cassetteStar.getChildren().addAll(dashIm);
-        chainringStar.getChildren().clear();
-        if(ParkShopApp.bkManager.activeChainring != null) {
-            for(i=0; i<ParkShopApp.bkManager.activeChainring.getRating(); i++)
-                chainringStar.getChildren().add(starIm);
-        } else chainringStar.getChildren().addAll(dashIm);
-        chainStar.getChildren().clear();
-        if(ParkShopApp.bkManager.activeChain != null) {
-            for(i=0; i<ParkShopApp.bkManager.activeChain.getRating(); i++)
-                chainStar.getChildren().add(starIm);
-        } else chainStar.getChildren().addAll(dashIm);
-        derailleurStar.getChildren().clear();
-        if(ParkShopApp.bkManager.activeDerailleur != null) {
-            for(i=0; i<ParkShopApp.bkManager.activeDerailleur.getRating(); i++)
-                derailleurStar.getChildren().add(starIm);
-        } else derailleurStar.getChildren().addAll(dashIm);
-        cranksStar.getChildren().clear();
-        if(ParkShopApp.bkManager.activeCranks != null) {
-            for(i=0; i<ParkShopApp.bkManager.activeCranks.getRating(); i++)
-                cranksStar.getChildren().add(starIm);
-        } else cranksStar.getChildren().addAll(dashIm);
-        pedalsStar.getChildren().clear();
-        if(ParkShopApp.bkManager.activePedals != null) {
-            for(i=0; i<ParkShopApp.bkManager.activePedals.getRating(); i++)
-                pedalsStar.getChildren().add(starIm);
-        } else pedalsStar.getChildren().addAll(dashIm);
-        seatpostStar.getChildren().clear();
-        if(ParkShopApp.bkManager.activeSeatpost != null) {
-            for(i=0; i<ParkShopApp.bkManager.activeSeatpost.getRating(); i++)
-                seatpostStar.getChildren().add(starIm);
-        } else seatpostStar.getChildren().addAll(dashIm);
-        seatStar.getChildren().clear();
-        if(ParkShopApp.bkManager.activeSeat != null) {
-            for(i=0; i<ParkShopApp.bkManager.activeSeat.getRating(); i++)
-                seatStar.getChildren().add(starIm);
-        } else seatStar.getChildren().addAll(dashIm);
-        handlebarStar.getChildren().clear();
-        if(ParkShopApp.bkManager.activeHandlebar != null) {
-            for(i=0; i<ParkShopApp.bkManager.activeHandlebar.getRating(); i++)
-                handlebarStar.getChildren().add(starIm);
-        } else handlebarStar.getChildren().addAll(dashIm);
-        shifterStar.getChildren().clear();
-        if(ParkShopApp.bkManager.activeShifter != null) {
-            for(i=0; i<ParkShopApp.bkManager.activeShifter.getRating(); i++)
-                shifterStar.getChildren().add(starIm);
-        } else shifterStar.getChildren().addAll(dashIm);
-        brakeLeverStar.getChildren().clear();
-        if(ParkShopApp.bkManager.activeBrakeLever != null) {
-            for(i=0; i<ParkShopApp.bkManager.activeBrakeLever.getRating(); i++)
-                brakeLeverStar.getChildren().add(starIm);
-        } else brakeLeverStar.getChildren().addAll(dashIm);
-        gripsStar.getChildren().clear();
-        if(ParkShopApp.bkManager.activeGrips != null) {
-            for(i=0; i<ParkShopApp.bkManager.activeGrips.getRating(); i++)
-                gripsStar.getChildren().add(starIm);
-        } else gripsStar.getChildren().addAll(dashIm);
-    }
-
-
-    // Show another scene with a full part list
-    // TODO
-    @FXML
-    public void viewBikeDetail(ActionEvent e) throws IOException {
-        try {
-            Stage sub = new Stage();
-            sub.setScene(new Scene(ParkShopApp.loadFXML("BikeDetail")));
-            sub.show();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-    */
-
+    // Hand off control to DetailController to manage the subwindow
     @FXML
     public void handoffDetail(ActionEvent e) throws IOException {
         try {
@@ -807,12 +651,13 @@ public class PrimaryController {
 
             Scene sus = new Scene(root, 400, 800);
             Stage myStage = new Stage();
-            myStage.setTitle("End Me :)");
+            myStage.setTitle("Bike Overview");
             myStage.setResizable(true);
             myStage.setScene(sus);
             myStage.sizeToScene();
             myStage.show();
         } catch (Exception exception) {
+            System.err.println("Error in detail controller handoff");
             exception.printStackTrace();
         }
     }

@@ -80,10 +80,6 @@ public class BikeManager implements Saveable {
     // Primary constructor for first time launch
     public BikeManager() {
         riderCatalog = new ArrayList<Rider>();
-        activeCmpList = new ArrayList<Component>(Arrays.asList(activeFrame, activeFork, activeShock, activeWheelF, activeWheelR, activeTireF, activeTireR,
-                                            activeRotorF, activeRotorR, activeBrakeF, activeBrakeR, activeChain, activeChainring,
-                                            activeDerailleur, activeCranks, activePedals, activeHandlebar, activeGrips, activeShifter,
-                                            activeBrakeLever, activeSeat, activeSeatpost));
         curID = 1;
     }
 
@@ -99,29 +95,19 @@ public class BikeManager implements Saveable {
                 activeSeat = comp;
                 break;
             case TIRE:
-                switch(frontBackDelin) {
-                    case 1:
-                        activeTireF = comp;
-                        break;
-                    case 2:
-                        activeTireR = comp;
-                        break;
-                    default:
-                        System.err.println("Err invalid delin value");
-                        break;
+                switch (frontBackDelin) {
+                    case 1 -> activeTireF = comp;
+                    case 2 -> activeTireR = comp;
+                    default -> System.err.println("Err invalid delin value");
                 }
+                break;
             case BRAKE:
-                switch(frontBackDelin) {
-                    case 1:
-                        activeBrakeF = comp;
-                        break;
-                    case 2:
-                        activeBrakeR = comp;
-                        break;
-                    default:
-                        System.err.println("Err invalid delin value");
-                        break;
+                switch (frontBackDelin) {
+                    case 1 -> activeBrakeF = comp;
+                    case 2 -> activeBrakeR = comp;
+                    default -> System.err.println("Err invalid delin value");
                 }
+                break;
             case CHAIN:
                 activeChain = comp;
                 break;
@@ -132,32 +118,22 @@ public class BikeManager implements Saveable {
                 activeGrips = comp;
                 break;
             case ROTOR:
-                switch(frontBackDelin) {
-                    case 1:
-                        activeRotorF = comp;
-                        break;
-                    case 2:
-                        activeRotorR = comp;
-                        break;
-                    default:
-                        System.err.println("Err invalid delin value");
-                        break;
+                switch (frontBackDelin) {
+                    case 1 -> activeRotorF = comp;
+                    case 2 -> activeRotorR = comp;
+                    default -> System.err.println("Err invalid delin value");
                 }
+                break;
             case SHOCK:
                 activeShock = comp;
                 break;
             case WHEEL:
-                switch(frontBackDelin) {
-                    case 1:
-                        activeWheelF = comp;
-                        break;
-                    case 2:
-                        activeWheelR = comp;
-                        break;
-                    default:
-                        System.err.println("Err invalid delin value");
-                        break;
+                switch (frontBackDelin) {
+                    case 1 -> activeWheelF = comp;
+                    case 2 -> activeWheelR = comp;
+                    default -> System.err.println("Err invalid delin value");
                 }
+                break;
             case CRANKS:
                 activeCranks = comp;
                 break;

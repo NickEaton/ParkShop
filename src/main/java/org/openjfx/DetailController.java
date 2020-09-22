@@ -17,8 +17,11 @@ import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+// This is the FXML controller for BikeDetail.fxml, which is a subwindow showing what parts you have in queue
+// on the bike which is currently being constructed
 public class DetailController {
-    // Controls for bike overview
+
+    // Boxes which contain the 'star' ratings to simplify how good a given part is
     @FXML private HBox frameStar;
     @FXML private HBox forkStar;
     @FXML private HBox shockStar;
@@ -43,37 +46,38 @@ public class DetailController {
     @FXML private HBox brakeLeverStar;
     @FXML private HBox gripsStar;
 
+    // The names of each part
     @FXML private Text frameName;
-    @FXML private Text forkName = new Text();
-    @FXML private Text shockName = new Text();
-    @FXML private Text wheelFName = new Text();
-    @FXML private Text wheelRName = new Text();
-    @FXML private Text tireFName = new Text();
-    @FXML private Text tireRName = new Text();
-    @FXML private Text brakeFName = new Text();
-    @FXML private Text brakeRName = new Text();
-    @FXML private Text rotorFName = new Text();
-    @FXML private Text rotorRName = new Text();
-    @FXML private Text cassetteName = new Text();
-    @FXML private Text chainringName = new Text();
-    @FXML private Text chainName = new Text();
-    @FXML private Text derailleurName = new Text();
-    @FXML private Text cranksName = new Text();
-    @FXML private Text pedalsName = new Text();
-    @FXML private Text seatpostName = new Text();
-    @FXML private Text seatName = new Text();
-    @FXML private Text handlebarName = new Text();
-    @FXML private Text shifterName = new Text();
-    @FXML private Text brakeLeverName = new Text();
-    @FXML private Text gripsName = new Text();
+    @FXML private Text forkName;
+    @FXML private Text shockName;
+    @FXML private Text wheelFName;
+    @FXML private Text wheelRName;
+    @FXML private Text tireFName;
+    @FXML private Text tireRName;
+    @FXML private Text brakeFName;
+    @FXML private Text brakeRName;
+    @FXML private Text rotorFName;
+    @FXML private Text rotorRName;
+    @FXML private Text cassetteName;
+    @FXML private Text chainringName;
+    @FXML private Text chainName;
+    @FXML private Text derailleurName;
+    @FXML private Text cranksName;
+    @FXML private Text pedalsName;
+    @FXML private Text seatpostName;
+    @FXML private Text seatName;
+    @FXML private Text handlebarName;
+    @FXML private Text shifterName;
+    @FXML private Text brakeLeverName;
+    @FXML private Text gripsName;
 
-    @FXML private AnchorPane bikePane;
-    @FXML private Text bikeName = new Text();
-    //@FXML private HBox topBox = new HBox();
+    // The name of the ride
+    @FXML private Text bikeName;
 
     @FXML private ImageView dashIm;
     @FXML private ImageView starIm;
 
+    // private method to shallow copy an ImageView, saving width and height
     @FXML
     private ImageView shallowCopy(ImageView target) {
         ImageView result = new ImageView(target.getImage());
@@ -82,36 +86,45 @@ public class DetailController {
         return result;
     }
 
-    // private submethod to do drawing for viewBikeDetail
-    @FXML
-    public void subUpdateBikeDetail() {
-        frameName.setText((ParkShopApp.bkManager.activeFrame == null) ? "-" : ParkShopApp.bkManager.activeFrame.getDisplayName());
-        forkName.setText((ParkShopApp.bkManager.activeFork == null) ? "-" : ParkShopApp.bkManager.activeFork.getDisplayName());
-        shockName.setText((ParkShopApp.bkManager.activeShock == null) ? "-" : ParkShopApp.bkManager.activeShock.getDisplayName());
-        wheelFName.setText((ParkShopApp.bkManager.activeWheelF == null) ? "-" : ParkShopApp.bkManager.activeWheelF.getDisplayName());
-        wheelRName.setText((ParkShopApp.bkManager.activeWheelR == null) ? "-" : ParkShopApp.bkManager.activeWheelR.getDisplayName());
-        tireFName.setText((ParkShopApp.bkManager.activeTireF == null) ? "-" : ParkShopApp.bkManager.activeTireF.getDisplayName());
-        tireRName.setText((ParkShopApp.bkManager.activeTireR == null) ? "-" : ParkShopApp.bkManager.activeTireR.getDisplayName());
-        brakeFName.setText((ParkShopApp.bkManager.activeBrakeF == null) ? "-" : ParkShopApp.bkManager.activeBrakeF.getDisplayName());
-        brakeRName.setText((ParkShopApp.bkManager.activeBrakeR == null) ? "-" : ParkShopApp.bkManager.activeBrakeR.getDisplayName());
-        rotorFName.setText((ParkShopApp.bkManager.activeRotorF == null) ? "-" : ParkShopApp.bkManager.activeRotorF.getDisplayName());
-        rotorRName.setText((ParkShopApp.bkManager.activeRotorR == null) ? "-" : ParkShopApp.bkManager.activeRotorR.getDisplayName());
-        cassetteName.setText((ParkShopApp.bkManager.activeCassette == null) ? "-" : ParkShopApp.bkManager.activeCassette.getDisplayName());
-        chainringName.setText((ParkShopApp.bkManager.activeChainring == null) ? "-" : ParkShopApp.bkManager.activeChainring.getDisplayName());
-        chainName.setText((ParkShopApp.bkManager.activeChain == null) ? "-" : ParkShopApp.bkManager.activeChain.getDisplayName());
-        derailleurName.setText((ParkShopApp.bkManager.activeDerailleur == null) ? "-" : ParkShopApp.bkManager.activeDerailleur.getDisplayName());
-        cranksName.setText((ParkShopApp.bkManager.activeCranks == null) ? "-" : ParkShopApp.bkManager.activeCranks.getDisplayName());
-        pedalsName.setText((ParkShopApp.bkManager.activePedals == null) ? "-" : ParkShopApp.bkManager.activePedals.getDisplayName());
-        seatpostName.setText((ParkShopApp.bkManager.activeSeatpost == null) ? "-" : ParkShopApp.bkManager.activeSeatpost.getDisplayName());
-        seatName.setText((ParkShopApp.bkManager.activeSeat == null) ? "-" : ParkShopApp.bkManager.activeSeat.getDisplayName());
-        handlebarName.setText((ParkShopApp.bkManager.activeHandlebar == null) ? "-" : ParkShopApp.bkManager.activeHandlebar.getDisplayName());
-        shifterName.setText((ParkShopApp.bkManager.activeShifter == null) ? "-" : ParkShopApp.bkManager.activeShifter.getDisplayName());
-        brakeLeverName.setText((ParkShopApp.bkManager.activeBrakeLever == null) ? "-" : ParkShopApp.bkManager.activeBrakeLever.getDisplayName());
-        gripsName.setText((ParkShopApp.bkManager.activeGrips == null) ? "-" : ParkShopApp.bkManager.activeGrips.getDisplayName());
-        System.out.println(gripsName.getText());
+    // Regex utility for display names
+    private String regexParse(String target, String regex) {
+        String[] temp = target.split(regex);
+        String res = new String();
+        for(String s : temp)
+            res += s + " ";
+        return res;
     }
 
-    // private submethod  to draw stars for viewBikeDetail
+    // Draw display names for bike detail construction view
+    @FXML
+    public void subUpdateBikeDetail() {
+        frameName.setText((ParkShopApp.bkManager.activeFrame == null) ? "-" : regexParse(ParkShopApp.bkManager.activeFrame.getDisplayName(), "_"));
+        forkName.setText((ParkShopApp.bkManager.activeFork == null) ? "-" : regexParse(ParkShopApp.bkManager.activeFork.getDisplayName(), "_"));
+        shockName.setText((ParkShopApp.bkManager.activeShock == null) ? "-" : regexParse(ParkShopApp.bkManager.activeShock.getDisplayName(), "_"));
+        wheelFName.setText((ParkShopApp.bkManager.activeWheelF == null) ? "-" : regexParse(ParkShopApp.bkManager.activeWheelF.getDisplayName(), "_"));
+        wheelRName.setText((ParkShopApp.bkManager.activeWheelR == null) ? "-" : regexParse(ParkShopApp.bkManager.activeWheelR.getDisplayName(), "_"));
+        tireFName.setText((ParkShopApp.bkManager.activeTireF == null) ? "-" : regexParse(ParkShopApp.bkManager.activeTireF.getDisplayName(), "_"));
+        tireRName.setText((ParkShopApp.bkManager.activeTireR == null) ? "-" : regexParse(ParkShopApp.bkManager.activeTireR.getDisplayName(), "_"));
+        brakeFName.setText((ParkShopApp.bkManager.activeBrakeF == null) ? "-" : regexParse(ParkShopApp.bkManager.activeBrakeF.getDisplayName(), "_"));
+        brakeRName.setText((ParkShopApp.bkManager.activeBrakeR == null) ? "-" : regexParse(ParkShopApp.bkManager.activeBrakeR.getDisplayName(), "_"));
+        rotorFName.setText((ParkShopApp.bkManager.activeRotorF == null) ? "-" : regexParse(ParkShopApp.bkManager.activeRotorF.getDisplayName(), "_"));
+        rotorRName.setText((ParkShopApp.bkManager.activeRotorR == null) ? "-" : regexParse(ParkShopApp.bkManager.activeRotorR.getDisplayName(), "_"));
+        cassetteName.setText((ParkShopApp.bkManager.activeCassette == null) ? "-" : regexParse(ParkShopApp.bkManager.activeCassette.getDisplayName(), "_"));
+        chainringName.setText((ParkShopApp.bkManager.activeChainring == null) ? "-" : regexParse(ParkShopApp.bkManager.activeChainring.getDisplayName(), "_"));
+        chainName.setText((ParkShopApp.bkManager.activeChain == null) ? "-" : regexParse(ParkShopApp.bkManager.activeChain.getDisplayName(), "_"));
+        derailleurName.setText((ParkShopApp.bkManager.activeDerailleur == null) ? "-" : regexParse(ParkShopApp.bkManager.activeDerailleur.getDisplayName(), "_"));
+        cranksName.setText((ParkShopApp.bkManager.activeCranks == null) ? "-" : regexParse(ParkShopApp.bkManager.activeCranks.getDisplayName(), "_"));
+        pedalsName.setText((ParkShopApp.bkManager.activePedals == null) ? "-" : regexParse(ParkShopApp.bkManager.activePedals.getDisplayName(), "_"));
+        seatpostName.setText((ParkShopApp.bkManager.activeSeatpost == null) ? "-" : regexParse(ParkShopApp.bkManager.activeSeatpost.getDisplayName(), "_"));
+        seatName.setText((ParkShopApp.bkManager.activeSeat == null) ? "-" : regexParse(ParkShopApp.bkManager.activeSeat.getDisplayName(), "_"));
+        handlebarName.setText((ParkShopApp.bkManager.activeHandlebar == null) ? "-" : regexParse(ParkShopApp.bkManager.activeHandlebar.getDisplayName(), "_"));
+        shifterName.setText((ParkShopApp.bkManager.activeShifter == null) ? "-" : regexParse(ParkShopApp.bkManager.activeShifter.getDisplayName(), "_"));
+        brakeLeverName.setText((ParkShopApp.bkManager.activeBrakeLever == null) ? "-" : regexParse(ParkShopApp.bkManager.activeBrakeLever.getDisplayName(), "_"));
+        gripsName.setText((ParkShopApp.bkManager.activeGrips == null) ? "-" : regexParse(ParkShopApp.bkManager.activeGrips.getDisplayName(), "_"));
+    }
+
+    // Draw the appropriate quantity of stars and dashes next to
+    // the corresponding components
     @FXML
     public void subUpdateBikeDetailStars() {
         Path pathToDash = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString()+
@@ -252,9 +265,9 @@ public class DetailController {
         } else gripsStar.getChildren().add(shallowCopy(dashIm));
     }
 
-    // Show another scene with a full part list
+    // Default construction
     public DetailController() {
-        //subUpdateBikeDetail();
-        //subUpdateBikeDetailStars();
+        // subUpdateBikeDetail();
+        // subUpdateBikeDetailStars();
     }
 }
