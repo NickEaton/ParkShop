@@ -88,7 +88,7 @@ public class DetailController {
     }
 
     // Regex utility for display names
-    private String regexParse(String target, String regex) {
+    public static String regexParse(String target, String regex) {
         String[] temp = target.split(regex);
         String res = new String();
         for(String s : temp)

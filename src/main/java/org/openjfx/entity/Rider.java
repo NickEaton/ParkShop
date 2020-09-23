@@ -71,6 +71,18 @@ public class Rider implements Saveable {
         bikes = new ArrayList<BikeObj>();
     }
 
+    // Default, player constructor
+    public Rider(String name, boolean def) {
+        this.fitness_XC = 0;
+        this.fitness_END = 0;
+        this.fitness_DH = 0;
+        this.preferenceRentBuy = 0;
+        this.financialIntensity = 0;
+        this.riderID = name;
+        this.curID = 1;
+        bikes = new ArrayList<BikeObj>();
+    }
+
     // Getters
     public double getFitness_XC() { return this.fitness_XC; }
     public double getFitness_END() { return this.fitness_END; }

@@ -115,8 +115,21 @@ public class PrimaryController {
     @FXML private AnchorPane bikePane;
     @FXML private TextField bikeName;
 
+    public int cDelin;
+    public boolean cDone;
+
     private int scrollHeight;
     private static boolean buildState = false;
+
+    // private type determination utility
+    private boolean isRFPart(Component _comp) {
+        ComponentManager.Part pT = _comp.getPart();
+        if (pT == ComponentManager.Part.WHEEL || pT == ComponentManager.Part.TIRE ||
+                pT == ComponentManager.Part.BRAKE || pT == ComponentManager.Part.ROTOR) {
+            return true;
+        }
+        return false;
+    }
 
     // Dynamic update using a static method??
     //@FXML @Override static void rebuildScrollBox()
@@ -209,8 +222,10 @@ public class PrimaryController {
                                     "\\src\\main\\resources\\org\\images\\"+_comp.getCompName()+".png");
         try (InputStream in = new BufferedInputStream(new FileInputStream(pathToComp.toString()))){
             view = new ImageView(new Image(in));
-            title = new Text(_comp.getCompName());
-            title.setFont(new Font(32));
+            title = new Text(DetailController.regexParse(_comp.getDisplayName(), "_"));
+            title.setFont(new Font(28));
+            title.setWrappingWidth(200);
+            title.setTextAlignment(TextAlignment.CENTER);
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -505,51 +520,37 @@ public class PrimaryController {
             public void handle(MouseEvent event) {
                 // Instead of doing a purchase event, add the component from the player's inventory to the active part list
                 // When the construction is done, it is the BikeManager's job to then delete that part from the player's inventory
-                if(buildState && selectedComponent != null) {
-                    int delin = 0;
-                    switch (selectedComponent.getComponent().getPart()) {
-                        case BRAKE:
-                            if (ParkShopApp.bkManager.activeBrakeF == null) {
-                                delin = 1;
-                                break;
-                            }
-                            delin = ParkShopApp.bkManager.activeBrakeR == null ? 2 : 0;
-                            break;
-                        case WHEEL:
-                            if (ParkShopApp.bkManager.activeWheelF == null) {
-                                delin = 1;
-                                break;
-                            }
-                            delin = ParkShopApp.bkManager.activeWheelR == null ? 2 : 0;
-                            break;
-                        case ROTOR:
-                            if (ParkShopApp.bkManager.activeRotorF == null) {
-                                delin = 1;
-                                break;
-                            }
-                            delin = ParkShopApp.bkManager.activeRotorR == null ? 2 : 0;
-                            break;
-                        case TIRE:
-                            if (ParkShopApp.bkManager.activeTireF == null) {
-                                delin = 1;
-                                break;
-                            }
-                            delin = ParkShopApp.bkManager.activeTireR == null ? 2 : 0;
-                            break;
-                    }
-                    ParkShopApp.bkManager.addSwapComponent(selectedComponent.getComponent(), delin);
-                    scrollContent.remove(selectedComponent);
-                    selectedComponent = null;
 
-                    try {
-                        refreshBuilderImages();
-                    } catch (IOException e) {
-                        System.err.println("Error on refreshBuilderImages");
-                        e.printStackTrace();
-                    }
+                if(buildState && selectedComponent != null) {
+                    cDelin = 0;
+                    if(isRFPart(selectedComponent.getComponent())) {
+                        try {
+                            handoffRFSelect();
+                        } catch (IOException ex) {
+                            System.err.println("Error in RF handoff");
+                            ex.printStackTrace();
+                        }
+                    } else doStage2Add();
+                    rebuildExpandedView();
                 }
             }
         });
+    }
+
+    // Stage 2 add component to bike queue
+    @FXML
+    public void doStage2Add() {
+        ParkShopApp.bkManager.addSwapComponent(selectedComponent.getComponent(), cDelin);
+        scrollContent.remove(selectedComponent);
+        rebuildScrollBox();
+        selectedComponent = null;
+
+        try {
+            refreshBuilderImages();
+        } catch (IOException e) {
+            System.err.println("Error on refreshBuilderImages");
+            e.printStackTrace();
+        }
     }
 
     // Undo part queue, reset inventories
@@ -579,7 +580,8 @@ public class PrimaryController {
         ParkShopApp.bkManager.activeBrakeLever = null;
         ParkShopApp.bkManager.activeGrips = null;
         this.bikeName.clear();
-        this.refreshBuilderImages();
+        this.rebuildExpandedView();
+        this.showBuilderView();
     }
 
     // Hand off control to DetailController to manage the subwindow
@@ -606,9 +608,38 @@ public class PrimaryController {
         }
     }
 
+    // Hand off control to RFSelect to manage front/rear selections
+    // TODO: cDone method needs work
+    @FXML
+    public void handoffRFSelect() throws IOException {
+        if(isRFPart(this.selectedComponent.getComponent())) {
+            try {
+                FXMLLoader fxload = new FXMLLoader(ParkShopApp.class.getResource("RFSelect.fxml"));
+                Parent root = fxload.load();
+                RFSelectController rfSelect = fxload.getController();
+                rfSelect.primary = this;
+
+                Scene sub = new Scene(root);
+                ParkShopApp.window = new Stage();
+                ParkShopApp.window.setScene(sub);
+                ParkShopApp.window.setResizable(false);
+                ParkShopApp.window.setTitle("Option Select");
+                ParkShopApp.window.show();
+            } catch (Exception exception) {
+                System.err.println("Error in RFSelect controller handoff");
+                exception.printStackTrace();
+            }
+            cDone = false;
+        } else {
+            cDone = true;
+        }
+    }
+
     // Build the bike, assign owner as player
+    // TODO: popup window select
     @FXML
     public void buildBikeInitial(ActionEvent e) {
-
+        ParkShopApp.bkManager.addBikeToList(ParkShopApp.bkManager.lookupByName("Player"), ParkShopApp.bkManager.doLocalConstruct(this.bikeName.getText(), ParkShopApp.bkManager.lookupByName("Player")));
+        ParkShopApp.cmpManager.voidPlayerComponents(ParkShopApp.bkManager.compressActive());
     }
 }

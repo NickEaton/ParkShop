@@ -3,6 +3,7 @@ package org.openjfx.components;
 import org.openjfx.util.Saveable;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -207,6 +208,18 @@ public class ComponentManager implements Saveable {
 
     public HashMap<Part, LinkedList<Component>> getPlayerList() {
         return this.componentList;
+    }
+
+    // Clear arbitrary list of components from the players inventory
+    // Pre: Player owns all thrown components
+    public void voidPlayerComponents(List<Component> cx) {
+        for(Component c : cx) {
+            if(!this.componentList.get(c.getPart()).contains(c)) {
+                System.err.println("Error: bad component passed to void");
+                return;
+            }
+            this.componentList.get(c.getPart()).remove(c);
+        }
     }
 
     // Save all components to a file, then save an additional file listing all cataloged components, which will be separated via regex character

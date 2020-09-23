@@ -42,11 +42,20 @@ public class BikeManager implements Saveable {
     public Component activeSeat;
     public Component activeSeatpost;
 
-    // This variable assists in assigning a unique ID to each bike created
     private static int curID;
 
     // Regex for file I/O
     private static final String regex = "#";
+
+    // package active components for build and erase
+    public LinkedList<Component> compressActive() {
+        LinkedList<Component> temp = new LinkedList<Component>();
+        temp.addAll(Arrays.asList(activeShock, activeFork, activeWheelF, activeWheelR, activeTireR, activeTireF,
+                    activeBrakeR, activeBrakeF, activeRotorF, activeRotorR, activeChain, activeChainring, activeCassette,
+                    activeDerailleur, activeCranks, activePedals, activeHandlebar, activeGrips, activeShifter,
+                    activeBrakeLever, activeSeat, activeSeatpost));
+        return temp;
+    }
 
     // File Constructor
     public BikeManager(String fileID) throws IOException {
@@ -78,6 +87,7 @@ public class BikeManager implements Saveable {
     // Primary constructor for first time launch
     public BikeManager() {
         riderCatalog = new ArrayList<Rider>();
+        riderCatalog.add(new Rider("Player", true));
         curID = 1;
     }
 
@@ -94,15 +104,15 @@ public class BikeManager implements Saveable {
                 break;
             case TIRE:
                 switch (frontBackDelin) {
-                    case 1 -> activeTireF = comp;
-                    case 2 -> activeTireR = comp;
+                    case 0 -> activeTireF = comp;
+                    case 1 -> activeTireR = comp;
                     default -> System.err.println("Err invalid delin value");
                 }
                 break;
             case BRAKE:
                 switch (frontBackDelin) {
-                    case 1 -> activeBrakeF = comp;
-                    case 2 -> activeBrakeR = comp;
+                    case 0 -> activeBrakeF = comp;
+                    case 1 -> activeBrakeR = comp;
                     default -> System.err.println("Err invalid delin value");
                 }
                 break;
@@ -117,8 +127,8 @@ public class BikeManager implements Saveable {
                 break;
             case ROTOR:
                 switch (frontBackDelin) {
-                    case 1 -> activeRotorF = comp;
-                    case 2 -> activeRotorR = comp;
+                    case 0 -> activeRotorF = comp;
+                    case 1 -> activeRotorR = comp;
                     default -> System.err.println("Err invalid delin value");
                 }
                 break;
@@ -127,8 +137,8 @@ public class BikeManager implements Saveable {
                 break;
             case WHEEL:
                 switch (frontBackDelin) {
-                    case 1 -> activeWheelF = comp;
-                    case 2 -> activeWheelR = comp;
+                    case 0 -> activeWheelF = comp;
+                    case 1 -> activeWheelR = comp;
                     default -> System.err.println("Err invalid delin value");
                 }
                 break;
@@ -165,6 +175,16 @@ public class BikeManager implements Saveable {
         }
     }
 
+    // Rider lookup by name
+    public Rider lookupByName(String rName) {
+        for(Rider r : this.riderCatalog) {
+            if(r.getRiderID().equals(rName))
+                return r;
+        }
+        System.err.println("Error on Rider Lookup");
+        return null;
+    }
+
     // Verify that the partslist is correct, i.e. there should be precisely one of each type of part
     // PRE: parts should never have a repeated component
     public void constructBike(Rider owner, Map<ComponentManager.Part, Component> parts) {
@@ -174,8 +194,13 @@ public class BikeManager implements Saveable {
         owner.getOwnedBikes().add(newBike);
         if(!riderCatalog.contains(owner))
             riderCatalog.add(owner);
+    }
 
-        //return newBike;
+    // Do local construction, delete & null components
+    // PRE: all active components are defined
+    // TODO
+    public BikeObj doLocalConstruct(String bkName, Rider owner) {
+        return new BikeObj(bkName, owner, compressActive());
     }
 
     // Manually add a bike to a rider list
