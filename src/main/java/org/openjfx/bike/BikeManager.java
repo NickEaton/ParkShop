@@ -14,6 +14,7 @@ public class BikeManager implements Saveable {
 
     // This hashmap maps Rider objects to a list of Bikes they are cataloged as owning
     private ArrayList<Rider> riderCatalog;
+    public ArrayList<BikeObj> myBKList;
 
     // While the user is selecting parts, the data will be stored here
     // Note, this is empty on load
@@ -200,7 +201,9 @@ public class BikeManager implements Saveable {
     // PRE: all active components are defined
     // TODO
     public BikeObj doLocalConstruct(String bkName, Rider owner) {
-        return new BikeObj(bkName, owner, compressActive());
+        BikeObj local = new BikeObj(bkName, owner, compressActive());
+        this.myBKList.add(local);
+        return local;
     }
 
     // Manually add a bike to a rider list

@@ -1,5 +1,7 @@
 package org.openjfx.bike;
 
+import javafx.fxml.FXML;
+import javafx.scene.image.Image;
 import org.openjfx.components.Component;
 import org.openjfx.entity.Rider;
 import org.openjfx.util.Saveable;
@@ -40,6 +42,10 @@ public class BikeObj implements Saveable {
 
     // List of all components in this bike, constructors verify that there will be precisely one of each component type
     private LinkedList<Component> partList;
+
+    // Associated image
+    @FXML
+    public Image bikePic;
 
     // Private method to calculate overall fitness of the bike based on every component
     private void compAggrFit() {

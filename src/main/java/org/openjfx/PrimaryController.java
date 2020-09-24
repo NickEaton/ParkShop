@@ -635,6 +635,44 @@ public class PrimaryController {
         }
     }
 
+    // Hand off to BKImageSelect controller
+    @FXML
+    public void handoffBKImageSelect() throws IOException {
+        try {
+            FXMLLoader fxload = new FXMLLoader(ParkShopApp.class.getResource("BKImageSelect.fxml"));
+            Parent root = fxload.load();
+            Scene sub = new Scene(root);
+            ParkShopApp.window = new Stage();
+            ParkShopApp.window.setScene(sub);
+            ParkShopApp.window.setTitle("Image Select");
+            ParkShopApp.window.show();
+        } catch (Exception e) {
+            System.err.println("Error in BKImage Controller handoff");
+            e.printStackTrace();
+        }
+    }
+
+    // Goto BikeInventory to show player inventory
+    @FXML
+    public void handoffBikeInventory() throws IOException {
+        try {
+            FXMLLoader fxload = new FXMLLoader(ParkShopApp.class.getResource("BikeInventory.fxml"));
+            Parent root = fxload.load();
+            BikeInventoryController bkCon = fxload.getController();
+            bkCon.myBK = ParkShopApp.bkManager;
+
+            Scene inventory = new Scene(root);
+            ParkShopApp.window = new Stage();
+            ParkShopApp.window.setScene(inventory);
+            ParkShopApp.window.setResizable(false);
+            ParkShopApp.window.setTitle("Bike Inventory");
+            ParkShopApp.window.show();
+        } catch (Exception e) {
+            System.err.println("Error in BikeInventory controller handoff");
+            e.printStackTrace();
+        }
+    }
+
     // Build the bike, assign owner as player
     // TODO: popup window select
     @FXML
