@@ -28,6 +28,7 @@
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#refreshScrollBox" text="Shop" />
                   <MenuItem mnemonicParsing="false" onAction="#showPlayerInventory" text="Inventory" />
+                  <MenuItem mnemonicParsing="false" onAction="#cheatBuildTest" text="Test Cheat" />
                </items></Menu>
           <Menu mnemonicParsing="false" text="Bikes">
                <items>

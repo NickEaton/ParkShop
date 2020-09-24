@@ -642,4 +642,13 @@ public class PrimaryController {
         ParkShopApp.bkManager.addBikeToList(ParkShopApp.bkManager.lookupByName("Player"), ParkShopApp.bkManager.doLocalConstruct(this.bikeName.getText(), ParkShopApp.bkManager.lookupByName("Player")));
         ParkShopApp.cmpManager.voidPlayerComponents(ParkShopApp.bkManager.compressActive());
     }
+
+    @FXML
+    public void cheatBuildTest (ActionEvent e) throws IOException {
+        ParkShopApp.cmpManager.genFullSet();
+        refreshBuilderImages();
+        rebuildScrollBox();
+        redrawPlayerStats();
+        rebuildExpandedView();
+    }
 }

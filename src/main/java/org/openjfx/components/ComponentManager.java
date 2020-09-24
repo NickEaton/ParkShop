@@ -1,5 +1,6 @@
 package org.openjfx.components;
 
+import org.openjfx.ParkShopApp;
 import org.openjfx.util.Saveable;
 
 import java.io.*;
@@ -78,6 +79,11 @@ public class ComponentManager implements Saveable {
         Mountaineer,
         Pro,
         Master
+    }
+
+    private boolean isDouble(Part _p) {
+        return (_p == Part.WHEEL || _p == Part.BRAKE ||
+                _p == Part.TIRE || _p == Part.ROTOR);
     }
 
     // Fields
@@ -201,6 +207,20 @@ public class ComponentManager implements Saveable {
         return fullList;
     }
     */
+
+    // Generate a complete set of components, assign all in bkManager and enque to player inventory for quick testing
+    public void genFullSet() {
+        for(Part p : Part.values()) {
+            Component c1 = getNewRandComponent(p.toString(), p);
+            ParkShopApp.bkManager.addSwapComponent(c1, 0);
+            componentList.get(p).add(c1);
+            if(isDouble(p)) {
+                Component c2 = getNewRandComponent(p.toString(), p);
+                ParkShopApp.bkManager.addSwapComponent(c2, 1);
+                componentList.get(p).add(c2);
+            }
+        }
+    }
 
     public HashMap<Part, LinkedList<Component>> getShopList() {
         return this.shopList;

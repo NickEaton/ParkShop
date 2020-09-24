@@ -36,7 +36,8 @@ public class Rider implements Saveable {
 
     // File Constructor
     public Rider(String fileID) throws IOException {
-        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\main" + "\\resources" + "\\saves" + "\\" + fileID + ".properties");
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() +
+                                    "\\src\\main\\resources\\saves\\" + fileID + ".properties");
 
         bikes = new ArrayList<BikeObj>();
         try(InputStream input = new FileInputStream(p.toString())) {
@@ -99,7 +100,8 @@ public class Rider implements Saveable {
     // Save rider data to a file which can be recursively loaded later
     @Override
     public void saveToFile() throws IOException {
-        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() + "\\src" + "\\main" + "\\resources" + "\\saves" + "\\" + this.riderID + ".properties");
+        Path p = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString() +
+                            "\\src\\main\\resources\\saves\\" + this.riderID + ".properties");
 
         StringBuffer saveBikes = new StringBuffer();
         try (OutputStream output = new FileOutputStream(p.toString())) {
@@ -128,7 +130,8 @@ public class Rider implements Saveable {
     // Override Object toString method
     @Override
     public String toString() {
-        StringBuffer s1 = new StringBuffer("{ FXC: " +fitness_XC + ", FEND: " + fitness_END + ", FDH: " + fitness_DH + ", PRB: " +preferenceRentBuy + ", FI: " + financialIntensity + ", RID: " + riderID +"}\n");
+        StringBuffer s1 = new StringBuffer("{ FXC: " +fitness_XC + ", FEND: " + fitness_END + ", FDH: " + fitness_DH +
+                            ", PRB: " +preferenceRentBuy + ", FI: " + financialIntensity + ", RID: " + riderID +"}\n");
         for(BikeObj B : this.bikes) {
             s1.append(B.toString());
         }
