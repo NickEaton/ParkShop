@@ -88,6 +88,7 @@ public class BikeManager implements Saveable {
     // Primary constructor for first time launch
     public BikeManager() {
         riderCatalog = new ArrayList<Rider>();
+        myBKList = new ArrayList<BikeObj>();
         riderCatalog.add(new Rider("Player", true));
         curID = 1;
     }

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="1300.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.BKImageController">
+   <children>
+      <VBox prefHeight="900.0" prefWidth="1600.0" spacing="33.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="150.0" prefWidth="1600.0">
+               <children>
+                  <Text fill="#ff4040" strokeType="OUTSIDE" strokeWidth="0.0" text="Click to Select an Icon for this Bike">
+                     <font>
+                        <Font size="72.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="300.0" prefWidth="1600.0" spacing="25.0" translateY="16.0">
+               <children>
+                  <Pane maxHeight="185.0" stylesheets="@BKImage.css">
+                     <children>
+                        <ImageView fitHeight="200.0" fitWidth="300.0" layoutX="7.0" layoutY="7.0" onMouseClicked="#selectImage" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/end1.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane maxHeight="215.0" stylesheets="@BKImage.css">
+                     <children>
+                        <ImageView fitHeight="200.0" fitWidth="300.0" layoutX="7.0" layoutY="7.0" onMouseClicked="#selectImage" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/end2.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane maxHeight="215.0" maxWidth="315.0" minWidth="315.0" stylesheets="@BKImage.css">
+                     <children>
+                        <ImageView fitHeight="200.0" fitWidth="300.0" layoutX="7.0" layoutY="7.0" onMouseClicked="#selectImage" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/end3.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane maxHeight="225.0" maxWidth="320.0" minWidth="320.0" stylesheets="@BKImage.css">
+                     <children>
+                        <ImageView fitHeight="250.0" fitWidth="300.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#selectImage" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/end4.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="300.0" prefWidth="1600.0" spacing="25.0">
+               <children>
+                  <Pane maxHeight="190.0" maxWidth="315.0" minWidth="315.0" stylesheets="@BKImage.css">
+                     <children>
+                        <ImageView fitHeight="200.0" fitWidth="300.0" onMouseClicked="#selectImage" pickOnBounds="true" preserveRatio="true" translateX="7.0" translateY="7.0">
+                           <image>
+                              <Image url="@../images/xc1.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane maxHeight="260.0" stylesheets="@BKImage.css">
+                     <children>
+                        <ImageView fitHeight="250.0" fitWidth="300.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#selectImage" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/xc2.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane maxHeight="205.0" stylesheets="@BKImage.css">
+                     <children>
+                        <ImageView fitHeight="200.0" fitWidth="300.0" layoutX="7.0" layoutY="7.0" onMouseClicked="#selectImage" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/xc3.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="300.0" prefWidth="1600.0" spacing="25.0" translateY="16.0">
+               <children>
+                  <Pane maxHeight="185.0" stylesheets="@BKImage.css">
+                     <children>
+                        <ImageView fitHeight="175.0" fitWidth="300.0" layoutX="5.0" layoutY="5.0" onMouseClicked="#selectImage" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/dh1.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane maxHeight="250.0" stylesheets="@BKImage.css">
+                     <children>
+                        <ImageView fitHeight="250.0" fitWidth="300.0" layoutX="7.0" layoutY="10.0" onMouseClicked="#selectImage" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/dh2.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane layoutY="10.0" maxHeight="290.0" stylesheets="@BKImage.css">
+                     <children>
+                        <ImageView fitHeight="275.0" fitWidth="300.0" layoutX="7.0" layoutY="10.0" onMouseClicked="#selectImage" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/dg3.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane maxHeight="215.0" stylesheets="@BKImage.css">
+                     <children>
+                        <ImageView fitHeight="300.0" fitWidth="300.0" layoutX="7.0" layoutY="7.0" onMouseClicked="#selectImage" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/dh4.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane maxHeight="290.0" stylesheets="@BKImage.css">
+                     <children>
+                        <ImageView fitHeight="275.0" fitWidth="275.0" layoutX="7.0" layoutY="7.0" onMouseClicked="#selectImage" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/dh5-alt.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="150.0" prefWidth="1600.0" spacing="150.0">
+               <children>
+                  <Button fx:id="quit" mnemonicParsing="false" onAction="#doQuit" text="Quit">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="confirm" disable="true" mnemonicParsing="false" onAction="#doConfirm" prefHeight="77.0" prefWidth="250.0" text="Confirm">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="clear" disable="true" mnemonicParsing="false" onAction="#doClear" text="Clear">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

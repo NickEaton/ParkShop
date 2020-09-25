@@ -51,7 +51,7 @@
                   </ScrollPane>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1065.0" prefWidth="1523.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1065.0" prefWidth="1523.0" styleClass="vTitle" stylesheets="@ComponentView-Style.css">
                <children>
                   <Pane fx:id="compExpandedView" prefHeight="760.0" prefWidth="400.0" styleClass="vTitle" stylesheets="@ComponentView-Style.css">
                      <children>

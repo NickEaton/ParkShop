@@ -676,9 +676,13 @@ public class PrimaryController {
     // Build the bike, assign owner as player
     // TODO: popup window select
     @FXML
-    public void buildBikeInitial(ActionEvent e) {
+    public void buildBikeInitial(ActionEvent e) throws IOException {
+        for(Component c : ParkShopApp.bkManager.compressActive())
+            if (c == null) return;
+
         ParkShopApp.bkManager.addBikeToList(ParkShopApp.bkManager.lookupByName("Player"), ParkShopApp.bkManager.doLocalConstruct(this.bikeName.getText(), ParkShopApp.bkManager.lookupByName("Player")));
         ParkShopApp.cmpManager.voidPlayerComponents(ParkShopApp.bkManager.compressActive());
+        handoffBKImageSelect();
     }
 
     @FXML
