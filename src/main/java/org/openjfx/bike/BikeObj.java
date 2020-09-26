@@ -37,6 +37,9 @@ public class BikeObj implements Saveable {
     // baseCost + markup
     private double price;
 
+    // Star rating from 1-5
+    private int rating;
+
     // Every bike will have an owner, even if it is the Shop itself
     private Rider owner;
 
@@ -44,8 +47,7 @@ public class BikeObj implements Saveable {
     private LinkedList<Component> partList;
 
     // Associated image
-    @FXML
-    public Image bikePic;
+    @FXML public Image bikePic;
 
     // Private method to calculate overall fitness of the bike based on every component
     private void compAggrFit() {
@@ -87,14 +89,19 @@ public class BikeObj implements Saveable {
     }
 
     // Primary constructor for new Bikes
+    // TODO
     public BikeObj(String _bikeID, Rider _owner, LinkedList<Component> parts) {
         this.bikeID = _bikeID;
+        this.bikeName = _bikeID;
         this.owner = _owner;
         this.partList = new LinkedList<Component>();
 
+        int i=0;
         for(Component k : parts) {
             partList.add(k);
+            i+=k.getPartLevel();
         }
+        this.rating = i/parts.size();
 
         //baseCost = _frame.getCostUSD();
         //price = baseCost;                                    // May be modified by user after object creation
@@ -112,6 +119,7 @@ public class BikeObj implements Saveable {
     public double getBaseCost() { return this.baseCost; }
     public String getBikeID() { return this.bikeID; }
     public String getBikeName() { return this.bikeName; }
+    public int getRating() { return this.rating; }
 
     // Setters
     public void setBike_fitness_XC(double _BXC) { this.bike_fitness_XC = _BXC; }

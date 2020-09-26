@@ -20,6 +20,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import org.openjfx.bike.BikeObj;
 import org.openjfx.components.Component;
 import org.openjfx.components.ComponentManager;
 import org.openjfx.entity.Player;
@@ -637,10 +638,13 @@ public class PrimaryController {
 
     // Hand off to BKImageSelect controller
     @FXML
-    public void handoffBKImageSelect() throws IOException {
+    public void handoffBKImageSelect(BikeObj _newBike) throws IOException {
         try {
             FXMLLoader fxload = new FXMLLoader(ParkShopApp.class.getResource("BKImageSelect.fxml"));
             Parent root = fxload.load();
+            BKImageController bx = fxload.getController();
+            bx.tmpBK = _newBike;
+
             Scene sub = new Scene(root);
             ParkShopApp.window = new Stage();
             ParkShopApp.window.setScene(sub);
@@ -677,12 +681,14 @@ public class PrimaryController {
     // TODO: popup window select
     @FXML
     public void buildBikeInitial(ActionEvent e) throws IOException {
-        for(Component c : ParkShopApp.bkManager.compressActive())
+        for(Component c : ParkShopApp.bkManager.compressActive()) {
             if (c == null) return;
+        }
 
-        ParkShopApp.bkManager.addBikeToList(ParkShopApp.bkManager.lookupByName("Player"), ParkShopApp.bkManager.doLocalConstruct(this.bikeName.getText(), ParkShopApp.bkManager.lookupByName("Player")));
+        BikeObj tmpBK =  ParkShopApp.bkManager.doLocalConstruct(this.bikeName.getText(), ParkShopApp.bkManager.lookupByName("Player"));
+        ParkShopApp.bkManager.addBikeToList(ParkShopApp.bkManager.lookupByName("Player"), tmpBK);
         ParkShopApp.cmpManager.voidPlayerComponents(ParkShopApp.bkManager.compressActive());
-        handoffBKImageSelect();
+        handoffBKImageSelect(tmpBK);
     }
 
     @FXML
