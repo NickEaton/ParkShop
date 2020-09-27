@@ -664,6 +664,7 @@ public class PrimaryController {
             Parent root = fxload.load();
             BikeInventoryController bkCon = fxload.getController();
             bkCon.myBK = ParkShopApp.bkManager;
+            bkCon.doLayout();
 
             Scene inventory = new Scene(root);
             ParkShopApp.window = new Stage();

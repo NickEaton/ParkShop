@@ -14,7 +14,7 @@ public class BikeManager implements Saveable {
 
     // This hashmap maps Rider objects to a list of Bikes they are cataloged as owning
     private ArrayList<Rider> riderCatalog;
-    public ArrayList<BikeObj> myBKList;
+    public ArrayList<BikeObj> BKList;
 
     // While the user is selecting parts, the data will be stored here
     // Note, this is empty on load
@@ -88,7 +88,7 @@ public class BikeManager implements Saveable {
     // Primary constructor for first time launch
     public BikeManager() {
         riderCatalog = new ArrayList<Rider>();
-        myBKList = new ArrayList<BikeObj>();
+        BKList = new ArrayList<BikeObj>();
         riderCatalog.add(new Rider("Player", true));
         curID = 1;
     }
@@ -203,7 +203,8 @@ public class BikeManager implements Saveable {
     // TODO
     public BikeObj doLocalConstruct(String bkName, Rider owner) {
         BikeObj local = new BikeObj(bkName, owner, compressActive());
-        this.myBKList.add(local);
+        this.BKList.add(local);
+        System.out.println(local);
         return local;
     }
 

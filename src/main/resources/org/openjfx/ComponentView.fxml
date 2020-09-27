@@ -33,7 +33,7 @@
           <Menu mnemonicParsing="false" text="Bikes">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#showBuilderView" text="Build" />
-                  <MenuItem mnemonicParsing="false" text="Inventory" />
+                  <MenuItem mnemonicParsing="false" onAction="#handoffBikeInventory" text="Inventory" />
                </items></Menu>
           <Menu mnemonicParsing="false" text="Trail System" />
             <Menu mnemonicParsing="false" text="Help" />

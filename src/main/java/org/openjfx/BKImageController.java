@@ -80,6 +80,7 @@ public class BKImageController {
             popwin.setScene(popup);
             popwin.show();
 
+            tmpBK.bikePic = this.selectedImg.getImage();
             controller.bkImage.setImage(this.selectedImg.getImage());
             controller.bkName.setText(this.tmpBK.getBikeName());
             controller.starBox.getChildren().clear();
