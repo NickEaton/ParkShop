@@ -53,6 +53,7 @@ public class BikeInventoryController {
         try (InputStream in = new BufferedInputStream(new FileInputStream(pathToStar.toString()))){
             starIm = new ImageView(new Image(in));
         } catch(IOException e) {
+            ParkShopApp.primaryLog.log(Level.SEVERE, "Error Loading Star-1 Image");
             e.printStackTrace();
         }
         for(int a=0; a<contents.getRating(); a++)
@@ -70,25 +71,21 @@ public class BikeInventoryController {
             @Override
             public void handle(MouseEvent event) {
                 // Do Something
-                ParkShopApp.primaryLog.log(Level.FINE, "Detected Click");
+                ParkShopApp.primaryLog.log(Level.INFO, "Detected Click");
             }
         });
 
         return temp;
     }
 
-    // panes will be 300 x 300
-    // TODO: Not be dumb :(
+    // panes will be 300 x 300 w/out spacing + insets
     public void doLayout() throws IOException {
         VBox content = new VBox();
         int index = 0;
         int numPerLine = (int)contentPane.getPrefWidth()/325;
-        System.out.println(contentPane.getPrefWidth());
         int HBoxCount = (int) Math.ceil((double)myBK.BKList.size()/(double)numPerLine);
-        System.out.println(HBoxCount);
         if(HBoxCount < 1) HBoxCount = 1;
 
-        System.out.println(HBoxCount);
         for(int i=0; i<HBoxCount; i++) {
             HBox lvl = new HBox();
             lvl.setAlignment(Pos.CENTER);
@@ -97,8 +94,7 @@ public class BikeInventoryController {
             lvl.setSpacing(25);
             for(int k=0; k<numPerLine && index < myBK.BKList.size(); k++) {
                 lvl.getChildren().add(getBikeBox(this.myBK.BKList.get(index++)));
-                System.out.println("INV: Add bike");
-                //index++;
+                ParkShopApp.primaryLog.log(Level.INFO, "Added to Layout: " + myBK.BKList.get(index-1));
             }
             content.getChildren().add(lvl);
         }

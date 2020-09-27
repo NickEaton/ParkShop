@@ -83,6 +83,7 @@ public class BikeManager implements Saveable {
                 riderCatalog.add(X);
             }
         } catch (IOException exception) {
+            ParkShopApp.primaryLog.log(Level.SEVERE, "Error Loading BikeManager");
             exception.printStackTrace();
         }
     }
@@ -97,7 +98,8 @@ public class BikeManager implements Saveable {
 
     // This section deals with 'assembling' bikes
 
-    // While the bike is being built up, can use this method to add parts to the active list
+    // While the bike is being built up, use this method to add parts to the active list
+    // Not ideal, possibly refactor at some point to remove fluff
     public void addSwapComponent(Component comp, int frontBackDelin) {
         switch(comp.getPart()) {
             case FORK:
@@ -237,6 +239,7 @@ public class BikeManager implements Saveable {
             prop.store(output, null);
 
         } catch (IOException exception) {
+            ParkShopApp.primaryLog.log(Level.SEVERE, "Error saving BikeManager");
             exception.printStackTrace();
         }
     }

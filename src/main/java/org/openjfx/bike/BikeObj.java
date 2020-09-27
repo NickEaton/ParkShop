@@ -2,6 +2,7 @@ package org.openjfx.bike;
 
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
+import org.openjfx.ParkShopApp;
 import org.openjfx.components.Component;
 import org.openjfx.entity.Rider;
 import org.openjfx.util.Saveable;
@@ -12,6 +13,7 @@ import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Properties;
+import java.util.logging.Level;
 
 public class BikeObj implements Saveable {
 
@@ -84,6 +86,7 @@ public class BikeObj implements Saveable {
                 partList.push(new Component(partName));
             }
         } catch (IOException exception) {
+            ParkShopApp.primaryLog.log(Level.SEVERE, "Error Loading BikeObj");
             exception.printStackTrace();
         }
     }
@@ -151,6 +154,7 @@ public class BikeObj implements Saveable {
 
             bikeProp.store(outfile, null);
         } catch (IOException exception) {
+            ParkShopApp.primaryLog.log(Level.SEVERE, "Error saving "+this.bikeName);
             exception.printStackTrace();
         }
     }

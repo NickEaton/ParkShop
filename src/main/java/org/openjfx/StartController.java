@@ -12,6 +12,7 @@ import org.openjfx.components.Component;
 import org.openjfx.components.ComponentManager;
 
 import java.io.IOException;
+import java.util.logging.Level;
 
 // This class controls FXML I/O in the home screen of the application
 public class StartController {
@@ -20,6 +21,7 @@ public class StartController {
     @FXML
     public void displayAbout() throws IOException {
         try {
+            ParkShopApp.primaryLog.log(Level.INFO, "Loading About.fxml");
             ParkShopApp.scene = new Scene(ParkShopApp.loadFXML("About"));
             ParkShopApp.window = new Stage();
             ParkShopApp.window.setTitle("About");
@@ -28,7 +30,7 @@ public class StartController {
             ParkShopApp.window.show();
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("Error in showing About scene");
+            ParkShopApp.primaryLog.log(Level.SEVERE, "Error in showing About scene");
         }
     }
 
@@ -36,6 +38,7 @@ public class StartController {
     @FXML
     public void displaySettings() throws IOException {
         try {
+            ParkShopApp.primaryLog.log(Level.INFO, "Loading Settings.fxml");
             ParkShopApp.scene = new Scene(ParkShopApp.loadFXML("Settings"));
             ParkShopApp.window = new Stage();
             ParkShopApp.window.setTitle("Settings");
@@ -44,7 +47,7 @@ public class StartController {
             ParkShopApp.window.show();
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("Error is showing Settings scene");
+            ParkShopApp.primaryLog.log(Level.SEVERE, "Error is showing Settings scene");
         }
     }
 
@@ -52,6 +55,7 @@ public class StartController {
     public void loadState(ActionEvent event) throws IOException {
         try {
             ((Stage)ParkShopApp.scene.getWindow()).close();
+            ParkShopApp.primaryLog.log(Level.INFO, "Loading ComponentView.fxml from Load side");
             ParkShopApp.scene = new Scene(ParkShopApp.loadFXML("ComponentView"));
             ParkShopApp.window = new Stage();
             ParkShopApp.window.setTitle("Park Shop");
@@ -68,8 +72,8 @@ public class StartController {
                 }
             });
         } catch(IOException e) {
+            ParkShopApp.primaryLog.log(Level.SEVERE, "Error in Load Access to Component Scene");
             e.printStackTrace();
-            System.err.println("Error in Load access to Component Scene");
         }
 
         // Initialize load gamestate
@@ -82,6 +86,7 @@ public class StartController {
     public void startNew(ActionEvent event) throws IOException {
         try {
             ((Stage)ParkShopApp.scene.getWindow()).close();
+            ParkShopApp.primaryLog.log(Level.INFO, "Loading ComponentView.fxml");
             ParkShopApp.scene = new Scene(ParkShopApp.loadFXML("ComponentView"));
             ParkShopApp.window = new Stage();
             ParkShopApp.window.setTitle("Park Shop");
@@ -98,8 +103,8 @@ public class StartController {
                 }
             });
         } catch (IOException e) {
+            ParkShopApp.primaryLog.log(Level.SEVERE, "Error in New access to Component Scene");
             e.printStackTrace();
-            System.err.println("Error in New access to Component Scene");
         }
 
         // This is where we should split between new and load gamestate
@@ -109,6 +114,7 @@ public class StartController {
 
     // Return to Start screen from About or Settings
     @FXML void returnStart(ActionEvent event) throws IOException {
+        ParkShopApp.primaryLog.log(Level.INFO, "Return to Start Controller");
         ((Stage)ParkShopApp.scene.getWindow()).close();
     }
 

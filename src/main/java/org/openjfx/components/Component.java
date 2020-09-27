@@ -5,11 +5,13 @@ package org.openjfx.components;
 // 8/24/2020
 // A class representing the basic fields and methods all bike components will have
 
+import org.openjfx.ParkShopApp;
 import org.openjfx.util.Saveable;
 
 import java.io.*;
 import java.nio.file.*;
 import java.util.Properties;
+import java.util.logging.Level;
 
 import static java.nio.file.Files.newBufferedWriter;
 
@@ -84,6 +86,7 @@ public class Component implements Saveable {
             this.partLevel = Integer.parseInt(property.getProperty("LVL"));
 
         } catch (IOException exception) {
+            ParkShopApp.primaryLog.log(Level.SEVERE, "Error loading "+this.compName);
             exception.printStackTrace();
         }
 
@@ -163,6 +166,7 @@ public class Component implements Saveable {
             property.store(output, null);
 
         } catch (IOException exception) {
+            ParkShopApp.primaryLog.log(Level.SEVERE, "Error saving "+this.compName);
             exception.printStackTrace();
         }
     }

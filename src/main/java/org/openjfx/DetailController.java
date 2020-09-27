@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.logging.Level;
 
 // This is the FXML controller for BikeDetail.fxml, which is a subwindow showing what parts you have in queue
 // on the bike which is currently being constructed
@@ -139,6 +140,7 @@ public class DetailController {
         try (InputStream in = new BufferedInputStream(new FileInputStream(pathToDash.toString()))){
             dashIm = new ImageView(new Image(in));
         } catch(IOException e) {
+            ParkShopApp.primaryLog.log(Level.SEVERE, "Error loading Dash Image");
             e.printStackTrace();
         }
         Path pathToStar = Paths.get(Paths.get(".").toAbsolutePath().normalize().toString()+
@@ -146,6 +148,7 @@ public class DetailController {
         try (InputStream in = new BufferedInputStream(new FileInputStream(pathToStar.toString()))){
             starIm = new ImageView(new Image(in));
         } catch(IOException e) {
+            ParkShopApp.primaryLog.log(Level.SEVERE, "Error Loading Star-1 Image");
             e.printStackTrace();
         }
         int i;

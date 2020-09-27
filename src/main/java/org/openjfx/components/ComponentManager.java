@@ -168,7 +168,7 @@ public class ComponentManager implements Saveable {
         if(shopList.get(cmp.getPart()) == null)
             shopList.put(cmp.getPart(), new LinkedList<Component>());
         shopList.get(cmp.getPart()).add(cmp);
-        ParkShopApp.primaryLog.log(Level.FINER, "Added: "+cmp.toString());
+        ParkShopApp.primaryLog.log(Level.INFO, "Added: "+cmp.toString());
     }
 
     // Better Component Generation Method
@@ -236,7 +236,7 @@ public class ComponentManager implements Saveable {
     public void voidPlayerComponents(List<Component> cx) {
         for(Component c : cx) {
             if(!this.componentList.get(c.getPart()).contains(c)) {
-                System.err.println("Error: bad component passed to void");
+                ParkShopApp.primaryLog.log(Level.SEVERE, "Error: bad component passed to void");
                 return;
             }
             this.componentList.get(c.getPart()).remove(c);
@@ -268,6 +268,7 @@ public class ComponentManager implements Saveable {
             manageProb.store(outfile, null);
 
         } catch (IOException exception) {
+            ParkShopApp.primaryLog.log(Level.SEVERE, "Error Saving ComponentManager");
             exception.printStackTrace();
         }
     }

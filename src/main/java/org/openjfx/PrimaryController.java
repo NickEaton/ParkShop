@@ -158,6 +158,8 @@ public class PrimaryController {
         purchaseButton.setText("Purchase");
         purchaseButton.setVisible(true);
         bikePane.setVisible(false);
+
+        ParkShopApp.primaryLog.log(Level.INFO, "Redrew ComponentView ScrollBox");
     }
 
     // Renull the box
