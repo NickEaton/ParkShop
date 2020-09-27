@@ -36,6 +36,7 @@ import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.logging.Level;
 
 // This class will handle most of the I/O in the main program
 public class PrimaryController {
@@ -342,7 +343,7 @@ public class PrimaryController {
         if(!buildState) {
             //System.out.println("Doing Handle I");
             if (this.selectedComponent == null) {
-                System.out.println("Error no Component Selected");
+                ParkShopApp.primaryLog.log(Level.WARNING, "Error no Component Selected");
                 return;
             }
 
@@ -528,7 +529,7 @@ public class PrimaryController {
                         try {
                             handoffRFSelect();
                         } catch (IOException ex) {
-                            System.err.println("Error in RF handoff");
+                            ParkShopApp.primaryLog.log(Level.SEVERE, "Error in RF handoff");
                             ex.printStackTrace();
                         }
                     } else doStage2Add();
@@ -549,7 +550,7 @@ public class PrimaryController {
         try {
             refreshBuilderImages();
         } catch (IOException e) {
-            System.err.println("Error on refreshBuilderImages");
+            ParkShopApp.primaryLog.log(Level.SEVERE, "Error on refreshBuilderImages");
             e.printStackTrace();
         }
     }
@@ -589,6 +590,7 @@ public class PrimaryController {
     @FXML
     public void handoffDetail(ActionEvent e) throws IOException {
         try {
+            ParkShopApp.primaryLog.log(Level.INFO, "Loading BikeDetail.fxml");
             FXMLLoader fxload = new FXMLLoader(ParkShopApp.class.getResource("BikeDetail.fxml"));
             Parent root = fxload.load();
             DetailController x = fxload.getController();
@@ -604,7 +606,7 @@ public class PrimaryController {
             myStage.sizeToScene();
             myStage.show();
         } catch (Exception exception) {
-            System.err.println("Error in detail controller handoff");
+            ParkShopApp.primaryLog.log(Level.SEVERE, "Error in detail controller handoff");
             exception.printStackTrace();
         }
     }
@@ -615,6 +617,7 @@ public class PrimaryController {
     public void handoffRFSelect() throws IOException {
         if(isRFPart(this.selectedComponent.getComponent())) {
             try {
+                ParkShopApp.primaryLog.log(Level.INFO, "Loading RFSelect.fxml");
                 FXMLLoader fxload = new FXMLLoader(ParkShopApp.class.getResource("RFSelect.fxml"));
                 Parent root = fxload.load();
                 RFSelectController rfSelect = fxload.getController();
@@ -627,7 +630,7 @@ public class PrimaryController {
                 ParkShopApp.window.setTitle("Option Select");
                 ParkShopApp.window.show();
             } catch (Exception exception) {
-                System.err.println("Error in RFSelect controller handoff");
+                ParkShopApp.primaryLog.log(Level.SEVERE, "Error in RFSelect controller handoff");
                 exception.printStackTrace();
             }
             cDone = false;

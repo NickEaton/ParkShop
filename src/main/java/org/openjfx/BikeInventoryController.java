@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.logging.Level;
 
 public class BikeInventoryController {
 
@@ -69,7 +70,7 @@ public class BikeInventoryController {
             @Override
             public void handle(MouseEvent event) {
                 // Do Something
-                System.out.println("Register click");
+                ParkShopApp.primaryLog.log(Level.FINE, "Detected Click");
             }
         });
 

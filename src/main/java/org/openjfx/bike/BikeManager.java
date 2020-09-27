@@ -1,5 +1,6 @@
 package org.openjfx.bike;
 
+import org.openjfx.ParkShopApp;
 import org.openjfx.components.Component;
 import org.openjfx.components.ComponentManager;
 import org.openjfx.entity.Rider;
@@ -9,6 +10,7 @@ import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.logging.Level;
 
 public class BikeManager implements Saveable {
 
@@ -108,14 +110,14 @@ public class BikeManager implements Saveable {
                 switch (frontBackDelin) {
                     case 0 -> activeTireF = comp;
                     case 1 -> activeTireR = comp;
-                    default -> System.err.println("Err invalid delin value");
+                    default -> ParkShopApp.primaryLog.log(Level.WARNING, "Err invalid delin value");
                 }
                 break;
             case BRAKE:
                 switch (frontBackDelin) {
                     case 0 -> activeBrakeF = comp;
                     case 1 -> activeBrakeR = comp;
-                    default -> System.err.println("Err invalid delin value");
+                    default -> ParkShopApp.primaryLog.log(Level.WARNING, "Err invalid delin value");
                 }
                 break;
             case CHAIN:
@@ -131,7 +133,7 @@ public class BikeManager implements Saveable {
                 switch (frontBackDelin) {
                     case 0 -> activeRotorF = comp;
                     case 1 -> activeRotorR = comp;
-                    default -> System.err.println("Err invalid delin value");
+                    default -> ParkShopApp.primaryLog.log(Level.WARNING, "Err invalid delin value");
                 }
                 break;
             case SHOCK:
@@ -141,7 +143,7 @@ public class BikeManager implements Saveable {
                 switch (frontBackDelin) {
                     case 0 -> activeWheelF = comp;
                     case 1 -> activeWheelR = comp;
-                    default -> System.err.println("Err invalid delin value");
+                    default -> ParkShopApp.primaryLog.log(Level.WARNING, "Err invalid delin value");
                 }
                 break;
             case CRANKS:
@@ -172,7 +174,7 @@ public class BikeManager implements Saveable {
                 activeBrakeLever = comp;
                 break;
             default:
-                System.err.println("Err invalid component");
+                ParkShopApp.primaryLog.log(Level.WARNING, "Err invalid component");
                 break;
         }
     }
@@ -183,7 +185,7 @@ public class BikeManager implements Saveable {
             if(r.getRiderID().equals(rName))
                 return r;
         }
-        System.err.println("Error on Rider Lookup");
+        ParkShopApp.primaryLog.log(Level.SEVERE, "Error on Rider Lookup");
         return null;
     }
 
@@ -204,7 +206,7 @@ public class BikeManager implements Saveable {
     public BikeObj doLocalConstruct(String bkName, Rider owner) {
         BikeObj local = new BikeObj(bkName, owner, compressActive());
         this.BKList.add(local);
-        System.out.println(local);
+        ParkShopApp.primaryLog.log(Level.FINER, local.toString());
         return local;
     }
 

@@ -17,8 +17,12 @@ import org.openjfx.util.Saveable;
 
 import java.io.IOException;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ParkShopApp extends Application implements Saveable {
+
+    public static final Logger primaryLog = Logger.getLogger(ParkShopApp.class.getName());
 
     static Player player;
 
@@ -35,6 +39,9 @@ public class ParkShopApp extends Application implements Saveable {
 
     @Override
     public void start(Stage stage) throws Exception {
+
+        primaryLog.log(Level.INFO, "Launching Application");
+
         window = stage;
         player = new Player();
         rand = new Random();
@@ -51,6 +58,7 @@ public class ParkShopApp extends Application implements Saveable {
         timerService.play();
 
         try {
+            primaryLog.log(Level.INFO, "Loading Login.fxml");
             scene = new Scene(loadFXML("Login"));
             stage.setTitle("Park Shop v0.0.1");
             stage.setResizable(false);

@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
+import java.util.logging.Level;
 
 // Let the user select an image for the bike they just constructed
 public class BKImageController {
@@ -67,6 +68,7 @@ public class BKImageController {
                 e.printStackTrace();
             }
 
+            ParkShopApp.primaryLog.log(Level.INFO, "Loading BuildNotification.fxml");
             FXMLLoader fxload = new FXMLLoader(ParkShopApp.class.getResource("BuildNotification.fxml"));
             Parent root = fxload.load();
             BKConCompleteController controller = fxload.getController();
@@ -89,7 +91,7 @@ public class BKImageController {
 
             controller.fadeAway(popwin, popup);                              // Deuces
         } catch (IOException e) {
-            System.err.println("Error in fade transition scene construct");
+            ParkShopApp.primaryLog.log(Level.SEVERE, "Error in fade transition scene construct");
             e.printStackTrace();
         }
     }
@@ -104,6 +106,7 @@ public class BKImageController {
     }
 
     // Quit without construction
+    // TODO
     @FXML
     public void doQuit() throws IOException {
 

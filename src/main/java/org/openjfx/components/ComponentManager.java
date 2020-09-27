@@ -12,6 +12,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 
 // This class will store, organize and manage the total list of components stored
 public class ComponentManager implements Saveable {
@@ -167,7 +168,7 @@ public class ComponentManager implements Saveable {
         if(shopList.get(cmp.getPart()) == null)
             shopList.put(cmp.getPart(), new LinkedList<Component>());
         shopList.get(cmp.getPart()).add(cmp);
-        System.out.println("Added: "+cmp);
+        ParkShopApp.primaryLog.log(Level.FINER, "Added: "+cmp.toString());
     }
 
     // Better Component Generation Method
