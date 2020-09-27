@@ -1,6 +1,13 @@
 .bkborder  {
     -fx-border-width: 5px;
-    -fx-border-style: groove;
     -fx-border-color: rgba(164,36,20,0.65);
     -fx-border-radius: 10px;
+    -fx-border-inset: 5;
+}
+
+.bkoutline {
+    -fx-outline-width: 5px;
+    -fx-outline-style: ridge;
+    -fx-outline-color: #229DDD;
+    -fx-outline-offset: 10px;
 }
