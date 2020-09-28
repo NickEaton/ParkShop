@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.layout.BorderPane?>
-
 
 <BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.TrailController">
    <center>
-      <AnchorPane prefHeight="1080.0" prefWidth="1920.0">
-         <children>
-            <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true" />
-         </children>
-      </AnchorPane>
+      <Canvas fx:id="map" height="1080.0" onMouseClicked="#mouseClick" width="1920.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

@@ -656,7 +656,7 @@ public class PrimaryController {
             ParkShopApp.window.setTitle("Image Select");
             ParkShopApp.window.show();
         } catch (Exception e) {
-            System.err.println("Error in BKImage Controller handoff");
+            ParkShopApp.primaryLog.log(Level.SEVERE,"Error in BKImage Controller handoff");
             e.printStackTrace();
         }
     }
@@ -678,7 +678,28 @@ public class PrimaryController {
             ParkShopApp.window.setTitle("Bike Inventory");
             ParkShopApp.window.show();
         } catch (Exception e) {
-            System.err.println("Error in BikeInventory controller handoff");
+            ParkShopApp.primaryLog.log(Level.SEVERE,"Error in BikeInventory controller handoff");
+            e.printStackTrace();
+        }
+    }
+
+    // Goto Trail view to actually do something interesting
+    @FXML
+    public void handoffTrailSys() throws IOException {
+        try {
+            FXMLLoader fxload = new FXMLLoader(ParkShopApp.class.getResource("Trail.fxml"));
+            Parent root = fxload.load();
+            TrailController trailCon = fxload.getController();
+            trailCon.doLayout();
+
+            Scene trailview = new Scene(root);
+            ParkShopApp.window = new Stage();
+            ParkShopApp.window.setScene(trailview);
+            ParkShopApp.window.setResizable(false);
+            ParkShopApp.window.setTitle("Trail Overview");
+            ParkShopApp.window.show();
+        } catch (IOException e) {
+            ParkShopApp.primaryLog.log(Level.SEVERE, "Error in Trail Controller handoff");
             e.printStackTrace();
         }
     }

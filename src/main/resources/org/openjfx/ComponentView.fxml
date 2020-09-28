@@ -35,7 +35,10 @@
                   <MenuItem mnemonicParsing="false" onAction="#showBuilderView" text="Build" />
                   <MenuItem mnemonicParsing="false" onAction="#handoffBikeInventory" text="Inventory" />
                </items></Menu>
-          <Menu mnemonicParsing="false" text="Trail System" />
+          <Menu mnemonicParsing="false" text="Trail System">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handoffTrailSys" text="Manage" />
+               </items></Menu>
             <Menu mnemonicParsing="false" text="Help" />
             <Menu mnemonicParsing="false" text="Quit" />
         </menus>
