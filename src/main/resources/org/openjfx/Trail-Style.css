@@ -1,0 +1,52 @@
+.noBack {
+    -fx-background-color: white;
+}
+
+.topBorder {
+    -fx-background-color: #AA2B4B;
+}
+
+.sideBorder {
+    -fx-border-width: 0 5 5 5;
+    -fx-border-color: #AA2B4B
+}
+
+.easiestBorder {
+    -fx-border-width: 3px;
+    -fx-border-color: #9EE8B2
+}
+
+.easyBorder {
+    -fx-border-width: 3px;
+    -fx-border-color: #30e360
+}
+
+.intermediateBorder {
+    -fx-border-width: 3px;
+    -fx-border-color: #1384e8
+}
+
+.advancedBorder {
+    -fx-border-width: 3px;
+    -fx-border-color: #4d4a4b
+}
+
+.expertBorder {
+    -fx-border-width: 3px;
+    -fx-border-color: #171616
+}
+
+.proBorder {
+    -fx-border-width: 3px;
+    -fx-border-color: #db7c00
+}
+
+.masterBorder {
+    -fx-border-width: 3px;
+    -fx-border-color: #631c0f
+}
+
+.insanityBorder {
+    -fx-border-width: 3px;
+    -fx-border-color: #c42204
+}

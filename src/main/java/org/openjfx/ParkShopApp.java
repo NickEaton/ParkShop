@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 
 public class ParkShopApp extends Application implements Saveable {
 
-    public static final Logger primaryLog = Logger.getLogger(ParkShopApp.class.getName());
+    public static final Logger primaryLog = Logger.getLogger("LOG");
 
     static Player player;
 
@@ -31,11 +31,6 @@ public class ParkShopApp extends Application implements Saveable {
     public static ComponentManager cmpManager;
     public static BikeManager bkManager;
     public Random rand;
-
-    // This may be a really bad idea
-    // static ScheduledExecutorService newComponentTimer;
-    // static ScheduledExecutorService newEmployeeTimer;
-    // static ArrayList<ScheduledExecutorService> buildUpTimers;
 
     @Override
     public void start(Stage stage) throws Exception {

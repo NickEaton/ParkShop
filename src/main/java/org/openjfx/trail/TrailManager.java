@@ -11,7 +11,14 @@ public class TrailManager {
 
     // Fields
     public enum Rating {
-        GREEN, BLUE, BLACK, DOUBLE_BLACK, PRO
+        WHITE,
+        GREEN,
+        BLUE,
+        BLACK,
+        DOUBLE_BLACK,
+        PRO,
+        TRIPLE_BLACK,
+        INSANITY
     }
 
     private ArrayList<Trail> trailMap;

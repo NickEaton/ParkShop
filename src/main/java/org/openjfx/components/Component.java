@@ -176,6 +176,6 @@ public class Component implements Saveable {
     public String toString() {
         return "( WP: " + wearPercent + ", FXC: " + fitness_XC + ", FEND: " + fitness_END + ", FDH: " + fitness_DH +
                 ", NAME: " + compName + ", MAN: " + manufacturer + ", LVL: " + partLevel + ", RAT: " + getRating() + ", CID: " + compID + ", TMOD: " + timeModifier +
-                ", CUSD: " + costUSD + ", MUSD: " + marginUSD + ", MAT: " + material + ", PART: " + part + ")\n";
+                ", CUSD: " + costUSD + ", MUSD: " + marginUSD + ", MAT: " + material + ", PART: " + part + ")";
     }
 }
