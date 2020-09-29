@@ -690,13 +690,14 @@ public class PrimaryController {
             FXMLLoader fxload = new FXMLLoader(ParkShopApp.class.getResource("Trail.fxml"));
             Parent root = fxload.load();
             TrailController trailCon = fxload.getController();
-            trailCon.doLayout();
 
             Scene trailview = new Scene(root);
             ParkShopApp.window = new Stage();
             ParkShopApp.window.setScene(trailview);
             ParkShopApp.window.setResizable(false);
             ParkShopApp.window.setTitle("Trail Overview");
+            trailCon.myScene = trailview;
+            trailCon.doLayout();
             ParkShopApp.window.show();
         } catch (IOException e) {
             ParkShopApp.primaryLog.log(Level.SEVERE, "Error in Trail Controller handoff");

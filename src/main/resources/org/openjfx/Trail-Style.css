@@ -50,3 +50,11 @@
     -fx-border-width: 3px;
     -fx-border-color: #c42204
 }
+
+.textEnable {
+    -fx-fill: #00ff00
+}
+
+.textDisable {
+    -fx-fill: #ff0000
+}

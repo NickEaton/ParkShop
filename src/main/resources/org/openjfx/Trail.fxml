@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.TrailController">
+<BorderPane fx:id="base" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.TrailController">
    <center>
       <Canvas fx:id="map" height="1080.0" onMouseClicked="#mouseClick" width="1894.0" BorderPane.alignment="CENTER" />
    </center>
@@ -213,7 +213,33 @@
          <children>
             <VBox alignment="TOP_CENTER" layoutX="75.0" layoutY="373.0" prefHeight="1080.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="70.0" prefWidth="240.0" />
+                  <HBox alignment="CENTER" prefHeight="70.0" prefWidth="240.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Settings">
+                           <font>
+                              <Font size="48.0" />
+                           </font>
+                        </Text>
+                     </children></HBox>
+                  <VBox alignment="CENTER" prefHeight="53.0" prefWidth="240.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="240.0" spacing="5.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Mode:">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="editModeTxt" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textDisable" text="DISABLED">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="(Toggle with &quot;E&quot;)" />
+                     </children>
+                  </VBox>
                   <VBox alignment="CENTER" prefHeight="53.0" prefWidth="240.0">
                      <children>
                         <HBox alignment="CENTER" prefHeight="50.0" prefWidth="240.0" spacing="5.0">
@@ -223,7 +249,7 @@
                                     <Font size="16.0" />
                                  </font>
                               </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ENABLED">
+                              <Text fx:id="contDrawModeTxt" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textDisable" text="DISABLED">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
