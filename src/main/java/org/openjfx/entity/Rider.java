@@ -1,13 +1,23 @@
 package org.openjfx.entity;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import org.openjfx.bike.BikeObj;
+import org.openjfx.trail.Trail;
+import org.openjfx.trail.TrailVectorNode;
 import org.openjfx.util.Saveable;
 
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Properties;
+import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 public class Rider implements Saveable {
 
@@ -28,11 +38,28 @@ public class Rider implements Saveable {
     // List of this riders owned bikes (The shop itself may be considered an "owner")
     private ArrayList<BikeObj> bikes;
 
+    // Speed throughout the race, which will be a multiplier to time
+    private double rSpeed;
+
     // Regex character used for data loads and stores
     private static final String regex = "#";
 
     // Private ID for indexing this users bikes
     private static int curID;
+
+
+
+    // Active bike during a race
+    private BikeObj activeBike;
+
+    // RNG factor for a race
+    private int RNGLevel;
+
+    // Crashes during a race
+    private int segCrashes;
+    private int featureCrashes;
+    private double finalTime;
+
 
     // File Constructor
     public Rider(String fileID) throws IOException {
@@ -91,6 +118,7 @@ public class Rider implements Saveable {
     public String getRiderID() { return this.riderID; }
     public double getPreferenceRentBuy() { return this.preferenceRentBuy; }
     public double getFinancialIntensity() { return this.financialIntensity; }
+    public double getFinalTime() { return this.finalTime; }
 
     // Public Methods
     public ArrayList<BikeObj> getOwnedBikes() {
@@ -136,5 +164,81 @@ public class Rider implements Saveable {
             s1.append(B.toString());
         }
         return s1.toString();
+    }
+
+    // Compute a race level score for this rider on a particular trail from 0-100
+    // TODO: Better
+    public double getTrackScore(Trail trail) {
+        double rMod = this.RNGLevel * (1/trail.getVariance());                    // "Lucky" rider should offset "Unlucky" track
+        double proficiency = (this.fitness_XC/2 + this.activeBike.getBike_fitness_XC()/2) / trail.getXC_lvl() +
+                             (this.fitness_END/2 + this.activeBike.getBike_fitness_END()/2) / trail.getXC_lvl() +
+                             (this.fitness_DH/2 + this.activeBike.getBike_fitness_DH()/2) / trail.getDH_lvl();          // How well this rider + bike ought to do on this track
+
+        return (rMod+3)*proficiency;
+    }
+
+    /*
+    // TODO: this sucks
+    public Timeline start(Trail trail) {
+        final LinkedList<TrailVectorNode> obList = trail.getTrailPath();
+        final int[] obIndex = {0};
+        double chanceAccident = trail.getVariance()/this.RNGLevel*100;
+        final double[] totalTime = {0};
+        final double[] segTime = {0};
+
+        ScheduledExecutorService scheduleRace = Executors.newScheduledThreadPool(1);
+        final Runnable executeRace = new Runnable() {
+            Runnable manageRace;
+            public void defineManager(Runnable x) { manageRace = x; }
+
+            @Override
+            public void run() {
+                if(obIndex[0] < obList.size()) {
+                    totalTime[0] += segTime[0];
+                    segTime[0] = obList.get(obIndex[0]).getBaseTimeSeconds()*rSpeed;
+                    obIndex[0]++;
+                    scheduleRace.execute(manageRace);
+                }
+            }
+        };
+
+        final Runnable manageRace = new Runnable() {
+            @Override
+            public void run() {
+                if(obIndex[0] < obList.size()) {
+                    totalTime[0] += segTime[0];
+                    segTime[0] = obList.get(obIndex[0]).getBaseTimeSeconds()*rSpeed;
+                    obIndex[0]++;
+                    scheduleRace.schedule(executeRace, (long)segTime[0], TimeUnit.SECONDS);
+                }
+            }
+        };
+
+        ScheduledFuture<?> raceHandle = scheduleRace.schedule(executeRace, (long)obList.get(0).getBaseTimeSeconds(), TimeUnit.SECONDS);
+
+        return null;
+    }
+    */
+
+    // compute timing, score, etc for line segment
+    public double runSegment(Trail owner, TrailVectorNode line) {
+        double crashChance = owner.getVariance()/this.RNGLevel * 100;
+        Random r = new Random();
+        double deductions = 1;
+
+        if(Math.round(crashChance) <= r.nextInt(100)) {
+            // The rider crashes on the segment, the faster they were going the greater the deduction
+            deductions += 1/this.rSpeed;
+        }
+
+        if(line.getFeature() != null) {
+            crashChance = owner.getVariance() / this.RNGLevel * 100 * line.getFeature().getIntensity();
+            if (Math.round(crashChance) <= r.nextInt(100)) {
+                // The rider crashes on the feature
+                deductions += 1/this.rSpeed + 1;
+            }
+        }
+
+        return line.getBaseTimeSeconds() * (1/rSpeed) * deductions;
     }
 }

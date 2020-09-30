@@ -21,10 +21,23 @@ public class TrailManager {
         INSANITY
     }
 
+    public enum FeatureType {
+        JUMP_RACE,
+        JUMP_LONG,
+        JUMP_HIGH,
+        JUMP_TRICK,
+        ROCK_GARDEN,
+        DROP,
+        STEEP
+    }
+
     private ArrayList<Trail> trailMap;
 
-    @FXML
-    public void drawSegment(ActionEvent event) {
+    public void addTrail(Trail trail) {
+        trailMap.add(trail);
+    }
 
+    public TrailManager() {
+        trailMap = new ArrayList<Trail>();
     }
 }

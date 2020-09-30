@@ -16,12 +16,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import org.openjfx.trail.Feature;
 import org.openjfx.trail.Trail;
 import org.openjfx.trail.TrailManager;
+import org.openjfx.trail.TrailVectorNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +39,9 @@ public class TrailController {
 
     @FXML private BorderPane base;
 
-    @FXML public ArrayList<Line> tDrawBuffer;
-    @FXML private Canvas map;
-    @FXML private GraphicsContext gc;
+    @FXML public ArrayList<Shape> tDrawBuffer;
 
     @FXML private GridPane difGP;
-    @FXML private ArrayList<AnchorPane> difLDraw;
     @FXML private AnchorPane easiest;
     @FXML private AnchorPane easy;
     @FXML private AnchorPane intermediate;
@@ -52,6 +53,9 @@ public class TrailController {
     @FXML private Text editModeTxt;
     @FXML private Text contDrawModeTxt;
 
+    @FXML private Pane map;
+    @FXML private Line tmpLine;
+
     private int prevx;
     private int prevy;
 
@@ -60,15 +64,36 @@ public class TrailController {
 
     private static final String[] colors = {"#9EE8B2", "#30e360", "#1384e8", "#4d4a4b",
                                             "#171616", "#db7c00", "#631c0f", "#c42204"};
+    private Paint activeColor;
 
-    // true when currently drawing a line
     private boolean activeLine;
+    private boolean drawingTrail;
+    private Trail cDrawTrail;
 
     @FXML
     private void onMouseClick(MouseEvent e) {
         lineRating = TrailManager.Rating.values()[GridPane.getColumnIndex((AnchorPane)e.getSource())];
-        gc.setStroke(Paint.valueOf(colors[GridPane.getColumnIndex((AnchorPane)e.getSource())]));
+        activeColor = Paint.valueOf(colors[GridPane.getColumnIndex((AnchorPane)e.getSource())]);
         refreshDifficultyBar((AnchorPane)e.getSource());
+    }
+
+    private void generateNode(MouseEvent event) {
+        if(!drawingTrail) {                 // Create new Trail object, put first node in the linked list
+            cDrawTrail = new Trail();
+            TrailVectorNode startVec = new TrailVectorNode(event.getX(), event.getY(), 15);
+            startVec.setLink(tmpLine);
+            startVec.setFill(Color.TRANSPARENT);
+            cDrawTrail.getTrailPath().add(startVec);
+            drawingTrail = true;
+        } else {                            // Add node to end, setup line link using tmpLine
+            cDrawTrail.getTrailPath().getLast().setLink(this.tmpLine);
+            TrailVectorNode newVec = new TrailVectorNode(event.getX(), event.getY(), 15);
+            newVec.setLink(tmpLine);
+            newVec.setFill(Color.TRANSPARENT);
+            cDrawTrail.getTrailPath().add(newVec);
+        }
+        prevx = (int)event.getX();
+        prevy = (int)event.getY();
     }
 
     @FXML
@@ -83,25 +108,32 @@ public class TrailController {
         insanity.getStyleClass().clear();
 
         selection.getStylesheets().add(ParkShopApp.class.getResource("Trail-Style.css").toString());
-        System.out.println(selection.getId()+"Border");
         selection.getStyleClass().add(selection.getId()+"Border");
     }
 
-    // Draw the canvas with only registered segments shown
+    // Draw the pane with only registered segments shown
     private void refreshCanvas() {
-        gc.clearRect(0, 0, map.getWidth(), map.getHeight());
-        for(Line l : tDrawBuffer)
-            gc.strokeLine(l.getStartX(), l.getStartY(), l.getEndX(), l.getEndY());
+        map.getChildren().clear();
+        map.getChildren().addAll(tDrawBuffer);
     }
 
     // Show the user where their line is going
     private void onMouseMoveNoDrag() {
-        map.setOnMouseMoved(event -> {
-            if(activeLine && editMode && contDraw) {
+        map.setOnMouseMoved(event ->  {
+            if(editMode) {
                 refreshCanvas();
-                gc.strokeLine(prevx, prevy, event.getX(), event.getY());
+                if (activeLine && contDraw) {
+                    drawTmpLine((int) event.getX(), (int) event.getY());
+                    tmpLine.setStroke(activeColor);
+                    tmpLine.setStrokeWidth(4);
+                    map.getChildren().add(tmpLine);
+                }
             }
         });
+    }
+
+    @FXML private void drawTmpLine(int x, int y) {
+        tmpLine = new Line(prevx, prevy, x, y);
     }
 
     @FXML
@@ -133,35 +165,44 @@ public class TrailController {
     }
 
     public void mouseClick(MouseEvent e) {
-        if(editMode) {
+        if(editMode) {                  // Currently do nothing if not in edit mode
             int xpos = (int) e.getX();
             int ypos = (int) e.getY();
-            if (!activeLine) {
+            if (!activeLine) {          // If not drawing a segment, create new Trail/Segment
                 prevx = xpos;
                 prevy = ypos;
                 activeLine = true;
-                return;
+            } else {                    // Add to the current list
+                map.getChildren().clear();
+                drawTmpLine(xpos, ypos);
+                map.getChildren().add(tmpLine);
+                tmpLine.setStroke(activeColor);
+                tmpLine.setStrokeWidth(4);
+                tDrawBuffer.add(tmpLine);
+                prevx = xpos;
+                prevy = ypos;
             }
-
-            gc.strokeLine(prevx, prevy, xpos, ypos);
-            tDrawBuffer.add(new Line(prevx, prevy, xpos, ypos));
-            prevx = xpos;
-            prevy = ypos;
-            activeLine = true;
+            if(cDrawTrail == null) cDrawTrail = new Trail();
+            generateNode(e);
+            tDrawBuffer.add(cDrawTrail.getTrailPath().getLast());
         }
     }
 
+
     // setup the layout of this trail map
     public void doLayout() {
+        tManager = new TrailManager();
         contDraw = false;
-        editMode = true;
+        editMode = false;
+        drawingTrail = false;
 
-        gc = map.getGraphicsContext2D();
-        tDrawBuffer = new ArrayList<Line>();
-        gc.setLineWidth(5);
-        gc.setStroke(Paint.valueOf("blue"));
+        tDrawBuffer = new ArrayList<Shape>();
         activeLine = false;
         onMouseMoveNoDrag();
+
+        activeColor = Paint.valueOf(colors[0]);
+
+        //TODO: map.addEventHandler();
 
         myScene.setOnKeyPressed(event -> {
             if(event.getText().toLowerCase().equals("c")) {
@@ -175,6 +216,19 @@ public class TrailController {
 
     // Re-Draw pre-existing features if the map is closed and re-opened
     public void preDraw(List<Trail> trailList ) {
-        // TODO
+        for(Trail t : trailList) {
+            for(TrailVectorNode tvn : t.getTrailPath()) {
+                tDrawBuffer.add(tvn);
+                if(tvn.getLink() !=  null) tDrawBuffer.add(tvn.getLink());
+            }
+        }
+        refreshCanvas();
+    }
+
+    public void publishTrail() {
+        this.tManager.addTrail(this.cDrawTrail);
+        cDrawTrail = new Trail();
+        drawingTrail = false;
+        activeLine = false;
     }
 }

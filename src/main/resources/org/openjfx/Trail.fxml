@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.canvas.Canvas?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.SubScene?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,6 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -16,7 +19,7 @@
 
 <BorderPane fx:id="base" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.TrailController">
    <center>
-      <Canvas fx:id="map" height="1080.0" onMouseClicked="#mouseClick" width="1894.0" BorderPane.alignment="CENTER" />
+      <Pane fx:id="map" onMouseClicked="#mouseClick" BorderPane.alignment="CENTER" />
    </center>
    <top>
       <AnchorPane prefHeight="200.0" prefWidth="1920.0" styleClass="topBorder" stylesheets="@Trail-Style.css" BorderPane.alignment="CENTER">
@@ -206,7 +209,66 @@
          </children></AnchorPane>
    </top>
    <left>
-      <AnchorPane prefHeight="1080.0" prefWidth="250.0" styleClass="sideBorder" stylesheets="@Trail-Style.css" BorderPane.alignment="CENTER" />
+      <AnchorPane prefHeight="1080.0" prefWidth="250.0" styleClass="sideBorder" stylesheets="@Trail-Style.css" BorderPane.alignment="CENTER">
+         <children>
+            <SubScene height="250.0" layoutX="5.0" width="250.0">
+              <root>
+                <Region />
+              </root>
+            </SubScene>
+            <VBox alignment="TOP_CENTER" layoutX="5.0" layoutY="250.0" prefHeight="825.0" prefWidth="250.0" spacing="5.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#publishTrail" prefHeight="45.0" prefWidth="120.0" text="Construct">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="&lt; Name &gt;">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="250.0" spacing="15.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Length: ">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                     </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="250.0" spacing="15.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rating:">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="70.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <opaqueInsets>
+                  <Insets top="10.0" />
+               </opaqueInsets>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </VBox>
+         </children></AnchorPane>
    </left>
    <right>
       <AnchorPane prefHeight="1080.0" prefWidth="250.0" styleClass="sideBorder" stylesheets="@Trail-Style.css" BorderPane.alignment="CENTER">
