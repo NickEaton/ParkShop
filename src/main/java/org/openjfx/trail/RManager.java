@@ -13,6 +13,10 @@ public class RManager implements Saveable {
     private ArrayList<Rider> riderArrayList;
     @FXML private Scene displayWindow;
 
+    public RManager() {
+        this.riderArrayList = new ArrayList<Rider>();
+    }
+
     @Override
     public void saveToFile() throws IOException {
 
