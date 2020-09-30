@@ -27,7 +27,7 @@ import java.util.logging.Level;
 public class EmployeeRecruitController implements Saveable {
 
     @FXML private ScrollPane contentPane;
-    private EmployeeManager employeeManager;
+    public EmployeeManager employeeManager;
 
     @FXML
     private VBox getEmployeeRecruitBox(Employee target) {
@@ -73,6 +73,7 @@ public class EmployeeRecruitController implements Saveable {
     @FXML
     public void drawPane() throws IOException {
         VBox content = new VBox();
+        content.setSpacing(25);
         int index = 0;
         int numPerLine = (int)contentPane.getPrefWidth()/325;
         int HboxCount = (int)Math.ceil((double)employeeManager.getStaffHireList().size()/(double)numPerLine);

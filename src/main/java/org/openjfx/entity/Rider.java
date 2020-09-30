@@ -47,7 +47,8 @@ public class Rider implements Saveable {
     // Private ID for indexing this users bikes
     private static int curID;
 
-
+    // Level from 1-5 based on fitness
+    private int level;
 
     // Active bike during a race
     private BikeObj activeBike;
@@ -119,10 +120,14 @@ public class Rider implements Saveable {
     public double getPreferenceRentBuy() { return this.preferenceRentBuy; }
     public double getFinancialIntensity() { return this.financialIntensity; }
     public double getFinalTime() { return this.finalTime; }
+    public int getLevel() { return this.level; }
 
     // Public Methods
     public ArrayList<BikeObj> getOwnedBikes() {
         return this.bikes;
+    }
+    public void computeLevel() {
+        this.level = (int)Math.round((fitness_XC/100+fitness_END/100+fitness_DH/100)*5/3);
     }
 
     // Save rider data to a file which can be recursively loaded later
@@ -221,6 +226,7 @@ public class Rider implements Saveable {
     */
 
     // compute timing, score, etc for line segment
+    // TODO
     public double runSegment(Trail owner, TrailVectorNode line) {
         double crashChance = owner.getVariance()/this.RNGLevel * 100;
         Random r = new Random();

@@ -683,6 +683,50 @@ public class PrimaryController {
         }
     }
 
+    // Goto RecruitRider to get Rider objs
+    @FXML
+    public void handoffRiderRecruit() throws IOException {
+        try {
+            FXMLLoader fxload = new FXMLLoader(ParkShopApp.class.getResource("RiderRecruit.fxml"));
+            Parent root = fxload.load();
+            RiderRecruitController rrc = fxload.getController();
+            rrc.riderManager = ParkShopApp.rManager;
+            rrc.drawPane();
+
+            Scene recruit = new Scene(root);
+            ParkShopApp.window = new Stage();
+            ParkShopApp.window.setScene(recruit);
+            ParkShopApp.window.setResizable(false);
+            ParkShopApp.window.setTitle("Rider Recruitment");
+            ParkShopApp.window.show();
+        } catch (Exception e) {
+            ParkShopApp.primaryLog.log(Level.SEVERE, "Error in RiderRecruit controller handoff");
+            e.printStackTrace();
+        }
+    }
+
+    // Goto EmployeeRecruit to get Employee objs
+    @FXML
+    public void handoffEmployeeRecruit() throws IOException {
+        try {
+            FXMLLoader fxload = new FXMLLoader(ParkShopApp.class.getResource("EmployeeRecruit.fxml"));
+            Parent root = fxload.load();
+            EmployeeRecruitController erc = fxload.getController();
+            erc.employeeManager = ParkShopApp.eManager;
+            erc.drawPane();
+
+            Scene recruit = new Scene(root);
+            ParkShopApp.window = new Stage();
+            ParkShopApp.window.setScene(recruit);
+            ParkShopApp.window.setResizable(false);
+            ParkShopApp.window.setTitle("Employee Recruitment");
+            ParkShopApp.window.show();
+        } catch (Exception e) {
+            ParkShopApp.primaryLog.log(Level.SEVERE, "Error in EmployeeRecruit controller handoff");
+            e.printStackTrace();
+        }
+    }
+
     // Goto Trail view to actually do something interesting
     @FXML
     public void handoffTrailSys() throws IOException {

@@ -10,6 +10,8 @@ import javafx.stage.WindowEvent;
 import org.openjfx.bike.BikeManager;
 import org.openjfx.components.Component;
 import org.openjfx.components.ComponentManager;
+import org.openjfx.entity.EmployeeManager;
+import org.openjfx.entity.RiderManager;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -110,6 +112,8 @@ public class StartController {
         // This is where we should split between new and load gamestate
         ParkShopApp.cmpManager = new ComponentManager();
         ParkShopApp.bkManager = new BikeManager();
+        ParkShopApp.rManager = new RiderManager();
+        ParkShopApp.eManager = new EmployeeManager();
     }
 
     // Return to Start screen from About or Settings

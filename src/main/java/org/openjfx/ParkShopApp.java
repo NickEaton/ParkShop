@@ -12,7 +12,10 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.openjfx.bike.BikeManager;
 import org.openjfx.components.ComponentManager;
+import org.openjfx.entity.EmployeeManager;
 import org.openjfx.entity.Player;
+import org.openjfx.entity.RiderManager;
+import org.openjfx.util.PSUtilities;
 import org.openjfx.util.Saveable;
 
 import java.io.IOException;
@@ -30,6 +33,8 @@ public class ParkShopApp extends Application implements Saveable {
     static Stage window;
     public static ComponentManager cmpManager;
     public static BikeManager bkManager;
+    public static RiderManager rManager;
+    public static EmployeeManager eManager;
     public Random rand;
 
     @Override
@@ -51,6 +56,26 @@ public class ParkShopApp extends Application implements Saveable {
         }));
         timerService.setCycleCount(Timeline.INDEFINITE);
         timerService.play();
+
+        // Timer for new employees to appear
+        Timeline employeeService = new Timeline(new KeyFrame(Duration.seconds(5), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                eManager.genNewEmployee(PSUtilities.flopNewName(), rand.nextInt(5));
+            }
+        }));
+        employeeService.setCycleCount(Timeline.INDEFINITE);
+        employeeService.play();
+
+        // Timer for new riders to appear
+        Timeline riderService = new Timeline(new KeyFrame(Duration.seconds(5), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                rManager.genNewRider(PSUtilities.flopNewName(), rand.nextInt(5));
+            }
+        }));
+        riderService.setCycleCount(Timeline.INDEFINITE);
+        riderService.play();
 
         try {
             primaryLog.log(Level.INFO, "Loading Login.fxml");
