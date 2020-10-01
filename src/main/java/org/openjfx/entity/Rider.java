@@ -60,6 +60,7 @@ public class Rider implements Saveable {
     private int segCrashes;
     private int featureCrashes;
     private double finalTime;
+    private double finalScore;
 
 
     // File Constructor
@@ -121,13 +122,19 @@ public class Rider implements Saveable {
     public double getFinancialIntensity() { return this.financialIntensity; }
     public double getFinalTime() { return this.finalTime; }
     public int getLevel() { return this.level; }
+    public double getLatestScore() { return this.finalScore; }
 
     // Public Methods
     public ArrayList<BikeObj> getOwnedBikes() {
         return this.bikes;
     }
+
     public void computeLevel() {
         this.level = (int)Math.round((fitness_XC/100+fitness_END/100+fitness_DH/100)*5/3);
+    }
+
+    public void setActiveBike(BikeObj b) {
+        this.activeBike = b;
     }
 
     // Save rider data to a file which can be recursively loaded later
@@ -179,7 +186,8 @@ public class Rider implements Saveable {
                              (this.fitness_END/2 + this.activeBike.getBike_fitness_END()/2) / trail.getXC_lvl() +
                              (this.fitness_DH/2 + this.activeBike.getBike_fitness_DH()/2) / trail.getDH_lvl();          // How well this rider + bike ought to do on this track
 
-        return (rMod+3)*proficiency;
+        this.finalScore = (rMod+3)*proficiency;
+        return finalScore;
     }
 
     /*

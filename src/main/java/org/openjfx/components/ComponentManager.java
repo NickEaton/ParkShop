@@ -223,6 +223,20 @@ public class ComponentManager implements Saveable {
         }
     }
 
+    // Generate components to build competitors for races
+    public LinkedList<Component> genCompFullSet() {
+        LinkedList<Component> temp = new LinkedList<Component>();
+        for(Part p : Part.values()) {
+            Component c1 = getNewRandComponent(p.toString(), p);
+            temp.add(c1);
+            if(isDouble(p)) {
+                Component c2 = getNewRandComponent(p.toString(), p);
+                temp.add(c2);
+            }
+        }
+        return temp;
+    }
+
     public HashMap<Part, LinkedList<Component>> getShopList() {
         return this.shopList;
     }

@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="900.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.RaceSelectTrackController">
    <children>
-      <ScrollPane prefHeight="800.0" prefWidth="400.0">
+      <ScrollPane fx:id="scrollContent" prefHeight="800.0" prefWidth="400.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
         </content>

@@ -60,7 +60,7 @@
                            <children>
                               <AnchorPane fx:id="easiest" onMouseClicked="#onMouseClick" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0">
                                  <children>
-                                    <ImageView fitHeight="90.0" fitWidth="90.0" layoutX="13.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="easiestIMG" fitHeight="90.0" fitWidth="90.0" layoutX="13.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/white.png" />
                                        </image>
@@ -69,7 +69,7 @@
                               </AnchorPane>
                               <AnchorPane fx:id="easy" onMouseClicked="#onMouseClick" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                                  <children>
-                                    <ImageView fitHeight="90.0" fitWidth="90.0" layoutX="13.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="easyIMG" fitHeight="90.0" fitWidth="90.0" layoutX="13.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/green.png" />
                                        </image>
@@ -78,7 +78,7 @@
                               </AnchorPane>
                               <AnchorPane fx:id="intermediate" onMouseClicked="#onMouseClick" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
                                  <children>
-                                    <ImageView fitHeight="90.0" fitWidth="90.0" layoutX="13.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="intermediateIMG" fitHeight="90.0" fitWidth="90.0" layoutX="13.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/blue.png" />
                                        </image>
@@ -87,7 +87,7 @@
                               </AnchorPane>
                               <AnchorPane fx:id="advanced" onMouseClicked="#onMouseClick" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
                                  <children>
-                                    <ImageView fitHeight="90.0" fitWidth="90.0" layoutX="13.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="advancedIMG" fitHeight="90.0" fitWidth="90.0" layoutX="13.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/black.png" />
                                        </image>
@@ -96,7 +96,7 @@
                               </AnchorPane>
                               <AnchorPane fx:id="expert" onMouseClicked="#onMouseClick" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4">
                                  <children>
-                                    <ImageView fitHeight="90.0" fitWidth="90.0" layoutX="13.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="expertIMG" fitHeight="90.0" fitWidth="90.0" layoutX="13.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/dbl_black.png" />
                                        </image>
@@ -105,7 +105,7 @@
                               </AnchorPane>
                               <AnchorPane fx:id="pro" onMouseClicked="#onMouseClick" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
                                  <children>
-                                    <ImageView fitHeight="90.0" fitWidth="90.0" layoutX="13.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="proIMG" fitHeight="90.0" fitWidth="90.0" layoutX="20.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/pro-1.png" />
                                        </image>
@@ -114,7 +114,7 @@
                               </AnchorPane>
                               <AnchorPane fx:id="master" onMouseClicked="#onMouseClick" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6">
                                  <children>
-                                    <ImageView fitHeight="90.0" fitWidth="90.0" layoutX="13.0" layoutY="10.0" pickOnBounds="true">
+                                    <ImageView fx:id="masterIMG" fitHeight="90.0" fitWidth="90.0" layoutX="13.0" layoutY="10.0" pickOnBounds="true">
                                        <image>
                                           <Image url="@../images/tpl_blk.png" />
                                        </image>
@@ -123,7 +123,7 @@
                               </AnchorPane>
                               <AnchorPane fx:id="insanity" onMouseClicked="#onMouseClick" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7">
                                  <children>
-                                    <ImageView fitHeight="90.0" fitWidth="90.0" layoutX="13.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="insanityIMG" fitHeight="90.0" fitWidth="90.0" layoutX="13.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/rt.png" />
                                        </image>
@@ -207,7 +207,7 @@
                      </children>
                   </HBox>
                </children></VBox>
-            <Button layoutX="1773.0" layoutY="88.0" mnemonicParsing="false" text="Race">
+            <Button layoutX="1773.0" layoutY="88.0" mnemonicParsing="false" onAction="#handoffRaceSelectTrack" text="Race">
                <font>
                   <Font size="24.0" />
                </font>

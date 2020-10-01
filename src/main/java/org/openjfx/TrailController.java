@@ -56,6 +56,14 @@ public class TrailController {
     @FXML private AnchorPane pro;
     @FXML private AnchorPane master;
     @FXML private AnchorPane insanity;
+    @FXML private ImageView easiestIMG;
+    @FXML private ImageView easyIMG;
+    @FXML private ImageView intermediateIMG;
+    @FXML private ImageView advancedIMG;
+    @FXML private ImageView expertIMG;
+    @FXML private ImageView proIMG;
+    @FXML private ImageView masterIMG;
+    @FXML private ImageView insanityIMG;
     @FXML private Text editModeTxt;
     @FXML private Text contDrawModeTxt;
 
@@ -70,6 +78,9 @@ public class TrailController {
 
     private static final String[] colors = {"#9EE8B2", "#30e360", "#1384e8", "#4d4a4b",
                                             "#171616", "#db7c00", "#631c0f", "#c42204"};
+
+    private final ImageView[] rImages = { easiestIMG, easyIMG, intermediateIMG, advancedIMG,
+                                    expertIMG, proIMG, masterIMG, insanityIMG};
     private Paint activeColor;
 
     private boolean activeLine;
@@ -81,9 +92,14 @@ public class TrailController {
     @FXML private Text cTrailDistTXT;
     private int cTrailDistVal;
 
+    public TrailController() {
+        this.raceManager = new RManager();
+    }
+
     @FXML
     private void onMouseClick(MouseEvent e) {
         lineRating = TrailManager.Rating.values()[GridPane.getColumnIndex((AnchorPane)e.getSource())];
+        cTrailRating = (rImages[GridPane.getColumnIndex((AnchorPane)e.getSource())]);           // TODO: needs work
         activeColor = Paint.valueOf(colors[GridPane.getColumnIndex((AnchorPane)e.getSource())]);
         refreshDifficultyBar((AnchorPane)e.getSource());
     }
@@ -196,6 +212,16 @@ public class TrailController {
             if(cDrawTrail == null) cDrawTrail = new Trail();
             generateNode(e);
             tDrawBuffer.add(cDrawTrail.getTrailPath().getLast());
+
+            cDrawTrail.getTrailPath().getLast().setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+                @Override
+                public void handle(MouseEvent event) {
+                    //cTrailRating.setImage(cTrailRating.getImage());
+                    cTrailName.setText(cDrawTrail.getTrailPath().getLast().getOwner().getName());
+                    cTrailDistTXT.setText(cDrawTrail.getTrailPath().getLast().getOwner().getLength());
+                }
+            });
         }
     }
 
@@ -237,7 +263,11 @@ public class TrailController {
     }
 
     public void publishTrail() {
+        this.cDrawTrail.setRating(lineRating);
+        this.cDrawTrail.setName(this.cTrailName.getText());
+        ParkShopApp.primaryLog.log(Level.INFO, "Published Trail "+cDrawTrail.getName());
         this.tManager.addTrail(this.cDrawTrail);
+        this.raceManager.addTrack(this.cDrawTrail);
         cDrawTrail = new Trail();
         drawingTrail = false;
         activeLine = false;
@@ -247,11 +277,12 @@ public class TrailController {
     @FXML
     public void handoffRaceSelectTrack() throws IOException {
         try {
-            raceManager = new RManager();
+            //raceManager = new RManager();
             FXMLLoader fxload = new FXMLLoader(ParkShopApp.class.getResource("RaceSelectTrack.fxml"));
             Parent root = fxload.load();
             RaceSelectTrackController rtx = fxload.getController();
             rtx.myRaceManager = raceManager;
+            rtx.doLayout();
 
             Scene sub = new Scene(root);
             ParkShopApp.window = new Stage();

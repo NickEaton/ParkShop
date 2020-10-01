@@ -1,6 +1,7 @@
 package org.openjfx.trail;
 
 import javafx.fxml.FXML;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Line;
 
 import java.util.LinkedList;
@@ -9,6 +10,7 @@ public class Trail {
 
     @FXML private LinkedList<TrailVectorNode> trailPath;
     private TrailManager.Rating rating;
+    private ImageView rImage;
     private String name;
     private int length;
     private int segCount;
@@ -28,6 +30,7 @@ public class Trail {
     // TODO
     public Trail() {
         trailPath = new LinkedList<TrailVectorNode>();
+        rImage = new ImageView();
     }
 
     public String getLength() {
@@ -46,6 +49,11 @@ public class Trail {
     public double getEND_lvl() { return this.END_lvl; }
     public double getDH_lvl() { return this.DH_lvl; }
     public int getTotalExecutableSegments() { return this.segCount; }
+    public TrailManager.Rating getRating() { return this.rating; }
+    public void setRating(TrailManager.Rating r) { this.rating = r; }
+    public void setImage(ImageView target) { this.rImage.setImage(target.getImage()); }
+    public ImageView getImage() { return this.rImage; }
+    public String getName() { return this.name; }
 
     public void computeRating() {
 

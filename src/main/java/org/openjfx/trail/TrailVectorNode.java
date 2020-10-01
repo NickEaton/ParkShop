@@ -10,6 +10,7 @@ import java.io.IOException;
 public class TrailVectorNode extends Circle implements Saveable {
     public TrailVectorNode next;
     private Feature feature;
+    private Trail owner;
     @FXML private Line link;
     private double baseTimeSeconds;
 
@@ -30,6 +31,8 @@ public class TrailVectorNode extends Circle implements Saveable {
     public Line getLink() { return this.link; }
     public void setFeature(Feature feature) { this.feature = feature; }
     public void setLink(Line link) { this.link = link; }
+    public void setOwner(Trail track) { this.owner = track; }
+    public Trail getOwner() { return this.owner; }
 
     @Override
     public void saveToFile() throws IOException {
