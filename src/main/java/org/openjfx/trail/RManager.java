@@ -10,11 +10,21 @@ import java.util.ArrayList;
 
 public class RManager implements Saveable {
 
+    private Trail myTrack;
     private ArrayList<Rider> riderArrayList;
     @FXML private Scene displayWindow;
 
     public RManager() {
         this.riderArrayList = new ArrayList<Rider>();
+    }
+
+    public ArrayList<Rider> getRiderArrayList() { return this.riderArrayList; }
+
+    public void setTrack(Trail track) { this.myTrack = track; }
+
+    // Pre: riderArrayList filled with all contestants
+    public ArrayList<Rider> doSimpleRace() {
+        return null;
     }
 
     @Override

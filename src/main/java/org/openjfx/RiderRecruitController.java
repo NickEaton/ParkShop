@@ -3,6 +3,7 @@ package org.openjfx;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -77,7 +78,26 @@ public class RiderRecruitController implements Saveable {
         for(int i=0; i<subject.getLevel(); i++)
             starBox.getChildren().add(new ImageView(starIm.getImage()));
 
-        temp.getChildren().addAll(name, starBox, XCBox, ENDBox, DHBox);
+        Button hireButton = new Button();
+        hireButton.setText("Hire: $"+1000*subject.getLevel());
+        hireButton.setFont(new Font("System", 18));
+        hireButton.setPrefWidth(150);
+        hireButton.setPrefHeight(50);
+        hireButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                riderManager.getShopRiderList().remove(subject);
+                riderManager.getRiderList().add(subject);
+                ParkShopApp.player.spend(1000*subject.getLevel());
+                try {
+                    drawPane();
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+            }
+        });
+
+        temp.getChildren().addAll(name, starBox, XCBox, ENDBox, DHBox, hireButton);
 
         temp.setAlignment(Pos.CENTER);
         temp.getStylesheets().add(ParkShopApp.class.getResource("BKInventory.css").toString());

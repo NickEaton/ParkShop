@@ -3,8 +3,11 @@ package org.openjfx.trail;
 import javafx.fxml.FXML;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import org.openjfx.util.Saveable;
 
-public class TrailVectorNode extends Circle {
+import java.io.IOException;
+
+public class TrailVectorNode extends Circle implements Saveable {
     public TrailVectorNode next;
     private Feature feature;
     @FXML private Line link;
@@ -27,4 +30,9 @@ public class TrailVectorNode extends Circle {
     public Line getLink() { return this.link; }
     public void setFeature(Feature feature) { this.feature = feature; }
     public void setLink(Line link) { this.link = link; }
+
+    @Override
+    public void saveToFile() throws IOException {
+
+    }
 }

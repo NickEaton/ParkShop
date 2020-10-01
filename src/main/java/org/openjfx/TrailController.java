@@ -5,10 +5,13 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -22,17 +25,20 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
-import org.openjfx.trail.Feature;
-import org.openjfx.trail.Trail;
-import org.openjfx.trail.TrailManager;
-import org.openjfx.trail.TrailVectorNode;
+import javafx.stage.Stage;
+import org.openjfx.bike.BikeObj;
+import org.openjfx.trail.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class TrailController {
 
     @FXML public Scene myScene;
+
+    RManager raceManager;
 
     public TrailManager tManager;
     private TrailManager.Rating lineRating;
@@ -69,6 +75,11 @@ public class TrailController {
     private boolean activeLine;
     private boolean drawingTrail;
     private Trail cDrawTrail;
+
+    @FXML private TextField cTrailName;
+    @FXML private ImageView cTrailRating;
+    @FXML private Text cTrailDistTXT;
+    private int cTrailDistVal;
 
     @FXML
     private void onMouseClick(MouseEvent e) {
@@ -230,5 +241,26 @@ public class TrailController {
         cDrawTrail = new Trail();
         drawingTrail = false;
         activeLine = false;
+    }
+
+    // Hand off to BKImageSelect controller
+    @FXML
+    public void handoffRaceSelectTrack() throws IOException {
+        try {
+            raceManager = new RManager();
+            FXMLLoader fxload = new FXMLLoader(ParkShopApp.class.getResource("RaceSelectTrack.fxml"));
+            Parent root = fxload.load();
+            RaceSelectTrackController rtx = fxload.getController();
+            rtx.myRaceManager = raceManager;
+
+            Scene sub = new Scene(root);
+            ParkShopApp.window = new Stage();
+            ParkShopApp.window.setScene(sub);
+            ParkShopApp.window.setTitle("Select Track");
+            ParkShopApp.window.show();
+        } catch (Exception e) {
+            ParkShopApp.primaryLog.log(Level.SEVERE,"Error in RaceSelectTrack Controller handoff");
+            e.printStackTrace();
+        }
     }
 }

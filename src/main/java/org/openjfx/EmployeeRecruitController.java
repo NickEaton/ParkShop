@@ -3,6 +3,7 @@ package org.openjfx;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -55,8 +56,26 @@ public class EmployeeRecruitController implements Saveable {
         }
         for(int i=0; i<target.getLevel(); i++)
             starBox.getChildren().add(new ImageView(starIm.getImage()));
+        Button hireButton = new Button();
+        hireButton.setText("Hire: $"+1000*target.getLevel());
+        hireButton.setFont(new Font("System", 18));
+        hireButton.setPrefWidth(150);
+        hireButton.setPrefHeight(50);
+        hireButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                employeeManager.getStaffHireList().remove(target);
+                employeeManager.getStaffList().add(target);
+                ParkShopApp.player.spend(1000*target.getLevel());
+                try {
+                    drawPane();
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+            }
+        });
 
-        temp.getChildren().addAll(name, starBox);
+        temp.getChildren().addAll(name, starBox, hireButton);
         temp.setAlignment(Pos.CENTER);
         temp.getStylesheets().add(ParkShopApp.class.getResource("BKInventory.css").toString());
         temp.getStyleClass().add("bkborder");
